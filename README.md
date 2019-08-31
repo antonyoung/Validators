@@ -28,7 +28,7 @@ Current source code works for all European countries as given on this website. N
 var formattedPostalCode = Library.PostalCode(Countries.Netherlands, "1062GD").ToString(); // => "1062 GD"
 ```
 
-**Or as** 
+* **Or as** 
 
 ```csharp
 var test = Library.PostalCode(Countries.Netherlands, "162GD");
@@ -37,7 +37,7 @@ var isValid = test.IsValid;                 // => true
 var message = test.ErrorMessage             // => string.Empty		
 ```
 
-* **Unhappy flow	: ( has leading zero )**
+* **Unhappy flow ( has leading zero )**
 
 ```csharp
 var test = Library.PostalCode(Countries.Netherlands, "0162GD");
@@ -57,10 +57,10 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 ## Acknowledgments
 
-- [ ] Check	  : Leading zeros or not? ( currently does not except leading zeros, and what about countries with a right side? )
+- [ ] Check	  : Leading zeros or not? ( currently does not except leading zeros, and what about countries with a right side with numbers? )
 - [ ] Ireland	: Is this really the correct regular expression?
 - [ ] UK		  : Is this really the correct regular expression? * Hint as a solution: https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes	
-- [ ] Extend	: Add other countries outside of European Union. ( nice to have )
-- [ ] Add		  : As functionality to check if is existing postal code or not?	( nice to have )	
-- [ ] Convert	: PostalCode.Library => .net standard framework ( currently does not support group.Name ) ( definitly a want )
-- [ ] Convert	: PostalCode.Library => JavaScript library ( new github repository )
+- [ ] Extend	: Add other countries outside of European Union. => nice to have
+- [ ] Add		  : As functionality to check if is existing postal code or not?	=> nice to have, but for free.
+- [ ] Convert	: PostalCode.Library => .net standard framework ( currently does not support group.Name ) => definitly a want!
+- [ ] Convert	: PostalCode.Library => JavaScript library ( new github repository ) => Really nice to have.
