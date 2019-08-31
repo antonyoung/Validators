@@ -1,4 +1,4 @@
-## Postal code validator an formatter (C#)
+## Postal code validator and formatter (C#)
 
 Validates and formats European postal codes
 
@@ -57,8 +57,7 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 - [ ] Check	  : Leading zeros or not? ( currently does not except leading zeros. )
 - [ ] Ireland	: Is this really the correct regular expression?
-- [ ] UK		  : Is this really the correct regular expression?
-* Hint: https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes	
+- [ ] UK		  : Is this really the correct regular expression? * Hint: https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes	
 - [ ] Extend	: Add other countries outside of European Union.
 - [ ] Add		  : As functionality to check if is existing postal code or not?		
 - [ ] Convert	: PostalCode.Library => .net standard framework ( currently does not support group.Name )
