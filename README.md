@@ -57,7 +57,7 @@ var formattedPostalCode = test.ToString();  // => "0162GD"
 
 * **Anton Young** - *Initial work*
 
-### License
+## License
 
 This project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
 
