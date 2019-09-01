@@ -55,21 +55,21 @@ var formattedPostalCode = test.ToString();  // => "0162GD"
 
 * **Anton Young** - *Initial work*
 
-## Contributing
+### Contributing
 
 **TODO** Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to me.
 
-## License
+### License
 
 This project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+### Acknowledgments
 
 - [ ] Check	  : Leading zeros or not? ( currently does not except leading zeros, and what about countries with a right side with numbers? )
 - [ ] Ireland	: Is this really the correct regular expression?
 - [ ] UK		  : Is this really the correct regular expression? * Hint as a solution: [stackoverflow](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes)	
 
-## Additional features
+### Additional features
 
 - [ ] Extend	 : Add other countries outside of European Union. => nice to have
 - [ ] Add		   : As functionality to check if is existing postal code or not?	=> nice to have, but for free.
