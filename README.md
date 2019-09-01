@@ -63,14 +63,14 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 ### Acknowledgments
 
-- [ ] Check	  : Leading zeros or not? ( currently does not except leading zeros, and what about countries with a right side with numbers? )
+- [ ] Check		: Countiries has leading zeros or not? ( currently all countries does not except leading zeros, and what about numbers at the right side? )
 - [ ] Ireland	: Is this really the correct regular expression?
-- [ ] UK		  : Is this really the correct regular expression? * Hint as a solution: [stackoverflow](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes)	
+- [ ] UK		: Is this really the correct regular expression? * Hint as a solution: [stackoverflow](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes)	
 
 ### Additional features
 
-- [ ] Extend	 : Add other countries outside of European Union. => nice to have
-- [ ] Add		   : As functionality to check if is existing postal code or not?	=> nice to have, but for free.
+- [ ] Extend	: Add other countries outside of European Union. => nice to have
+- [ ] Add		: As functionality to check if is existing postal code or not?	=> nice to have, but for free.
 - [ ] Convert	: PostalCode.Library => net standard framework ( currently does not support group.Name ) => definitly a want!
 - [ ] Convert	: PostalCode.Library => javascript library ( new github repository ) => Really nice to have.
-- [ ] Extend  : This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )   
+- [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )   
