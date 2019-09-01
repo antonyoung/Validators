@@ -30,7 +30,7 @@ I admit I just copied this from internet, I am not sure how this system works.
 ### Prerequisites
 ```
 * C# .NET Framework 4.7.2 // => PostalCode.Library
-* C# .NET Core 2.2.0      // => PostalCode.Tests (xUnit) * Contians currently 149 tests => ~2 ms per test.
+* C# .NET Core 2.2.0      // => PostalCode.Tests (xUnit) * With 149 tests => ~2 ms per test.
 ```
 ### Code examples
 
