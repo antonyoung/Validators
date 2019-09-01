@@ -4,7 +4,9 @@ Validates and formats European postal codes
 
 ### Intro
 
-Started this little project in my spare time, because I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. While the solution is really simple as long you know your regular expressions. 
+Started this little project in my spare time, because I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. 
+The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
+While the solution is really simple as long you know your regular expressions. 
 
 ### Description
 
@@ -54,10 +56,6 @@ var formattedPostalCode = test.ToString();  // => "0162GD"
 ## Authors
 
 * **Anton Young** - *Initial work*
-
-### Contributing
-
-**TODO** Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to me.
 
 ### License
 
