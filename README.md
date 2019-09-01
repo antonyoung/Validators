@@ -8,18 +8,21 @@ Started this little project in my spare time, because I noticed today (28 August
 
 ### Description
 
-This is a simple and fast European postal code validator and formatter. Could easily be extended to add countries around the world.
+This is a simple and fast European postal code validator and formatter. 
+Could be easily extended add countries around the world.
 
-As validation regular expressions are used with group names. For postal code formatting the group names of the regular expressions are used. 
-All countries with space or with hyphen or with prefix, are all validated correctly without and will be automatically formatted in the correct way. 
-With space, hyphen or prefix with one exception Finland has two prefixes FI- / AX- without prefix FI- will be choosen as default.
+As validation regular expressions are used with group names. 
+Group names of the regular expressions are used for the postal code formatting. 
+All countries with space or with hyphen or with prefix.
+Are all validated correctly without them and will be automatically formatted in the correct way with space, hyphen or prefix. 
+With one exception Finland has two prefixes FI- / AX- without prefix FI- will be choosen as default.
 Currently the default country as expected for now is The Netherlands.    
 
 **Note:** - it does not validate if it's an existing postal code!
 
 Used the following site, as postal code rules and as guide lines in Europe: http://publications.europa.eu/code/en/en-390105.htm
 Current source code works for all European countries as given on this website.
-Not sure how valid the regular expressions are for the Alpha Numeric postal codes for the countires Ireland and UK?
+Not sure how valid the regular expressions are for the Alpha Numeric postal codes for the countires, Ireland and UK?
 I admit I just copied this from internet, I am not sure how this system works. 
  
 ### Prerequisites
@@ -66,6 +69,6 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 - [ ] Extend	 : Add other countries outside of European Union. => nice to have
 - [ ] Add		   : As functionality to check if is existing postal code or not?	=> nice to have, but for free.
-- [ ] Convert	: PostalCode.Library => .net standard framework ( currently does not support group.Name ) => definitly a want!
-- [ ] Convert	: PostalCode.Library => JavaScript library ( new github repository ) => Really nice to have.
+- [ ] Convert	: PostalCode.Library => net standard framework ( currently does not support group.Name ) => definitly a want!
+- [ ] Convert	: PostalCode.Library => javascript library ( new github repository ) => Really nice to have.
 - [ ] Extend  : This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )   
