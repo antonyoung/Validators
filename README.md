@@ -36,17 +36,16 @@ var formattedPostalCode = Library.PostalCode(Countries.Netherlands, "1062GD").To
 * **Or as** 
 ```csharp
 var test = Library.PostalCode(Countries.Netherlands, "1062GD");
-var formattedPostalCode = test.ToString();  // => "1062 GD"
 var isValid = test.IsValid;                 // => true					
-var message = test.ErrorMessage             // => string.Empty		
+var message = test.ErrorMessage             // => string.Empty
+var formattedPostalCode = test.ToString();  // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
 var test = Library.PostalCode(Countries.Netherlands, "0162GD");
-
-var formattedPostalCode = test.ToString();  // => "0162GD"
 var isValid = test.IsValid;                 // => false					
-var message = test.ErrorMessage             // => "Postal code \"0162GD\" is not valid. Example \"1234 AB\"."		
+var message = test.ErrorMessage             // => "Postal code \"0162GD\" is not valid. Example \"1234 AB\"."
+var formattedPostalCode = test.ToString();  // => "0162GD"
 ```
 
 ## Authors
