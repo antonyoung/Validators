@@ -73,4 +73,5 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 - [ ] Add		: As functionality to check if is existing postal code or not?	=> nice to have, but for free.
 - [ ] Convert	: PostalCode.Library => net standard framework ( currently does not support group.Name ) => definitly a want!
 - [ ] Convert	: PostalCode.Library => javascript library ( new github repository ) => Really nice to have.
-- [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )   
+ - [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )
+- [ ] Extend	 : => As Sting Extension => definitally another nice to have!
