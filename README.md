@@ -63,7 +63,7 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 ### Acknowledgments
 
-- [ ] Check		: Countiries has leading zeros or not? ( currently all countries does not except leading zeros, and what about numbers at the right side? )
+- [ ] Check		: Countries has leading zeros or not? ( currently all countries does not except leading zeros, and what about numbers at the right side? )
 - [ ] Ireland	: Is this really the correct regular expression?
 - [ ] UK		: Is this really the correct regular expression? * Hint as a solution: [stackoverflow](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes)	
 
