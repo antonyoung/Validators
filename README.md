@@ -4,7 +4,7 @@ Validates and formats European postal codes
 
 ### Intro
 
-Started this little project in my spare time, because I noticed today at work that validation of Dutch postal codes is barely or none existent. The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid.
+Started this little project in my spare time, because I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid.
 
 ### Description
 
