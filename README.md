@@ -22,7 +22,7 @@ Currently the default country as expected for now is The Netherlands.
 
 **Note:** - it does not validate if it's an existing postal code!
 
-Used the following site, as postal code rules and as guide lines in Europe: http://publications.europa.eu/code/en/en-390105.htm
+Used the following website [publications.europa.eu](http://publications.europa.eu/code/en/en-390105.htm), as postal code rules and as guide lines in Europe. 
 Current source code works for all European countries as given on this website.
 Not sure how valid the regular expressions are for the Alpha Numeric postal codes for the countires, Ireland and UK?
 I admit I just copied this from internet, I am not sure how this system works. 
