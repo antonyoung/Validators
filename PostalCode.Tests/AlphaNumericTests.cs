@@ -1,4 +1,4 @@
-﻿using PostalCode.Library.Core;
+﻿using PostalCode.Library;
 using Xunit;
 
 
@@ -17,7 +17,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void Valid(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.PostalCode(country, postalCode);
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -31,7 +31,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "222 YD82")]
         public void InValid(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -49,7 +49,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);

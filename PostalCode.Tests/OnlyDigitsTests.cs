@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using PostalCode.Library.Core;
+using PostalCode.Library;
 
 namespace PostalCode.Tests
 {
@@ -34,7 +34,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Portugal, PORTUGAL)]
         public void Valid(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.PostalCode(country, postalCode);
            
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -62,7 +62,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Portugal, PORTUGAL)]
         public void NoTrim(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, $" {postalCode} ");
+            var test = new Library.PostalCode(country, $" {postalCode} ");
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -91,7 +91,7 @@ namespace PostalCode.Tests
         public void InValid(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace("2", "A");
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -120,7 +120,7 @@ namespace PostalCode.Tests
         public void LeadingZero(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace(postalCode.Substring(0, 1),"0");
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -134,7 +134,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Slovakia, WHITESPACE)]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -147,7 +147,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Portugal, PORTUGAL)]
         public void WithOutHyphen(Countries country, string postalCode)
         {
-            var test = new Library.Core.PostalCode(country, postalCode.Replace("-", string.Empty));
+            var test = new Library.PostalCode(country, postalCode.Replace("-", string.Empty));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);

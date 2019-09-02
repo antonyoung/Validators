@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 
-namespace PostalCode.Library.Core
+namespace PostalCode.Library
 {
     /// <summary>
     ///     used as all business logic behind postal codes of European countries ( with a few exceptions, like Finland as example. )

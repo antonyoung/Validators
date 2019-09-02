@@ -1,4 +1,4 @@
-﻿namespace PostalCode.Library.Core
+﻿namespace PostalCode.Library
 {
     // => http://publications.europa.eu/code/en/en-390105.htm
 
