@@ -1,4 +1,4 @@
-## Postal code validator and formatter (C#)
+## Postal code validator and formatter (C#) .Net Core
 
 Validates and formats European postal codes
 
