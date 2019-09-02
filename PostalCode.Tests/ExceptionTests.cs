@@ -1,6 +1,8 @@
-﻿using System;
+﻿using PostalCode.Library.Core;
+
+using System;
 using Xunit;
-using PostalCode.Library;
+
 
 namespace PostalCode.Tests
 {
@@ -10,7 +12,7 @@ namespace PostalCode.Tests
         [Fact]
         public void ThrowsArgumentException()
         {
-            void unknownCountry() => new Library.PostalCode(Countries.Amsterdam);
+            void unknownCountry() => new Library.Core.PostalCode(Countries.Amsterdam);
             Exception ex = Record.Exception(unknownCountry);
 
             Assert.IsType<ArgumentException>(ex);

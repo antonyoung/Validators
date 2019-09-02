@@ -1,4 +1,4 @@
-using PostalCode.Library;
+using PostalCode.Library.Core;
 using Xunit;
 
 
@@ -16,7 +16,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            var test = new Library.Core.PostalCode(country, postalCode.Replace(" ", string.Empty));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -29,7 +29,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithSingleSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -44,7 +44,7 @@ namespace PostalCode.Tests
         {
             postalCode = postalCode.Replace(" ", "  ");
 
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -59,7 +59,7 @@ namespace PostalCode.Tests
         {
             postalCode = postalCode.Replace(" ", "-");
 
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -72,7 +72,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void NoTrim(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, $" {postalCode} ");
+            var test = new Library.Core.PostalCode(country, $" {postalCode} ");
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -85,7 +85,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void LowerCase(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.ToLowerInvariant());
+            var test = new Library.Core.PostalCode(country, postalCode.ToLowerInvariant());
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -99,7 +99,7 @@ namespace PostalCode.Tests
         public void LeadingZero(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace("1", "0");
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using PostalCode.Library;
+using PostalCode.Library.Core;
 
 namespace PostalCode.Tests
 {
@@ -32,7 +32,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithPrefix(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -51,7 +51,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void LowerCasePrefix(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.ToLowerInvariant());
+            var test = new Library.Core.PostalCode(country, postalCode.ToLowerInvariant());
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -69,7 +69,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithOutPrefix(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.Remove(0, postalCode.IndexOf("-") + 1));
+            var test = new Library.Core.PostalCode(country, postalCode.Remove(0, postalCode.IndexOf("-") + 1));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -81,7 +81,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Finland, DIGITS_5)]
         public void WithOutPrefix_Default_Finland(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, postalCode);
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -101,7 +101,7 @@ namespace PostalCode.Tests
         public void LeadingZero(Countries country, string postalCode)
         {
             var leadingZero = postalCode.Replace("4", "0");
-            var test = new Library.PostalCode(country, leadingZero);
+            var test = new Library.Core.PostalCode(country, leadingZero);
 
             Assert.False(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -120,7 +120,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void NoTrim(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, $" {postalCode} ");
+            var test = new Library.Core.PostalCode(country, $" {postalCode} ");
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
@@ -132,7 +132,7 @@ namespace PostalCode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            var test = new Library.Core.PostalCode(country, postalCode.Replace(" ", string.Empty));
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);

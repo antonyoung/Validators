@@ -1,4 +1,4 @@
-﻿using PostalCode.Library;
+﻿using PostalCode.Library.Core;
 using Xunit;
 
 namespace PostalCode.Tests
@@ -14,7 +14,7 @@ namespace PostalCode.Tests
         [Fact]
         public void DefaultCountry()
         {
-            var postalCode = new Library.PostalCode();
+            var postalCode = new Library.Core.PostalCode();
 
             Assert.Equal(Countries.Netherlands, postalCode.Country);
         }
@@ -22,7 +22,7 @@ namespace PostalCode.Tests
         [Fact]
         public void Valid()
         { 
-            var postalCode = new Library.PostalCode("1015AA");
+            var postalCode = new Library.Core.PostalCode("1015AA");
 
             Assert.Equal(Countries.Netherlands, postalCode.Country);
             Assert.True(postalCode.IsValid);
@@ -32,7 +32,7 @@ namespace PostalCode.Tests
         [Fact]
         public void InValid()
         {
-            var postalCode = new Library.PostalCode("xyz");
+            var postalCode = new Library.Core.PostalCode("xyz");
 
             Assert.Equal(Countries.Netherlands, postalCode.Country);
             Assert.False(postalCode.IsValid);
