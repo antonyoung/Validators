@@ -62,12 +62,11 @@ namespace PostalCode.Tests
         [InlineData(Countries.Portugal, PORTUGAL)]
         public void NoTrim(Countries country, string postalCode)
         {
-            postalCode = $" {postalCode} ";
-            var test = new Library.Core.PostalCode(country, postalCode);
+            var test = new Library.Core.PostalCode(country, $" {postalCode} ");
 
             Assert.True(test.IsValid);
             Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode.Trim(), test.ToString());
+            Assert.Equal(postalCode, test.ToString());
         }
 
 
