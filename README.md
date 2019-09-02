@@ -16,7 +16,7 @@ Could be easily extended add countries around the world.
 As validation regular expressions are used with group names. 
 Group names of the regular expressions are used for the postal code formatting. 
 All countries with space or with hyphen or with prefix.
-Are all validated correctly without them and will be automatically formatted in the correct way with space, hyphen or prefix. 
+Are all validated correctly without it and will be automatically formatted in the correct way with space, hyphen or prefix. 
 With one exception Finland has two prefixes FI- / AX- without prefix FI- will be choosen as default.
 Currently the default country as expected for now is The Netherlands.    
 
@@ -70,9 +70,9 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 
 ### Additional features
 
+- [ ] Convert	: PostalCode.Library.Core as net standard framework ( currently standard does not support group.Name ) => definitly a want!
+- [ ] Convert	: PostalCode.Library.Core as javascript library ( new github repository ) => Really nice to have.
+- [ ] Convert	: PostalCode.Library.Core as Sting Extension => definitally another nice to have!
+- [ ] Add		: As functionality to check if it is an existing postal code or not? => nice to have, but for free.
 - [ ] Extend	: Add other countries outside of European Union. => nice to have
-- [ ] Add		: As functionality to check if is existing postal code or not?	=> nice to have, but for free.
-- [ ] Convert	: PostalCode.Library => net standard framework ( currently does not support group.Name ) => definitly a want!
-- [ ] Convert	: PostalCode.Library => javascript library ( new github repository ) => Really nice to have.
 - [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )
-- [ ] Extend	: => As Sting Extension => definitally another nice to have!
