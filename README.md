@@ -29,25 +29,26 @@ I admit I just copied this from internet, I am not sure how this system works.
  
 ### Prerequisites
 ```
-* C# .NET Framework 4.7.2 // => PostalCode.Library
+* C# .NET Framework 4.7.2 // => PostalCode.Library ( probably will be removed. )
+* C# .NET Core 2.2.0	  // => PostalCode.Library.Core
 * C# .NET Core 2.2.0      // => PostalCode.Tests (xUnit) * With 149 tests => ~2 ms per test.
 ```
 ### Code examples
 
 * **Happy flow**
 ```csharp
-var formattedPostalCode = Library.PostalCode(Countries.Netherlands, "1062GD").ToString(); // => "1062 GD"
+var formattedPostalCode = Library.Core.PostalCode(Countries.Netherlands, "1062GD").ToString(); // => "1062 GD"
 ```
 * **Or as** 
 ```csharp
-var test = Library.PostalCode(Countries.Netherlands, "1062GD");
+var test = Library.Core.PostalCode(Countries.Netherlands, "1062GD");
 var isValid = test.IsValid;                 // => true					
 var message = test.ErrorMessage             // => string.Empty
 var formattedPostalCode = test.ToString();  // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
-var test = Library.PostalCode(Countries.Netherlands, "0162GD");
+var test = Library.Core.PostalCode(Countries.Netherlands, "0162GD");
 var isValid = test.IsValid;                 // => false					
 var message = test.ErrorMessage             // => "Postal code \"0162GD\" is not valid. Example \"1234 AB\"."
 var formattedPostalCode = test.ToString();  // => "0162GD"
@@ -73,5 +74,5 @@ This project is licensed under the GNU General Public License (GPL) License Lv3 
 - [ ] Add		: As functionality to check if is existing postal code or not?	=> nice to have, but for free.
 - [ ] Convert	: PostalCode.Library => net standard framework ( currently does not support group.Name ) => definitly a want!
 - [ ] Convert	: PostalCode.Library => javascript library ( new github repository ) => Really nice to have.
- - [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )
-- [ ] Extend	 : => As Sting Extension => definitally another nice to have!
+- [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )
+- [ ] Extend	: => As Sting Extension => definitally another nice to have!
