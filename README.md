@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/antonyoung/PostalCode/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/PostalCode/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/antonyoung/Validator/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/Validator/_build/latest?definitionId=3&branchName=master)
 ## Postcode validator and formatter (C#) .Net Core
 
 Validates and formats European postcodes
