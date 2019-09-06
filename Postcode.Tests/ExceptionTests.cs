@@ -5,7 +5,7 @@ using System;
 using Xunit;
 
 
-namespace PostalCode.Tests
+namespace Postcode.Tests
 {
 
     public class ExceptionTests

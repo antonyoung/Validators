@@ -2,7 +2,7 @@
 using Validators;
 using Validators.Interfaces;
 
-namespace PostalCode.Tests
+namespace Postcode.Tests
 {
     public class OnlyDigitsTests
     {

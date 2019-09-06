@@ -4,7 +4,7 @@ using Validators.Interfaces;
 using Xunit;
 
 
-namespace PostalCode.Tests
+namespace Postcode.Tests
 {
     public class AlphaNumericTests
     {
