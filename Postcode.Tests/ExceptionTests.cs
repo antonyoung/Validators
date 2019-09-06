@@ -1,10 +1,11 @@
-﻿using PostalCode.Library;
+﻿using Validators;
+using Validators.Interfaces;
 
 using System;
 using Xunit;
 
 
-namespace PostalCode.Tests
+namespace Postcode.Tests
 {
 
     public class ExceptionTests
@@ -12,7 +13,9 @@ namespace PostalCode.Tests
         [Fact]
         public void ThrowsArgumentException()
         {
-            void unknownCountry() => new Library.PostalCode(Countries.Amsterdam);
+            var test = new PostcodeValidator();
+            
+            void unknownCountry() => test.TryParse(string.Empty, Countries.Amsterdam, out string result);
             Exception ex = Record.Exception(unknownCountry);
 
             Assert.IsType<ArgumentException>(ex);
