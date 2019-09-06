@@ -50,30 +50,11 @@
     public interface IPostcodeValidator
     {
 
-        /// <summary>
-        ///     used as constructor argument to set the postalcode, default is string.Empty.
-        ///     public set to set a new postal code of the already setted country.
-        /// </summary>
-        //string Input { set; }
-
-
-        /// <summary>
-        ///     used as constructor argument to set the postal code business logic of a certain country,  
-        ///     public get is available for the caller in case needs to know, which country?
-        /// </summary>
-        //Countries Country { get; }
-
 
         /// <summary>
         ///     used as example postalcode of the set country. 
         /// </summary>
         string Example { get; }
-
-
-        /// <summary> 
-        ///     used as formatted postal code of the set country without any spaces, if any?
-        /// </summary>
-        //string NoWhiteSpaces { get; }
 
 
         /// <summary>
@@ -88,19 +69,11 @@
         bool IsValid { get; }
 
 
-        /// <summary>
-        ///     validates and formats the postal code, that is expected from the selected country.
-        /// </summary>
-        /// <returns>
-        ///     the formatted postal code of the selected country <seealso cref="IsValid"/> is true.
-        ///     else return the postal code as given <seealso cref="Input"/>
-        /// </returns>
-        //string ToString();
-
-
         bool TryParse(string value, out string result);
 
+
         bool TryParse(string value, Countries country, out string result);
+
 
         bool TryParse(string value, Countries country, RemoveFormatter formatter, out string result);
 
