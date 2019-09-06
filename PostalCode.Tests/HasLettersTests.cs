@@ -1,4 +1,6 @@
-using PostalCode.Library;
+using Validators;
+using Validators.Interfaces;
+
 using Xunit;
 
 
@@ -6,6 +8,8 @@ namespace PostalCode.Tests
 {
     public class HasLettersTests
     {
+
+        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
 
         private const string NETHERLANDS = "1062 GD";
         private const string MALTA = "EDG 1062";
@@ -16,11 +20,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            bool isValid = _postcodeValidator.TryParse(postalCode.Replace(" ", string.Empty), country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -29,11 +32,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithSingleSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -43,12 +45,10 @@ namespace PostalCode.Tests
         public void WithDoubleSpace(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace(" ", "  ");
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            var test = new Library.PostalCode(country, postalCode);
-
-            Assert.False(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -59,11 +59,10 @@ namespace PostalCode.Tests
         {
             postalCode = postalCode.Replace(" ", "-");
 
-            var test = new Library.PostalCode(country, postalCode);
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            Assert.False(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -72,11 +71,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void NoTrim(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, $" {postalCode} ");
+            bool isValid = _postcodeValidator.TryParse($" {postalCode} ", country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -85,11 +83,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void LowerCase(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.ToLowerInvariant());
+            bool isValid = _postcodeValidator.TryParse(postalCode.ToLowerInvariant(), country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -99,11 +96,10 @@ namespace PostalCode.Tests
         public void LeadingZero(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace("1", "0");
-            var test = new Library.PostalCode(country, postalCode);
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            Assert.False(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
     }
 }

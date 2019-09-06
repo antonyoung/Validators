@@ -1,4 +1,6 @@
-﻿using PostalCode.Library;
+﻿using Validators;
+using Validators.Interfaces;
+
 using Xunit;
 
 
@@ -6,6 +8,8 @@ namespace PostalCode.Tests
 {
     public class AlphaNumericTests
     {
+
+        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
 
         [Theory]
         [InlineData(Countries.UnitedKingdom, "EC1A 1BB")]
@@ -17,11 +21,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void Valid(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid,_postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -31,11 +34,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "222 YD82")]
         public void InValid(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode);
+            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
 
-            Assert.False(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
 
 
@@ -49,11 +51,10 @@ namespace PostalCode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            var test = new Library.PostalCode(country, postalCode.Replace(" ", string.Empty));
+            bool isValid = _postcodeValidator.TryParse(postalCode.Replace(" ", string.Empty), country, out string result);
 
-            Assert.True(test.IsValid);
-            Assert.Equal(country, test.Country);
-            Assert.Equal(postalCode, test.ToString());
+            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(postalCode, result);
         }
     }
 }
