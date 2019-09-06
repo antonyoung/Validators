@@ -55,7 +55,7 @@ namespace Validators
 
         private bool _isValid;
 
-
+        // constants => used 2 => n times.
         private const string EXAMPLE_4_DIGITS = "1234";
         private const string EXAMPLE_5_DIGITS = "12345";
         private const string EXAMPLE_5_DIGITS_WHITESPACE = "123 45";
@@ -81,7 +81,6 @@ namespace Validators
         private const string REGEX_5_DIGITS = "(?<digits>^[1-9][0-9]{4}$)";
         private const string REGEX_5_DIGITS_PREFIX = "^(?<prefix>(?i)<REPLACE_PREFIX>)?(?<digits>[1-9][0-9]{4}$)";
         private const string REGEX_5_DIGITS_WHITESPACE = @"(?<digits1>^[1-9][0-9]{2})(?<whitespace>\s?)(?<digits2>[0-9]{2}$)";
-
 
 
         /// <summary>
