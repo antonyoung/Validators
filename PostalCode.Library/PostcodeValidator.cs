@@ -2,42 +2,26 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using Validators.Interfaces;
 
-namespace PostalCode.Library
+
+namespace Validators
 {
     /// <summary>
     ///     used as all business logic behind postal codes of European countries ( with a few exceptions, like Finland as example. )
     ///     validates and formats the postal code according to the selected country.
     /// </summary>
-    public class PostalCode
-        : IPostalCode
+    public class PostcodeValidator
+        : IPostcodeValidator
     {
 
         #region public properties
-
-        /// <summary>
-        ///     sets a new postal code, to be validated, formatted according the set country.
-        /// </summary>
-        public string Input { private get; set; }
-
-
-        /// <summary>
-        ///     used as the European country, that has been set. 
-        /// </summary>
-        public Countries Country { get; private set; }
 
 
         /// <summary>
         ///     used as a postal code example of the set country.  
         /// </summary>
         public string Example { get => _logic.Example; }
-
-
-        /// <summary>
-        ///     used as postal code without any whitespaces.
-        ///     this does not mean, that the postal code is valid.
-        /// </summary>
-        public string NoWhiteSpaces { get => ToString().Replace(" ", string.Empty); }
 
 
         /// <summary>
@@ -53,14 +37,13 @@ namespace PostalCode.Library
         /// </summary>
         public bool IsValid
         {
-            get
+            get => _isValid;
+            private set
             {
-                ErrorMessage = string.Empty;
+                if(value == false)
+                    ErrorMessage = ErrorMessage = $"Postal code \"{_input}\" is not valid. Example \"{Example}\".";
 
-                var isValid = Regex.IsMatch(Input, _logic.RegexPattern);
-                if (!isValid) ErrorMessage = $"Postal code \"{Input}\" is not valid. Example \"{Example}\".";
-
-                return isValid;
+                _isValid = value;
             }
         }
 
@@ -299,95 +282,134 @@ namespace PostalCode.Library
 
         private CountryLogic _logic;
 
+        private string _input;
+        private bool _isValid;
+
         #endregion
 
 
-        #region Constructors
 
         /// <summary>
-        ///     initiate with default country as Netherlands without a postal code.
+        ///     validates and formats postcode with default country The Netherlands.
         /// </summary>
-        public PostalCode()
-            : this(Countries.Netherlands) { }
-
-
-        /// <summary>
-        ///     inititiate with default country as Netherlands with given postal code.
-        /// </summary>
-        /// <param name="postalCode">
-        ///     used as the postal code to be validated, formatted with default country as Netherlands
+        /// <param name="value">
+        ///     used as the postcode to be validated with the default country The Netherlands and formatted as default. 
         /// </param>
-        public PostalCode(string postalCode)
-            : this(Countries.Netherlands, postalCode) { }
+        /// <param name="result">
+        ///     used as the result postcode 
+        /// </param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="RegexMatchTimeoutException"/>
+        /// <returns>
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        /// </returns>
+        public bool TryParse(string value, out string result) 
+            => TryParse(value, Countries.Netherlands, out result);
 
 
         /// <summary>
-        ///     initiate postal code with selected country without postal code.
+        ///     validates and formats postcode with provided country.
         /// </summary>
+        /// <param name="value">
+        ///     used as the postcode to be validated with the default country The Netherlands and formatted as default. 
+        /// </param>
         /// <param name="country">
-        ///     used as the postal code to be validated, formatted for this country.
+        ///     used as the country to be validated and formatted as default. 
         /// </param>
-        public PostalCode(Countries country)
-            : this(country, string.Empty) { }
+        /// <param name="result">
+        ///     used as the result postcode 
+        /// </param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="RegexMatchTimeoutException"/>
+        /// <returns>
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        /// </returns>
+        public bool TryParse(string value, Countries country, out string result) 
+            => TryParse(value, country, RemoveFormatter.Default, out result);
 
 
         /// <summary>
-        ///     initiate postal code with selected country and with postal code.
+        ///     validates and formats postcode with provided country.
         /// </summary>
+        /// <param name="value">
+        ///     used as the postcode to be validated with the country and how it has to formatted. 
+        /// </param>
         /// <param name="country">
-        ///     used as the country to be selected.
+        ///     used as the country to be validated and formatted as default. 
         /// </param>
-        /// <param name="postalCode">
-        ///     used as the postal code to be validated, formatted.
+        /// <param name="formatter">
+        ///     used as additional formatter, how to format.
         /// </param>
-        /// <exception cref="ArgumentException">
-        ///     throws ArgumentException, in case <seealso cref="country"/> is not found in Dictionary <seealso cref="_countries"/>
-        /// </exception>
-        public PostalCode(Countries country, string postalCode)
-        {
-            Country = country;
-            Input = postalCode.Trim();
-
+        /// <param name="result">
+        ///     used as the result postcode 
+        /// </param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="RegexMatchTimeoutException"/>
+        /// <returns>
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        /// </returns>
+        public bool TryParse(string value, Countries country, RemoveFormatter formatter, out string result)
+        { 
+            _input = result = value.Trim();
+            
             if (!_countries.TryGetValue(country, out _logic))
                 throw new ArgumentException(nameof(country));
-        }
 
-        #endregion
+            var match = Regex.Match(_input, _logic.RegexPattern);
+
+            IsValid = match.Success;
+
+            if (!_isValid) return false;
+
+            result = Format(match, formatter);
+
+            return true;
+        }
 
 
         /// <summary>
-        ///     validates, formats the postal code according to the set country.
-        ///     note: this only happens if postal code is valid.
+        ///     formats the postcode to the set country and the set formatter.
         /// </summary>
+        /// <param name="match">
+        ///     used as the match of the used internal regular expression.
+        /// </param> 
+        /// <param name="formatter">
+        ///     used as the formatter how to format the result.
+        /// </param>
         /// <returns>
-        ///     the formatted postal code from the set country
-        ///     returns <seealso cref="Input"/> in case it is not valid.
+        ///     postcode with provide formatter. 
         /// </returns>
-        public override string ToString()
+        private string Format(Match match, RemoveFormatter formatter)
         {
-            ErrorMessage = string.Empty;
-
-            var match = Regex.Match(Input, _logic.RegexPattern);
-
-            if (!match.Success)
-            {
-                ErrorMessage = $"Postal code \"{Input}\" is not valid. Example \"{Example}\".";
-
-                return Input;
-            }
-
-            var postalCode = _logic.DisplayFormat;
+            string result = _logic.DisplayFormat;
 
             foreach (Group group in match.Groups)
             {
                 if (group.Name.Equals("prefix", StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
-                    postalCode = postalCode.Replace(string.Format("<{0}>", group.Name), _logic.Prefix);
+                    result = result.Replace(string.Format("<{0}>", group.Name), _logic.Prefix);
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
-                    postalCode = postalCode.Replace(string.Format("<{0}>", group.Name), group.Value);
+                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+            }
+            
+            if (formatter != RemoveFormatter.Default)
+            {
+                if(formatter == RemoveFormatter.HyphensAndWhiteSpaces 
+                    || formatter == RemoveFormatter.WitheSpaces)
+                {
+                    result = result.Replace(" ", string.Empty);
+                }
+                if (formatter == RemoveFormatter.HyphensAndWhiteSpaces
+                    || formatter == RemoveFormatter.Hyphens)
+                {
+                    result = result.Replace("-", string.Empty);
+                }
             }
 
-            return postalCode.ToUpperInvariant();
+            return result.ToUpperInvariant();
         }
     }
 }
