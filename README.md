@@ -31,7 +31,8 @@ I admit I just copied this from internet, I am not sure how this system works.
 ### Prerequisites
 ```
 * C# .NET Core 2.2.0	  // => Validator
-* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 147 tests => < 2 ms per test.
+* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 147 tests =>  ~2 ms per test.
+* C# .NET Core 2.2.0      // => Formatters.Tests (xUnit) * With 36 tests => ~1 ms per test.
 ```
 ### Code examples
 
