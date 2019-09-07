@@ -5,29 +5,61 @@ using System.Text.RegularExpressions;
 
 namespace Validators.Formatters
 {
-    public enum Formatter
+
+    /// <summary>
+    ///     available formatters for postcode.
+    /// </summary>
+    public enum PostcodeFormatters
     {
         None,
         Hyphens,
         HyphensAndWhiteSpaces,
-        WitheSpaces,
+        WhiteSpaces,
     }
 
 
+    /// <summary>
+    ///     formats postalcodes with a postalcode formatter.
+    /// </summary>
     public static class PostcodeFormatter
     {
-        private static readonly Dictionary<Formatter, string> _formatters = new Dictionary<Formatter, string>()
+
+        /// <summary>
+        ///     used as internal logic of available formatters.
+        /// </summary>
+        private static readonly Dictionary<PostcodeFormatters, string> _formatters = new Dictionary<PostcodeFormatters, string>()
         {
-            { Formatter.None, string.Empty },
-            { Formatter.WitheSpaces, @"\s+" },
-            { Formatter.Hyphens,  @"\-+" },
-            { Formatter.HyphensAndWhiteSpaces,  @"(\s+|\-+)"}
+            { PostcodeFormatters.None, string.Empty },
+            { PostcodeFormatters.WhiteSpaces, @"\s+" },
+            { PostcodeFormatters.Hyphens,  @"\-+" },
+            { PostcodeFormatters.HyphensAndWhiteSpaces,  @"[\s+-+]"}
         };
 
-        public static string Format(this string value)
-            => Format(value, Formatter.None);
 
-        public static string Format(this string value, Formatter formatter)
+        /// <summary>
+        ///     formats with default formatter.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value that has to be formmatted with default formatter.
+        /// </param>
+        /// <returns>
+        ///     the formatted value with the default formatter.
+        /// </returns>
+        public static string Format(this string value)
+            => Format(value, PostcodeFormatters.None);
+
+
+        /// <summary>
+        ///     formats with default formatter.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value that has to be formmatted with provided formatter.
+        /// </param>
+        /// <exception cref="ArgumentException"/>
+        /// <returns>
+        ///     the formatted valu.
+        /// </returns>
+        public static string Format(this string value, PostcodeFormatters formatter)
         {
             if (!_formatters.TryGetValue(formatter, out string replaceExpression))
                 throw new ArgumentException(nameof(formatter));
