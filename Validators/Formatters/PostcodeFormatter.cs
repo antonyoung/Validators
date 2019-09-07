@@ -14,7 +14,7 @@ namespace Validators.Formatters
         None,
         Hyphens,
         HyphensAndWhiteSpaces,
-        WitheSpaces,
+        WhiteSpaces,
     }
 
 
@@ -30,9 +30,9 @@ namespace Validators.Formatters
         private static readonly Dictionary<PostcodeFormatters, string> _formatters = new Dictionary<PostcodeFormatters, string>()
         {
             { PostcodeFormatters.None, string.Empty },
-            { PostcodeFormatters.WitheSpaces, @"\s+" },
+            { PostcodeFormatters.WhiteSpaces, @"\s+" },
             { PostcodeFormatters.Hyphens,  @"\-+" },
-            { PostcodeFormatters.HyphensAndWhiteSpaces,  @"(\s+|\-+)"}
+            { PostcodeFormatters.HyphensAndWhiteSpaces,  @"[\s+-+]"}
         };
 
 
