@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using Validators.Interfaces;
+using Validators.Formatters;
 
 
 namespace Validators
@@ -352,7 +353,7 @@ namespace Validators
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
         public bool TryParse(string value, Countries country, out string result) 
-            => TryParse(value, country, RemoveFormatter.Default, out result);
+            => TryParse(value, country, Formatter.None, out result);
 
 
         /// <summary>
@@ -375,7 +376,7 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, Countries country, RemoveFormatter formatter, out string result)
+        public bool TryParse(string value, Countries country, Formatter formatter, out string result)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException(nameof(value));
@@ -407,7 +408,7 @@ namespace Validators
         /// <returns>
         ///     postcode as with provided formatter. 
         /// </returns>
-        private string Format(Match match, RemoveFormatter formatter)
+        private string Format(Match match, Formatter formatter)
         {
             string result = _logic.DisplayFormat;
 
@@ -419,22 +420,8 @@ namespace Validators
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
-            
-            if (formatter != RemoveFormatter.Default)
-            {
-                if(formatter == RemoveFormatter.HyphensAndWhiteSpaces 
-                    || formatter == RemoveFormatter.WitheSpaces)
-                {
-                    result = result.Replace(" ", string.Empty);
-                }
-                if (formatter == RemoveFormatter.HyphensAndWhiteSpaces
-                    || formatter == RemoveFormatter.Hyphens)
-                {
-                    result = result.Replace("-", string.Empty);
-                }
-            }
 
-            return result.ToUpperInvariant();
+            return result.Format(formatter).ToUpperInvariant();
         }
     }
 }
