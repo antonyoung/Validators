@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using Validators.Interfaces;
+using Validators.Formatters;
 
 
 namespace Validators
 {
 
     /// <summary>
-    ///     used as all business logic behind postal codes of European countries ( with a few exceptions, like Finland as example. )
+    ///     used as all business logic behind postcodes of European countries ( with the exceptions with preifix <see cref="Countries.Finland"/> )
     ///     validates and formats the postal code according to the selected country.
     /// </summary>
     public class PostcodeValidator
@@ -17,14 +18,13 @@ namespace Validators
     {
 
         /// <summary>
-        ///     used as a postal code example of the set country.  
+        ///     used as a postcode example of the set country. ( Default = <see cref="Countries.Netherlands"/>  
         /// </summary>
         public string Example { get => _logic.Example; }
 
 
         /// <summary>
-        ///     used as message, in case the postal code is not valid.  
-        ///     is empty, when postal code is valid for the set country.
+        ///     used as error message in case of <seealso cref="IsValid"/> = false;
         /// </summary>
         public string ErrorMessage { get; private set; }
 
@@ -39,7 +39,7 @@ namespace Validators
             private set
             {
                 if(value == false)
-                    ErrorMessage = ErrorMessage = $"Postal code \"{_input}\" is not valid. Example \"{Example}\".";
+                    ErrorMessage = ErrorMessage = $"Postal code \"{_input}\" is not valid. Use as example \"{Example}\".";
 
                 _isValid = value;
             }
@@ -49,11 +49,14 @@ namespace Validators
         #region private declarations
 
 
+        // => internal logic: Of the counrty that has been selectd.
         private CountryLogic _logic;
 
+        // => the input postcode that has to be validated and to be formatted.
         private string _input;
 
-        private bool _isValid;
+        // internal logic => Default = false; 
+        private bool _isValid = false;
 
         // constants => used 2 => n times.
         private const string EXAMPLE_4_DIGITS = "1234";
@@ -315,16 +318,15 @@ namespace Validators
 
 
         /// <summary>
-        ///     validates and formats postcode with default country The Netherlands.
+        ///     validates and formats postcode with default country The Netherlands and default formatter as expected.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode to be validated with the default country The Netherlands and formatted as default. 
+        ///     used as the postcode, that has to be validated with default country <see cref="Countries.Netherlands"/>. 
         /// </param>
         /// <param name="result">
-        ///     used as the result of the formatted postcode with default country The Netherlands and with default formatter.
+        ///     used as <see cref="IsValid"/> <paramref name="value"/> with default country <see cref="Countries.Netherlands"/> formatted as the default formatter.
         /// </param>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
@@ -334,56 +336,55 @@ namespace Validators
 
 
         /// <summary>
-        ///     validates and formats postcode with provided country.
+        ///     validates and formats postcode with provided country with default formatter as writen lanquage.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode to be validated with the default country The Netherlands and formatted as default. 
+        ///     used as the postcode, that has to be validated. 
         /// </param>
         /// <param name="country">
-        ///     used as the country to be validated and formatted as default. 
+        ///     used as the country, that has to be validated.
         /// </param>
         /// <param name="result">
-        ///     used as the result postcode 
+        ///     used as <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with the default formatter.
         /// </param>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
         public bool TryParse(string value, Countries country, out string result) 
-            => TryParse(value, country, RemoveFormatter.Default, out result);
+            => TryParse(value, country, Formatter.None, out result);
 
 
         /// <summary>
-        ///     validates and formats postcode with provided country.
+        ///     validates and formats postcode with provided country with default formatter as writen lanquage.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode to be validated with the country and how it has to formatted. 
+        ///     used as the postcode, that has to be validated. 
         /// </param>
         /// <param name="country">
-        ///     used as the country to be validated and formatted as default. 
+        ///     used as the country, that has to be validated.
         /// </param>
         /// <param name="formatter">
-        ///     used as additional formatter, how to format.
+        ///     usead as the formatter that has to be used.
         /// </param>
         /// <param name="result">
-        ///     used as the result postcode 
+        ///     used as postcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with <paramref name="formatter"/>.
         /// </param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, Countries country, RemoveFormatter formatter, out string result)
+        public bool TryParse(string value, Countries country, Formatter formatter, out string result)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException(nameof(value));
 
-            _input = result = value.Trim();
-            
             if (!_countries.TryGetValue(country, out _logic))
                 throw new ArgumentException(nameof(country));
+
+            _input = result = value.Trim();
 
             var match = Regex.Match(_input, _logic.RegexPattern);
 
@@ -396,18 +397,18 @@ namespace Validators
 
 
         /// <summary>
-        ///     formats the postcode to the set country and the set formatter.
+        ///     internal formatting logic, based on the groups that are in the match of whatever regular ecpression.
         /// </summary>
         /// <param name="match">
-        ///     used as the match of the used internal regular expression.
+        ///     used as all groups that are matched in the used regular expression.
         /// </param> 
         /// <param name="formatter">
-        ///     used as the formatter how to format the result.
+        ///     used as the formatter how to format result.
         /// </param>
         /// <returns>
-        ///     postcode as with provided formatter. 
+        ///     the match result as poscode with given formatter. 
         /// </returns>
-        private string Format(Match match, RemoveFormatter formatter)
+        private string Format(Match match, Formatter formatter)
         {
             string result = _logic.DisplayFormat;
 
@@ -419,22 +420,8 @@ namespace Validators
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
-            
-            if (formatter != RemoveFormatter.Default)
-            {
-                if(formatter == RemoveFormatter.HyphensAndWhiteSpaces 
-                    || formatter == RemoveFormatter.WitheSpaces)
-                {
-                    result = result.Replace(" ", string.Empty);
-                }
-                if (formatter == RemoveFormatter.HyphensAndWhiteSpaces
-                    || formatter == RemoveFormatter.Hyphens)
-                {
-                    result = result.Replace("-", string.Empty);
-                }
-            }
 
-            return result.ToUpperInvariant();
+            return result.Format(formatter).ToUpperInvariant();
         }
     }
 }

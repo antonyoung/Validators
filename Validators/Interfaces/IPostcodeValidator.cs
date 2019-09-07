@@ -1,4 +1,6 @@
-﻿namespace Validators.Interfaces
+﻿using Validators.Formatters;
+
+namespace Validators.Interfaces
 {
     // => http://publications.europa.eu/code/en/en-390105.htm
 
@@ -36,14 +38,6 @@
     }
 
 
-    public enum RemoveFormatter
-    {
-        Default,
-        Hyphens,
-        HyphensAndWhiteSpaces,
-        WitheSpaces,
-    }
-
     /// <summary>
     ///     interface to be used for postal code business logic according to each country in Europe
     /// </summary>
@@ -75,7 +69,7 @@
         bool TryParse(string value, Countries country, out string result);
 
 
-        bool TryParse(string value, Countries country, RemoveFormatter formatter, out string result);
+        bool TryParse(string value, Countries country, Formatter formatter, out string result);
 
     }
 }
