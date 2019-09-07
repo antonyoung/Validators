@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Validators.Formatters
 {
+
     /// <summary>
     ///     available formatters for postcode.
     /// </summary>
