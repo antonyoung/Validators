@@ -69,7 +69,7 @@ namespace Validators.Interfaces
         bool TryParse(string value, Countries country, out string result);
 
 
-        bool TryParse(string value, Countries country, Formatter formatter, out string result);
+        bool TryParse(string value, Countries country, PostcodeFormatters formatter, out string result);
 
     }
 }

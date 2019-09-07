@@ -353,7 +353,7 @@ namespace Validators
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
         public bool TryParse(string value, Countries country, out string result) 
-            => TryParse(value, country, Formatter.None, out result);
+            => TryParse(value, country, PostcodeFormatters.None, out result);
 
 
         /// <summary>
@@ -376,7 +376,7 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, Countries country, Formatter formatter, out string result)
+        public bool TryParse(string value, Countries country, PostcodeFormatters formatter, out string result)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException(nameof(value));
@@ -408,7 +408,7 @@ namespace Validators
         /// <returns>
         ///     the match result as poscode with given formatter. 
         /// </returns>
-        private string Format(Match match, Formatter formatter)
+        private string Format(Match match, PostcodeFormatters formatter)
         {
             string result = _logic.DisplayFormat;
 
