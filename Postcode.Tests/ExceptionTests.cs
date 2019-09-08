@@ -10,16 +10,16 @@ namespace Postcode.Tests
 
     public class ExceptionTests
     {
-        [Fact]
-        public void ThrowsArgumentExceptionOfCountry()
-        {
-            var test = new PostcodeValidator();
+        //[Fact]
+        //public void ThrowsArgumentExceptionOfCountry()
+        //{
+        //    var test = new PostcodeValidator();
             
-            void unknownCountry() => test.Validate(string.Empty, Countries.Amsterdam, out string result);
-            Exception ex = Record.Exception(unknownCountry);
+        //    void unknownCountry() => test.Validate(string.Empty, Countries.Amsterdam, out string result);
+        //    Exception ex = Record.Exception(unknownCountry);
 
-            Assert.IsType<ArgumentException>(ex);
-        }
+        //    Assert.IsType<ArgumentException>(ex);
+        //}
 
         [Fact]
         public void ThrowsArgumentExceptionOfValue()
