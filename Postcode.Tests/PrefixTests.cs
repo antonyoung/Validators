@@ -7,7 +7,7 @@ namespace Postcode.Tests
     public class PrefixTests
     {
 
-        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
+        private readonly PostcodeValidator _postcodeValidator = new PostcodeValidator();
 
         private const string PREFIX_CROATIA = "HR-";
         private const string PREFIX_LATIVIA = "LV-";
