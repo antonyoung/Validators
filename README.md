@@ -21,9 +21,9 @@ Are all validated correctly without it, and will be automatically formatted in t
 With one exception Finland has two prefixes FI- / AX- without prefix FI- is choosen as default.
 Default country as expected is for now The Netherlands.    
 
-**Note:** - it does not validate if it's an existing postal code!
+**Note:** - it does not validate, if it's an existing postcode!
 
-Used the following website [publications.europa.eu](http://publications.europa.eu/code/en/en-390105.htm), as poscode rules and as guide lines in Europe. 
+Used the following website [publications.europa.eu](http://publications.europa.eu/code/en/en-390105.htm), as postcode rules and as guide lines in Europe. 
 Source code works for all European countries as given on this website.
 Not sure how valid the regular expressions are for the Alpha Numeric postcodes for the countires Ireland and UK?
 I admit I just copied this from internet, I am not sure how this system works. 
