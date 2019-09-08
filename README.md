@@ -67,20 +67,7 @@ result;             // => "0162GD"
 This project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
 
 ### Acknowledgments
+See also issues: [is:issue is:open Check:](https://github.com/antonyoung/postalcode/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+Check%3A)
 
-- [ ] Check		: Countries has leading zeros or not? ( currently all countries does not except leading zeros, and what about numbers at the right side? )
-- [ ] Ireland	: Is this really the correct regular expression?
-- [ ] UK		: Is this really the correct regular expression? * Hint as a solution: [stackoverflow](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes)	
- 
 ### Additional features
-
-- [ ] Implement: Github add code of conduct, contributing, issue templates and pull-requests => Change Readme as issues template.
-- [ ] Add : Simplistic PostcodeFormatter, to format as default, no spaces or and hyphen / dashes.
-- [ ] Convert	: Validators as net standard framework ( currently standard does not support System.Text.RegularExpression group.Name ) => definitly a want!
-- [ ] Convert : Azure devops pipeline, use as Linux build with code coverage badge.
-- [ ] Add : Build as Nuget packages, eventually deploy as Nuget Package.
-- [ ] Convert	: Validators project as javascript library ( new github repository ) => Really nice to have.
-- [ ] Add		: As extra functionality to check if it is an existing postal code or not, google maps? => nice to have, but it has to be for free.
-- [ ] Add  : As new validator an IBAN validator and all it's features.
-- [ ] Extend	: Add other countries outside of European Union. => nice to have 
-- [ ] Extend	: This whole project, how to display full address information for given country. ( new github repository ) => definitally we need validation for this, if address is valid! )
+See also issues: [is:issue is:open Feature:](https://github.com/antonyoung/postalcode/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+Feature%3A+)
