@@ -21,15 +21,15 @@ namespace Postcode.Tests
         //    Assert.IsType<ArgumentException>(ex);
         //}
 
-        [Fact]
-        public void ThrowsArgumentExceptionOfValue()
-        {
-            var test = new PostcodeValidator();
+        //[Fact]
+        //public void ThrowsArgumentExceptionOfValue()
+        //{
+        //    var test = new PostcodeValidator();
 
-            void value() => test.Validate(null, Countries.Netherlands, out string result);
-            Exception ex = Record.Exception(value);
+        //    void value() => test.Validate(null, Countries.Netherlands, out string result);
+        //    Exception ex = Record.Exception(value);
 
-            Assert.IsType<ArgumentException>(ex);
-        }
+        //    Assert.IsType<ArgumentException>(ex);
+        //}
     }
 }
