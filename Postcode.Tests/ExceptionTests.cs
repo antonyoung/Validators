@@ -26,8 +26,8 @@ namespace Postcode.Tests
         {
             var test = new PostcodeValidator();
 
-            void unknownCountry() => test.Validate(null, Countries.Netherlands, out string result);
-            Exception ex = Record.Exception(unknownCountry);
+            void value() => test.Validate(null, Countries.Netherlands, out string result);
+            Exception ex = Record.Exception(value);
 
             Assert.IsType<ArgumentException>(ex);
         }
