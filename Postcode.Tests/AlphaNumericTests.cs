@@ -21,7 +21,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void Valid(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid,_postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -34,7 +34,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "222 YD82")]
         public void InValid(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -51,7 +51,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode.Replace(" ", string.Empty), country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode.Replace(" ", string.Empty), country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);

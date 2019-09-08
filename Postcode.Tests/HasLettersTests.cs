@@ -20,7 +20,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithOutSpace(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode.Replace(" ", string.Empty), country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode.Replace(" ", string.Empty), country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -32,7 +32,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithSingleSpace(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -45,7 +45,7 @@ namespace Postcode.Tests
         public void WithDoubleSpace(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace(" ", "  ");
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -59,7 +59,7 @@ namespace Postcode.Tests
         {
             postalCode = postalCode.Replace(" ", "-");
 
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -71,7 +71,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void NoTrim(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse($" {postalCode} ", country, out string result);
+            bool isValid = _postcodeValidator.Validate($" {postalCode} ", country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -83,7 +83,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void LowerCase(Countries country, string postalCode)
         {
-            bool isValid = _postcodeValidator.TryParse(postalCode.ToLowerInvariant(), country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode.ToLowerInvariant(), country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);
@@ -96,7 +96,7 @@ namespace Postcode.Tests
         public void LeadingZero(Countries country, string postalCode)
         {
             postalCode = postalCode.Replace("1", "0");
-            bool isValid = _postcodeValidator.TryParse(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
 
             Assert.Equal(isValid, _postcodeValidator.IsValid);
             Assert.Equal(postalCode, result);

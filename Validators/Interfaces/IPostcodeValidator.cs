@@ -63,13 +63,13 @@ namespace Validators.Interfaces
         bool IsValid { get; }
 
 
-        bool TryParse(string value, out string result);
+        bool Validate(string value, out string result);
 
 
-        bool TryParse(string value, Countries country, out string result);
+        bool Validate(string value, Countries country, out string result);
 
 
-        bool TryParse(string value, Countries country, PostcodeFormatters formatter, out string result);
+        bool Validate(string value, Countries country, PostcodeFormatters formatter, out string result);
 
     }
 }

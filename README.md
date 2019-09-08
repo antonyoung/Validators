@@ -39,12 +39,12 @@ I admit I just copied this from internet, I am not sure how this system works.
 * **Happy flow**
 ```csharp
 bool isValid = new PostcodeValidator()
-   .TryParse("1062GD", Countries.Netherlands, out string ressult); // => result = "1062 GD", isValid = true
+   .Validate("1062GD", Countries.Netherlands, out string ressult); // => result = "1062 GD", isValid = true
 ```
 * **Or as** 
 ```csharp
 var test = new PostcodeValidator(); 
-test.TryParse("1062GD", Countries.Netherlands, out string ressult);
+test.Validate("1062GD", Countries.Netherlands, out string ressult);
 test.IsValid;       // => true					
 test.ErrorMessage   // => string.Empty
 result              // => "1062 GD"
@@ -52,9 +52,9 @@ result              // => "1062 GD"
 * **Unhappy flow ( has leading zero )**
 ```csharp
 var test = new PostcodeValidator(); 
-test.TryParse("0162GD", Countries.Netherlands, out string ressult);
+test.Validate("0162GD", Countries.Netherlands, out string ressult);
 test.IsValid;       // => false					
-test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Example \"1234 AB\"."
+test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Use as example \"1234 AB\"."
 result;             // => "0162GD"
 ```
 

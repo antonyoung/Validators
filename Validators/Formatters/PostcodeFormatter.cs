@@ -11,15 +11,17 @@ namespace Validators.Formatters
     /// </summary>
     public enum PostcodeFormatters
     {
-        None,
-        Hyphens,
-        HyphensAndWhiteSpaces,
-        WhiteSpaces,
+        None,                       // none: keep original
+        Hyphens,                    // removes: hyphens
+        HyphensAndWhiteSpaces,      // removes: hyphens and whitespaces
+        WhiteSpaces,                // removes: whitespaces.
     }
 
 
     /// <summary>
-    ///     formats postalcodes with a postalcode formatter.
+    ///     formats postalcodes with a postcode formatter.
+    ///     use provided formatters, in case you don't need hyphens and or whitespaces. 
+    ///     often an api expects for example The Netherlands without a space "1234AB".
     /// </summary>
     public static class PostcodeFormatter
     {
@@ -55,9 +57,12 @@ namespace Validators.Formatters
         /// <param name="value">
         ///     used as the value that has to be formmatted with provided formatter.
         /// </param>
+        /// <param name="formatter">
+        ///     used as the formatter to be used.
+        /// </param>
         /// <exception cref="ArgumentException"/>
         /// <returns>
-        ///     the formatted valu.
+        ///     the formatted value.
         /// </returns>
         public static string Format(this string value, PostcodeFormatters formatter)
         {

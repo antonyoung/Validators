@@ -331,8 +331,8 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, out string result) 
-            => TryParse(value, Countries.Netherlands, out result);
+        public bool Validate(string value, out string result) 
+            => Validate(value, Countries.Netherlands, out result);
 
 
         /// <summary>
@@ -352,8 +352,8 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, Countries country, out string result) 
-            => TryParse(value, country, PostcodeFormatters.None, out result);
+        public bool Validate(string value, Countries country, out string result) 
+            => Validate(value, country, PostcodeFormatters.None, out result);
 
 
         /// <summary>
@@ -376,7 +376,7 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryParse(string value, Countries country, PostcodeFormatters formatter, out string result)
+        public bool Validate(string value, Countries country, PostcodeFormatters formatter, out string result)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException(nameof(value));
@@ -406,7 +406,7 @@ namespace Validators
         ///     used as the formatter how to format result.
         /// </param>
         /// <returns>
-        ///     the match result as poscode with given formatter. 
+        ///     the formatted postcode of the match result and with given formatter. 
         /// </returns>
         private string Format(Match match, PostcodeFormatters formatter)
         {
