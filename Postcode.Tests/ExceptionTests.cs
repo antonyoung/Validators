@@ -15,7 +15,7 @@ namespace Postcode.Tests
         {
             var test = new PostcodeValidator();
             
-            void unknownCountry() => test.TryParse(string.Empty, Countries.Amsterdam, out string result);
+            void unknownCountry() => test.Validate(string.Empty, Countries.Amsterdam, out string result);
             Exception ex = Record.Exception(unknownCountry);
 
             Assert.IsType<ArgumentException>(ex);
@@ -26,7 +26,7 @@ namespace Postcode.Tests
         {
             var test = new PostcodeValidator();
 
-            void unknownCountry() => test.TryParse(null, Countries.Netherlands, out string result);
+            void unknownCountry() => test.Validate(null, Countries.Netherlands, out string result);
             Exception ex = Record.Exception(unknownCountry);
 
             Assert.IsType<ArgumentException>(ex);
