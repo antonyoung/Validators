@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-
 using Validators.Models;
+
 
 namespace Validators.Interfaces
 {
-
 
     /// <summary>
     ///     interface: used to define the postcode in memory internal logic as data source.

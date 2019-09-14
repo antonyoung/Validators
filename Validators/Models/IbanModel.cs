@@ -16,21 +16,14 @@ namespace Validators.Models
         : IIbanModel
     {
 
+
         /// <summary>
-        ///  
+        ///     used as in memory data source as all intenral business iban logic of the set countries <see cref="Rules"/>.
         /// </summary>
-        /// <exception cref=""
         public Dictionary<Countries, IbanRuleSetModel> Rules
         {
             get => new Dictionary<Countries, IbanRuleSetModel>
             {
-                //{ Countries.Austria, new IbanRuleSetModel
-                //    {
-                //        RegexPattern = "",
-                //        DisplayFormat = "",
-                //        Example = ""
-                //    }
-                //},
                 { Countries.Netherlands, new IbanRuleSetModel
                     {
                         RegexPattern = @"(?<country>^[a-zA-Z]{2})(?<whitespace>\s?)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",

@@ -7,9 +7,6 @@ using Validators.Interfaces;
 namespace Validators.Models
 {
 
-    /// <summary>
-    ///     used as in memory data source as all intenral business logic of the set countries <see cref="Rules"/>.
-    /// </summary>
     public class PostcodeModel
         : IPostcodeModel
     {
