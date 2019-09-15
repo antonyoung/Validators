@@ -5,7 +5,7 @@
         
         string ErrorMessage { get;  }
 
-        string CountryIsoName { get; }
+        Countries Country { get; }
 
         string SwiftCode { get; }
 
