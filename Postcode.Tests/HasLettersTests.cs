@@ -40,7 +40,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithSingleSpace(Countries country, string postcode)
         {
-            //=> validate postcode with space
+            //=> validate postcode with whitespace
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
             //=> success
@@ -50,7 +50,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => formatted result is with space.
+            // => formatted result is with whitespace
             Assert.Equal(postcode, result);
         }
 
@@ -60,7 +60,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void WithDoubleSpace(Countries country, string postcode)
         {
-            // => set postcode with double space.
+            // => validate postcodes with double whitespaces
             postcode = postcode.Replace(" ", "  ");
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
@@ -71,7 +71,7 @@ namespace Postcode.Tests
             // => has error message
             Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            //=> unformatted result is postcode with double space.
+            //=> unformatted result is postcode with double whitespaces
             Assert.Equal(postcode, result);
         }
 
@@ -113,7 +113,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // formatted result postcode with trim
+            // => formatted result postcode with trim
             Assert.Equal(postcode, result);
         }
 
@@ -123,7 +123,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void LowerCase(Countries country, string postcode)
         {
-            //=> validate postalcode as lowercase.
+            //=> validate postalcode as lowercase
             bool isValid = _postcodeValidator.Validate(postcode.ToLowerInvariant(), country, out string result);
 
             // => success
@@ -133,7 +133,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            //=> formatted result postcode in uppercase.
+            //=> formatted result postcode in UPPERCASE
             Assert.Equal(postcode, result);
         }
 
@@ -143,7 +143,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Malta, MALTA)]
         public void LeadingZero(Countries country, string postcode)
         {
-            // => validate postalcode with leading zero.
+            // => validate postalcode with leading zero
             postcode = postcode.Replace("1", "0");
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
@@ -154,7 +154,7 @@ namespace Postcode.Tests
             // => has error message
             Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => unformatted result postcode as given.
+            // => unformatted result postcode with leading zero
             Assert.Equal(postcode, result);
         }
     }
