@@ -12,8 +12,10 @@ using Validators.Models;
 
 namespace Validators
 {
-    // 
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class IbanValidator
         : IIbanValidator
     {
@@ -21,24 +23,35 @@ namespace Validators
         private IbanRuleSetModel _logic;
 
         private const string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //private const string REGEX = "(?<country>^[a-zA-Z]{2})(?<checksum>[0-9]{2})(?<name>[a-zA-Z]{4})(?<account>[0-9]{10}$)";
-
-
+       
         public IbanValidator() => _model = new IbanModel();
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ErrorMessage { get; private set; }
 
-        public string CountryIsoName => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Countries Country => _logic.Country;
+
 
         public string SwiftCode => throw new NotImplementedException();
 
         public int AccountNumber => throw new NotImplementedException();
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsValid
         {
             get; private set;
         }
+
 
         private int CharAsInt(char value)
         {
@@ -52,6 +65,7 @@ namespace Validators
             return index += 10;
         }
          
+
         private int CharAsInt(char[] values)
         {
             var stringBuilder = new StringBuilder(values.Length * 2);
@@ -123,8 +137,8 @@ namespace Validators
             result = value.Trim()
                 ?? throw new ArgumentException(nameof(value));
 
-            // todo: get country => first 2 letters => now default Netheralnds logic.
-            if (!_model.Rules.TryGetValue(Countries.Netherlands, out _logic))
+            // use TwoLetterISORegionName as key
+            if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
                 throw new ArgumentException("no mathichint country found.");
 
             var match = Regex.Match(result, _logic.RegexPattern);
