@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Validators.Models;
 
 
@@ -19,6 +20,6 @@ namespace Validators.Interfaces
         /// <exception cref=System.ArgumentException">
         ///     thrown, when country is not found in defined data set.
         /// </exception>
-        Dictionary<Countries, IbanRuleSetModel> Rules { get; }
+        Dictionary<string, IbanRuleSetModel> Rules { get; }
     }
 }
