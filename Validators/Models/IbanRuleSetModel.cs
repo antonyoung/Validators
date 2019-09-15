@@ -15,5 +15,7 @@ namespace Validators.Models
         public string SanityFormat { get; set; }
 
         public int Length { get; set; }
+
+        public Countries Country { get; set; }
     }
 }
