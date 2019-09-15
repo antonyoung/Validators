@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace Validators.Indexers
 {
 
-
     /// <summary>
-    ///     useed as a symplystic indexer of T. Nice additional feature to use.
+    ///     useed as a symplystic indexer of T.
     /// </summary>
     /// <typeparam name="T"><
-    ///     used as the anonymous type, that has to be indexed?
+    ///     used as the anonymous type, that has to be indexed.
     /// /typeparam>
     public class GenericIndexer<T>
     {
 
+        private readonly IEnumerable<T> _items;
 
         /// <summary>
         ///     used as construcor to initiliaze this as indexer of anonymous T.
@@ -26,18 +26,17 @@ namespace Validators.Indexers
         ///     throws new ArgumentNullException in case <paramref name="items"/> is null.
         /// </exception>
         public GenericIndexer(IEnumerable<T> items)
-            => Items = items
+            => _items = items
                 ?? throw new ArgumentNullException(nameof(items));
-       
-
-        public IEnumerable<T> Items { private get; set; }
 
 
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+        /// <summary>
+        ///     used as to enumerat over the items.
+        /// </summary>
+        /// <returns>
+        ///     IEnumerator<typeparamref name="T"/> of the items.
+        /// </returns>
+        public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
 
     }
 }
