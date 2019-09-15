@@ -1,5 +1,6 @@
 ﻿using Validators.Formatters;
 
+
 namespace Validators.Interfaces
 {
     // => http://publications.europa.eu/code/en/en-390105.htm
@@ -41,9 +42,8 @@ namespace Validators.Interfaces
     /// <summary>
     ///     interface to be used for postal code business logic according to each country in Europe
     /// </summary>
-    public interface IPostcodeValidator
+    public interface IPostcodeValidator // : IPostcodeModel
     {
-
 
         /// <summary>
         ///     used as example postalcode of the set country. 

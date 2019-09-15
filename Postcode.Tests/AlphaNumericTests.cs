@@ -9,7 +9,7 @@ namespace Postcode.Tests
     public class AlphaNumericTests
     {
 
-        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
+        private readonly PostcodeValidator _postcodeValidator = new PostcodeValidator();
 
         [Theory]
         [InlineData(Countries.UnitedKingdom, "EC1A 1BB")]

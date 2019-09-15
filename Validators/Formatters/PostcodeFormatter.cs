@@ -11,7 +11,7 @@ namespace Validators.Formatters
     /// </summary>
     public enum PostcodeFormatters
     {
-        None,                       // none: keep original
+        None,                       // none: keep as original with hyphens and or whitespaces. 
         Hyphens,                    // removes: hyphens
         HyphensAndWhiteSpaces,      // removes: hyphens and whitespaces
         WhiteSpaces,                // removes: whitespaces.

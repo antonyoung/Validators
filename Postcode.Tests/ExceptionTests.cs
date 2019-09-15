@@ -8,6 +8,14 @@ using Xunit;
 namespace Postcode.Tests
 {
 
+    // Comment Code: Build failure via linux Azure DevOps pipeline, works fine as Build on Windows.
+    // ExceptionTests.cs(19,35): error CS0121: 
+    //      The call is ambiguous between the following methods or properties: 'Record.Exception(Action)' and 'Record.Exception(Func<Task>)' 
+    //      [/home/vsts/work/1/s/Postcode.Tests/Postcode.Tests.csproj]
+    // ExceptionTests.cs(30,35): error CS0121: 
+    //      The call is ambiguous between the following methods or properties: 'Record.Exception(Action)' and 'Record.Exception(Func<Task>)' 
+    //      [/home/vsts/work/1/s/Postcode.Tests/Postcode.Tests.csproj]
+
     public class ExceptionTests
     {
         //[Fact]
