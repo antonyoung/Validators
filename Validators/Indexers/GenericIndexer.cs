@@ -6,7 +6,7 @@ namespace Validators.Indexers
 {
 
     /// <summary>
-    ///     useed as a symplystic indexer of T.
+    ///     useed as a symplistic indexer of T.
     /// </summary>
     /// <typeparam name="T"><
     ///     used as the anonymous type, that has to be indexed.
@@ -14,7 +14,11 @@ namespace Validators.Indexers
     public class GenericIndexer<T>
     {
 
+        /// <summary>
+        ///     used as internal IEnumerable of T.
+        /// </summary>
         private readonly IEnumerable<T> _items;
+
 
         /// <summary>
         ///     used as construcor to initiliaze this as indexer of anonymous T.
@@ -31,7 +35,7 @@ namespace Validators.Indexers
 
 
         /// <summary>
-        ///     used as to enumerat over the items.
+        ///     used as to enumerate over the items.
         /// </summary>
         /// <returns>
         ///     IEnumerator<typeparamref name="T"/> of the items.
