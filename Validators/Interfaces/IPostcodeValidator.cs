@@ -45,7 +45,6 @@ namespace Validators.Interfaces
     public interface IPostcodeValidator // : IPostcodeModel
     {
 
-
         /// <summary>
         ///     used as example postalcode of the set country. 
         /// </summary>

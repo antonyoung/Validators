@@ -12,7 +12,6 @@ namespace Validators.Interfaces
     public interface IPostcodeModel
     {
 
-
         /// <summary>
         ///     used as the total set to define the internal logic for each country available as data source. 
         ///     engine: based on <seealso cref="System.Text.RegularExpressions.Group"/>.
