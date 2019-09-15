@@ -33,12 +33,20 @@ namespace Postcode.Tests
         [InlineData(Countries.Finland, PREFIX_FINLAND_1 + DIGITS_5)]
         [InlineData(Countries.Finland, PREFIX_FINLAND_2 + DIGITS_5)]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void WithPrefix(Countries country, string postalCode)
+        public void WithPrefix(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
+            //=> validate postcode with prefix.
+            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode with prefix
+            Assert.Equal(postcode, result);
         }
 
 
@@ -51,12 +59,20 @@ namespace Postcode.Tests
         [InlineData(Countries.Finland, PREFIX_FINLAND_1 + DIGITS_5)]
         [InlineData(Countries.Finland, PREFIX_FINLAND_2 + DIGITS_5)]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void LowerCasePrefix(Countries country, string postalCode)
+        public void LowerCasePrefix(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode.ToLowerInvariant(), country, out string result);
+            // => validate postcode with lowercase prefix.
+            bool isValid = _postcodeValidator.Validate(postcode.ToLowerInvariant(), country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode with prefix in uppercase.
+            Assert.Equal(postcode, result);
         }
 
 
@@ -68,23 +84,39 @@ namespace Postcode.Tests
         [InlineData(Countries.Slovenia, PREFIX_SLOVENIA + DIGITS_4)]
         [InlineData(Countries.Finland, PREFIX_FINLAND_1 + DIGITS_5)]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void WithOutPrefix(Countries country, string postalCode)
+        public void WithOutPrefix(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode.Remove(0, postalCode.IndexOf("-") + 1), country, out string result);
+            // => validate postcode without prefix
+            bool isValid = _postcodeValidator.Validate(postcode.Remove(0, postcode.IndexOf("-") + 1), country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode with prefix
+            Assert.Equal(postcode, result);
         }
 
 
         [Theory]
         [InlineData(Countries.Finland, DIGITS_5)]
-        public void WithOutPrefix_Default_Finland(Countries country, string postalCode)
+        public void WithOutPrefix_Default_Finland(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
+            // => validate postcode Finland without prefix.
+            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal($"{PREFIX_FINLAND_1}{postalCode}", result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode with default prefix FI-
+            Assert.Equal($"{PREFIX_FINLAND_1}{postcode}", result);
         }
 
 
@@ -97,13 +129,21 @@ namespace Postcode.Tests
         [InlineData(Countries.Finland, PREFIX_FINLAND_1 + DIGITS_5)]
         [InlineData(Countries.Finland, PREFIX_FINLAND_2 + DIGITS_5)]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void LeadingZero(Countries country, string postalCode)
-        {
-            postalCode = postalCode.Replace("4", "0");
-            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
+        public void LeadingZero(Countries country, string postcode)
+        { 
+            // => validate postcode with leading zero
+            postcode = postcode.Replace("4", "0");
+            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
+            // => unsuccessful
+            Assert.False(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has error message
+            Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => unformatted result postcode with leading zero.
+            Assert.Equal(postcode, result);
         }
 
 
@@ -116,23 +156,39 @@ namespace Postcode.Tests
         [InlineData(Countries.Finland, PREFIX_FINLAND_1 + DIGITS_5)]
         [InlineData(Countries.Finland, PREFIX_FINLAND_2 + DIGITS_5)]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void NoTrim(Countries country, string postalCode)
+        public void NoTrim(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate($" {postalCode} ", country, out string result);
+            // => validate postcode without trim
+            bool isValid = _postcodeValidator.Validate($" {postcode} ", country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode with trim
+            Assert.Equal(postcode, result);
         }
 
 
         [Theory]
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
-        public void WithOutSpace(Countries country, string postalCode)
+        public void WithOutSpace(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode.Replace(" ", string.Empty), country, out string result);
+            //=> validate postcode sweden without whitespace.
+            bool isValid = _postcodeValidator.Validate(postcode.Replace(" ", string.Empty), country, out string result);
 
+            // => success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result postcode sweden with whitespace
+            Assert.Equal(postcode, result);
         }
     }
 }
