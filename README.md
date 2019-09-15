@@ -2,13 +2,15 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Postcode validator and formatter (C#) .Net Core
 
-Validates and formats European postcodes
+Validates and formats European postcodes, plus setup validating international bank account numbers (iban.)
 
 ### Intro
 
 Started this little project in my spare time, because I noticed today (28 August 2019) at work that validation of Dutch postcodes is barely or none existent. 
 The database contains postcodes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
-While the solution is really simple as long you know your regular expressions. 
+While the solution is really simple as long you know your regular expressions.
+
+Started with an iban validator, rules of countries still has to be defined, tests still has to be added and add formatters.
 
 ### Description
 
@@ -31,9 +33,11 @@ I admit I just copied this from internet, I am not sure how this system works.
  
 ### Prerequisites
 ```
-* C# .NET Core 2.2.0	  // => Validator
-* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 147 tests =>  ~2 ms per test.
+* C# .NET Core 2.2.0	  // => Validators
 * C# .NET Core 2.2.0      // => Formatters.Tests (xUnit) * With 36 tests => ~1 ms per test.
+* C# .NET Core 2.2.0      // => Iban.Tests (xUnit) * With 2 tests => ~15 ms per test.
+* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 145 tests =>  ~2 ms per test.
+
 ```
 ### Code examples
 
