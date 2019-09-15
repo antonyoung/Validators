@@ -14,6 +14,9 @@ namespace Validators.Indexers
     public class GenericIndexer<T>
     {
 
+        /// <summary>
+        ///     used as internal IEnumerable of T.
+        /// </summary>
         private readonly IEnumerable<T> _items;
 
         /// <summary>
