@@ -31,7 +31,7 @@ namespace Validators.Indexers
 
 
         /// <summary>
-        ///     used as to enumerat over the items.
+        ///     used as to enumerate over the items.
         /// </summary>
         /// <returns>
         ///     IEnumerator<typeparamref name="T"/> of the items.
