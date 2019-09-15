@@ -21,6 +21,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void Valid(Countries country, string postcode)
         {
+            // => validate valid postcodes as expected format.
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
             //=> success
@@ -30,7 +31,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            //=> formatted result, as given postcode.
+            //=> formatted result, as given postcode
             Assert.Equal(postcode, result);
         }
 
@@ -41,6 +42,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "222 YD82")]
         public void InValid(Countries country, string postcode)
         {
+            // => validate invalid postcodes
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
             // => unsuccessful
@@ -48,9 +50,9 @@ namespace Postcode.Tests
             Assert.Equal(isValid, _postcodeValidator.IsValid);
 
             //=> has error message
-            Assert.True(!string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            //=> unformatted result as postcode.
+            //=> unformatted result as postcode
             Assert.Equal(postcode, result);
         }
 
@@ -65,9 +67,9 @@ namespace Postcode.Tests
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void WithOutSpace(Countries country, string postcode)
         {
-            // => validate postcode without space.
+            // => validate postcode without whitespace
             bool isValid = _postcodeValidator.Validate(postcode.Replace(" ", string.Empty), country, out string result);
-
+            
             //=> success
             Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
@@ -75,7 +77,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => formatted result has postcode with space.
+            // => formatted result has postcode with whitespace
             Assert.Equal(postcode, result);
         }
     }

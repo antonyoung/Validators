@@ -35,7 +35,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithPrefix(Countries country, string postcode)
         {
-            //=> validate postcode with prefix.
+            //=> validate postcodes with prefix
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
             // => success
@@ -61,7 +61,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void LowerCasePrefix(Countries country, string postcode)
         {
-            // => validate postcode with lowercase prefix.
+            // => validate postcodes with lowercase prefix.
             bool isValid = _postcodeValidator.Validate(postcode.ToLowerInvariant(), country, out string result);
 
             // => success
@@ -71,7 +71,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => formatted result postcode with prefix in uppercase.
+            // => formatted result postcode with prefix in UPPERCASE
             Assert.Equal(postcode, result);
         }
 
@@ -86,7 +86,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithOutPrefix(Countries country, string postcode)
         {
-            // => validate postcode without prefix
+            // => validate postcodes without prefix
             bool isValid = _postcodeValidator.Validate(postcode.Remove(0, postcode.IndexOf("-") + 1), country, out string result);
 
             // => success
@@ -131,7 +131,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void LeadingZero(Countries country, string postcode)
         { 
-            // => validate postcode with leading zero
+            // => validate postcodes with leading zero
             postcode = postcode.Replace("4", "0");
             bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
@@ -142,7 +142,7 @@ namespace Postcode.Tests
             // => has error message
             Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => unformatted result postcode with leading zero.
+            // => unformatted result postcode with leading zero
             Assert.Equal(postcode, result);
         }
 
@@ -177,7 +177,7 @@ namespace Postcode.Tests
         [InlineData(Countries.Sweden, PREFIX_SWEDEN + WHITESPACE)]
         public void WithOutSpace(Countries country, string postcode)
         {
-            //=> validate postcode sweden without whitespace.
+            //=> validate postcode Sweden without whitespace.
             bool isValid = _postcodeValidator.Validate(postcode.Replace(" ", string.Empty), country, out string result);
 
             // => success
@@ -187,7 +187,7 @@ namespace Postcode.Tests
             // => has no error message
             Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
 
-            // => formatted result postcode sweden with whitespace
+            // => formatted result postcode Sweden with whitespace
             Assert.Equal(postcode, result);
         }
     }
