@@ -19,12 +19,19 @@ namespace Postcode.Tests
         [InlineData(Countries.UnitedKingdom, "M1 1AE")]
         [InlineData(Countries.UnitedKingdom, "W1A 0AX")]
         [InlineData(Countries.Ireland, "D22 YD82")]
-        public void Valid(Countries country, string postalCode)
+        public void Valid(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
+            //=> success
+            Assert.True(isValid);
             Assert.Equal(isValid,_postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            //=> formatted result, as given postcode.
+            Assert.Equal(postcode, result);
         }
 
 
@@ -32,12 +39,19 @@ namespace Postcode.Tests
         [InlineData(Countries.UnitedKingdom, "x2")]
         [InlineData(Countries.UnitedKingdom, "2344 AAA")]
         [InlineData(Countries.Ireland, "222 YD82")]
-        public void InValid(Countries country, string postalCode)
+        public void InValid(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode, country, out string result);
+            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
 
+            // => unsuccessful
+            Assert.False(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            //=> has error message
+            Assert.True(!string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            //=> unformatted result as postcode.
+            Assert.Equal(postcode, result);
         }
 
 
@@ -49,12 +63,20 @@ namespace Postcode.Tests
         [InlineData(Countries.UnitedKingdom, "M1 1AE")]
         [InlineData(Countries.UnitedKingdom, "W1A 0AX")]
         [InlineData(Countries.Ireland, "D22 YD82")]
-        public void WithOutSpace(Countries country, string postalCode)
+        public void WithOutSpace(Countries country, string postcode)
         {
-            bool isValid = _postcodeValidator.Validate(postalCode.Replace(" ", string.Empty), country, out string result);
+            // => validate postcode without space.
+            bool isValid = _postcodeValidator.Validate(postcode.Replace(" ", string.Empty), country, out string result);
 
+            //=> success
+            Assert.True(isValid);
             Assert.Equal(isValid, _postcodeValidator.IsValid);
-            Assert.Equal(postalCode, result);
+
+            // => has no error message
+            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+
+            // => formatted result has postcode with space.
+            Assert.Equal(postcode, result);
         }
     }
 }

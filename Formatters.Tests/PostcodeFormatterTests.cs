@@ -8,6 +8,9 @@ namespace Formatters.Tests
 {
     public class PostcodeFormatterTests
     {
+        /// <summary>
+        ///     used as test data.
+        /// </summary>
         public static readonly IEnumerable<object[]> TestData = new List<object[]>
         {
             new object[] { "EC1A 1BB" },
@@ -25,8 +28,10 @@ namespace Formatters.Tests
         [MemberData(nameof(TestData))]
         public void None(string value)
         {
+            // => validate without formatting
             var result = value.Format(PostcodeFormatters.None);
 
+            // => success, result == value
             Assert.Equal(result, value);
         }
 
@@ -35,8 +40,10 @@ namespace Formatters.Tests
         [MemberData(nameof(TestData))]
         public void Hyphens(string value)
         {
+            // => validate with hyphen formatter.
             var result = value.Format(PostcodeFormatters.Hyphens);
 
+            // => success, result == value without hyphens.
             Assert.Equal(result, value.Replace("-", string.Empty));
         }
 
@@ -45,8 +52,10 @@ namespace Formatters.Tests
         [MemberData(nameof(TestData))]
         public void WhiteSpaces(string value)
         {
+            // => validate with whitespace formatter
             var result = value.Format(PostcodeFormatters.WhiteSpaces);
 
+            // => success, result == value without whitespaces.
             Assert.Equal(result, value.Replace(" ", string.Empty));
         }
 
@@ -55,8 +64,10 @@ namespace Formatters.Tests
         [MemberData(nameof(TestData))]
         public void HyphenAndWhiteSpaces(string value)
         {
+            // => validate with hyphens and whitespaces formatters
             var result = value.Format(PostcodeFormatters.HyphensAndWhiteSpaces);
 
+            // => success, result == value without hyphens and or whitespaces.
             Assert.Equal(result, value.Replace(" ", string.Empty).Replace(" ", string.Empty));
         }
     }
