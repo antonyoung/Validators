@@ -6,7 +6,7 @@ namespace Validators.Indexers
 {
 
     /// <summary>
-    ///     useed as a symplystic indexer of T.
+    ///     useed as a symplistic indexer of T.
     /// </summary>
     /// <typeparam name="T"><
     ///     used as the anonymous type, that has to be indexed.
