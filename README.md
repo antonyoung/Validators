@@ -35,32 +35,49 @@ I admit I just copied this from internet, I am not sure how this system works.
 ```
 * C# .NET Core 2.2.0	  // => Validators
 * C# .NET Core 2.2.0      // => Formatters.Tests (xUnit) * With 36 tests => ~1 ms per test.
-* C# .NET Core 2.2.0      // => Iban.Tests (xUnit) * With 2 tests => ~15 ms per test.
+* C# .NET Core 2.2.0      // => Iban.Tests (xUnit) * With 4 tests => ~10 ms per test.
 * C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 145 tests =>  ~2 ms per test.
 
 ```
-### Code examples
+### Code examples ( PostcodeValidator )
 
 * **Happy flow**
 ```csharp
 bool isValid = new PostcodeValidator()
-   .Validate("1062GD", Countries.Netherlands, out string ressult); // => result = "1062 GD", isValid = true
+   .Validate("1062GD", Countries.Netherlands, out string result); // => result = "1062 GD", isValid = true
 ```
 * **Or as** 
 ```csharp
 var test = new PostcodeValidator(); 
-test.Validate("1062GD", Countries.Netherlands, out string ressult);
+test.Validate("1062GD", Countries.Netherlands, out string result);
 test.IsValid;       // => true					
-test.ErrorMessage   // => string.Empty
+test.ErrorMessage   // => null
 result              // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
 var test = new PostcodeValidator(); 
-test.Validate("0162GD", Countries.Netherlands, out string ressult);
+test.Validate("0162GD", Countries.Netherlands, out string result);
 test.IsValid;       // => false					
 test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Use as example \"1234 AB\"."
 result;             // => "0162GD"
+```
+
+### Code examples ( IbanValidator )
+
+* **Happy flow**
+```csharp
+bool isValid = new IbanValidator()
+   .Validate("NL71 INGB 1320 9490 10", out string result); // => result = "NL71 INGB 1320 9490 10", isValid = true
+```
+* **Or as** 
+```csharp
+var test = new IbanValidator(); 
+test.Validate("NL71 INGB 1320 9490 10", out string result);
+test.IsValid;       // => true					
+test.ErrorMessage   // => null
+test.Country        // => Countries.Netherlands
+result              // => "NL71 INGB 1320 9490 10"
 ```
 
 ## Authors
