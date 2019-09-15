@@ -19,6 +19,7 @@ namespace Validators.Indexers
         /// </summary>
         private readonly IEnumerable<T> _items;
 
+
         /// <summary>
         ///     used as construcor to initiliaze this as indexer of anonymous T.
         /// </summary>
