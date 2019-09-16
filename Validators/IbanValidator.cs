@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using Validators.Formatters;
 using Validators.Indexers;
 using Validators.Interfaces;
 using Validators.Models;
@@ -65,10 +66,7 @@ namespace Validators
         ///     used to validate given iban.
         ///     when false an <seealso cref="ErrorMessage"/> will be given.
         /// </summary>
-        public bool IsValid
-        {
-            get; private set;
-        }
+        public bool IsValid { get; private set; }
 
 
         /// <summary>
@@ -91,43 +89,51 @@ namespace Validators
 
             // => use TwoLetterISORegionName from iban value as key
             if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
-                throw new ArgumentException("no matching country found.");
+                throw new ArgumentException($"No matching country found for {value.Substring(0, 2).ToUpperInvariant()}.");
 
             var match = Regex.Match(result, _logic.RegexPattern);
 
-            IsValid = match.Success;
-
-            if (!IsValid)
-            {
-                SetErrorMessage(result);
-
-                return IsValid;
-            }
- 
+            if (!IsMatch(match, result)) return false;
+             
             IsValid = IsSanityValid(match);
 
             // todo: format match value and as ternary expression. 
-            if (IsValid)
-            {
-                // to do formatting.
-            }
-            else
-            { 
-                ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
-            }
-
+            _ = IsValid
+                ? result = Format(match)
+                : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
+            
             return IsValid;
         }
 
 
-        private void SetErrorMessage(string value)
+        private string Format(Match match)
         {
-            // todo: use and add formatter to replace everything
-            int length = value.Replace(" ", string.Empty).Length;
+            string result = _logic.DisplayFormat;
 
-            ErrorMessage = length == _logic.Length
-                ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country.ToString()}."
-                : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country.ToString()}. Use as example \"{Example}\".";
+            foreach (Group group in match.Groups)
+            {
+                if (!string.IsNullOrWhiteSpace(group.Value))
+                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+            }
+
+            return result.ToUpperInvariant();
+        }
+
+        private bool IsMatch(Match match, string value)
+        {
+            IsValid = match.Success;
+
+            if (!IsValid)
+            {
+                // todo: use and add formatter to replace everything
+                int length = value.Format(PostcodeFormatters.WhiteSpaces).Length;
+
+                ErrorMessage = length == _logic.Length
+                    ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country.ToString()}."
+                    : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country.ToString()}. Use as example \"{Example}\".";
+            }
+
+            return IsValid;
         }
 
 
