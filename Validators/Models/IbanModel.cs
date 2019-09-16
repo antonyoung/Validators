@@ -58,7 +58,7 @@ namespace Validators.Models
                     new IbanRuleSetModel
                     {
                         RegexPattern = @"(?<country>^[a-zA-Z]{2})(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <account1> <account2> <account3>",
+                        DisplayFormat ="<country><checksum> <name> <account1> <account2> <account3>",
                         SanityFormat = "<name><account1><account2><account3><country><checksum>",
                         Example = "NLNN BANK NNNN NNNN NN",
                         Length = 18,
