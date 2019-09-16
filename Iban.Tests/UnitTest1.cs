@@ -8,12 +8,12 @@ namespace Iban.Tests
         private readonly IbanValidator _ibanValidator = new IbanValidator();
 
         [Theory]
-        [InlineData("NL71INGB1320949010")]
-        [InlineData("NL22ABNA6034837898")]
+        [InlineData("NL71 INGB 1320 9490 10")]
+        [InlineData("NL22 ABNA 6034 8378 98")]
         public void NoWhiteSpaces(string value)
         {
             // => validate iban values without whitespaces.
-            var isValid = _ibanValidator.Validate(value, out string result);
+            var isValid = _ibanValidator.Validate(value.Replace(" ", string.Empty), out string result);
 
             // => success
             Assert.True(isValid);
