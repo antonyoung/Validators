@@ -173,12 +173,18 @@ namespace Validators
         private GenericIndexer<byte> CreateSanityIndexer(Match match)
         {
             // => always get sanity number from country
-            var country = match.Groups.Single(group => group.Name == "country").Value.ToCharArray().CharAsInt();
+            var country = match.Groups.Single(
+                group => group.Name.Equals(
+                    "country", StringComparison.OrdinalIgnoreCase)
+                ).Value.ToCharArray().CharAsInt();
 
-            // => always get sanity number from bank name, in case regular expression has bank name?
+            // => always get sanity number from bank name, in case match.Groups has a bank name?
             int name = 0;
             if (match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
-                name = match.Groups.Single(group => group.Name == "name").Value.ToCharArray().CharAsInt();
+                name = match.Groups.Single(
+                    group => group.Name.Equals(
+                        "name", StringComparison.OrdinalIgnoreCase)
+                    ).Value.ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
