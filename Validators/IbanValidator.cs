@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
+using Validators.Extensions;
 using Validators.Formatters;
 using Validators.Indexers;
 using Validators.Interfaces;
@@ -30,12 +30,6 @@ namespace Validators
         ///      used as internal business rules of iban of selected country.
         /// </summary>
         private IbanRuleSetModel _logic;
-
-
-        /// <summary>
-        ///     used as internal business logic for sanity check, based on the found index.
-        /// </summary>
-        private const string _alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
         /// <summary>
@@ -179,12 +173,12 @@ namespace Validators
         private GenericIndexer<byte> CreateSanityIndexer(Match match)
         {
             // => always get sanity number from country
-            var country = CharAsInt(match.Groups.Single(group => group.Name == "country").Value.ToCharArray());
+            var country = match.Groups.Single(group => group.Name == "country").Value.ToCharArray().CharAsInt();
 
             // => always get sanity number from bank name, in case regular expression has bank name?
             int name = 0;
             if (match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
-                name = CharAsInt(match.Groups.Single(group => group.Name == "name").Value.ToCharArray());
+                name = match.Groups.Single(group => group.Name == "name").Value.ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
@@ -211,58 +205,6 @@ namespace Validators
                 formatAsNumbers.ToCharArray()
                     .Select(value => { return byte.Parse(value.ToString()); })
                 );
-        }
-
-
-        // todo: convert as extension
-
-        /// <summary>
-        ///     used as the values that has to be converted to int for the sanity check.
-        /// </summary>
-        /// <param name="value">
-        ///     used as the <see cref="char[]"/> to be converted as <see cref="int"/> value used for the sanity check.
-        /// </param>
-        /// <returns>
-        ///     <see cref="int"/> value used for the sanity check.
-        /// </returns>
-        private int CharAsInt(char[] value)
-        {
-            var stringBuilder = new StringBuilder(value.Length * 2);
-
-            foreach (var alphaNumber in value)
-                stringBuilder.Append(CharAsInt(alphaNumber));
-
-            if (!int.TryParse(stringBuilder.ToString(), out int result))
-                throw new ArgumentException(nameof(value));
-
-            return result;
-        }
-
-
-        // todo: convert as extension
-        
-        /// <summary>
-        ///     used as to convert a letter to an int.
-        /// </summary>
-        /// <param name="value">
-        ///     used as the char, that has to be converted.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     throws exception <paramref name="value"/> has not been found.
-        /// </exception>
-        /// <returns>
-        ///     <see cref="int"/> value of <paramref name="value"/> to be used for the sanity check.
-        /// </returns>
-        private int CharAsInt(char value)
-        {
-            var index = _alphabet.IndexOf(value);
-
-            // => value not found!
-            if (index == -1)
-                throw new ArgumentOutOfRangeException(nameof(value));
-
-            // => where 0 = 0, 1 = 1, ..., 9 = 9, A = 10, B = 11, ..., Z = 35
-            return index;
         }
     }
 }
