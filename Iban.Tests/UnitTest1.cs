@@ -7,9 +7,13 @@ namespace Iban.Tests
     {
         private readonly IbanValidator _ibanValidator = new IbanValidator();
 
+        // => Austria AT373219533447157523
+
         [Theory]
         [InlineData("NL71 INGB 1320 9490 10")]
         [InlineData("NL22 ABNA 6034 8378 98")]
+        [InlineData("AT37 3219 5334 4715 7523")]
+        [InlineData("BE83 5483 1874 9715")]
         public void NoWhiteSpaces(string value)
         {
             // => validate iban values without whitespaces.
@@ -30,6 +34,8 @@ namespace Iban.Tests
         [Theory]
         [InlineData("NL71 INGB 1320 9490 10")]
         [InlineData("NL22 ABNA 6034 8378 98")]
+        [InlineData("AT37 3219 5334 4715 7523")]
+        [InlineData("BE83 5483 1874 9715")]
         public void WithWhiteSpaces(string value)
         {
             // => validate iban values with whitespaces.

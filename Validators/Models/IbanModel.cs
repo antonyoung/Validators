@@ -54,13 +54,35 @@ namespace Validators.Models
         {
             get => new Dictionary<string, IbanRuleSetModel>
             {
+                { "AT",
+                    new IbanRuleSetModel
+                    {
+                        RegexPattern = @"(?<country>^(?i)AT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<code1>[0-9]{4})(?<whitespace>\s?)(?<code2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
+                        DisplayFormat ="<country><checksum> <code1> <code2><account1> <account2> <account3>",
+                        SanityFormat = "<code1><code2><account1><account2><account3><country><checksum>",
+                        Example = "NLKK CCCC CNNN NNNN NNNN",
+                        Length = 20,
+                        Country = Countries.Austria
+                    }
+                },
+                { "BE",
+                    new IbanRuleSetModel
+                    {
+                        RegexPattern = @"(?<country>^(?i)BE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<code>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2})(?<whitespace>\s?)(?<check>[0-9]{2}$)",
+                        DisplayFormat ="<country><checksum> <code><account1> <account2> <account3><check>",
+                        SanityFormat = "<code><account1><account2><account3><check><country><checksum>",
+                        Example = "BEKK CCCN NNNN NNXX",
+                        Length = 16,
+                        Country = Countries.Belgium
+                    }
+                },
                 { "NL",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^[a-zA-Z]{2})(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
+                        RegexPattern = @"(?<country>^(?i)NL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
                         DisplayFormat ="<country><checksum> <name> <account1> <account2> <account3>",
                         SanityFormat = "<name><account1><account2><account3><country><checksum>",
-                        Example = "NLNN BANK NNNN NNNN NN",
+                        Example = "NLKK AAAA NNNN NNNN NN",
                         Length = 18,
                         Country = Countries.Netherlands
                     }    
