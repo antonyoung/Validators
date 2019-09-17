@@ -100,6 +100,15 @@ namespace Validators
         }
 
 
+        /// <summary>
+        ///     used as how to format the <paramref name="match"/>, based on <seealso cref="_logic.DisplayFormat"/>.
+        /// </summary>
+        /// <param name="match">
+        ///     used as the <see cref="Group.Name"/> to format the result as expected. 
+        /// </param>
+        /// <returns>
+        ///     formatted value.
+        /// </returns>
         private string Format(Match match)
         {
             string result = _logic.DisplayFormat;
@@ -113,13 +122,26 @@ namespace Validators
             return result.ToUpperInvariant();
         }
 
+
+        /// <summary>
+        ///     used as to validate <paramref name="match"/>
+        /// </summary>
+        /// <param name="match">
+        /// 
+        /// </param>
+        /// <param name="value">
+        ///     used as internal logic, to validate <paramref name="match"/> as length without wildcards.
+        /// </param>
+        /// <returns>
+        /// 
+        /// </returns>
         private bool IsMatch(Match match, string value)
         {
             IsValid = match.Success;
 
             if (!IsValid)
             {
-                // todo: use and add formatter to replace everything
+                // todo: use and add formatter to replace wildcards or add wildcards.
                 int length = value.Format(PostcodeFormatters.WhiteSpaces).Length;
 
                 ErrorMessage = length == _logic.Length
