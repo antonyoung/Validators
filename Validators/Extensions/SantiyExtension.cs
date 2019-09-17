@@ -8,7 +8,7 @@ namespace Validators.Extensions
     /// <summary>
     ///     used as extension to convert <see cref="Char[]"/> as an <see cref="int"/>, used for iban value sanity check.
     /// </summary>
-    public static class CharAsIntExtension
+    public static class SanityExtension
     {
 
         /// <summary>
