@@ -33,6 +33,11 @@ namespace Validators
 
 
         /// <summary>
+        ///     used as internal logic of the current Regular Expression Match.
+        /// </summary>
+        private Match _match;
+
+        /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
         /// </summary>
         public IbanValidator() => _model = new IbanModel();
@@ -85,15 +90,15 @@ namespace Validators
             if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
                 throw new ArgumentException($"No matching country found for {value.Substring(0, 2).ToUpperInvariant()}.");
 
-            var match = Regex.Match(result, _logic.RegexPattern);
+            _match = Regex.Match(result, _logic.RegexPattern);
 
-            if (!IsMatch(match, result)) return false;
+            if (!IsMatch(result)) return false;
              
-            IsValid = IsSanityValid(match);
+            IsValid = IsSanityValid();
 
             // todo: format match value and as ternary expression. 
             _ = IsValid
-                ? result = Format(match)
+                ? result = Format()
                 : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
             
             return IsValid;
@@ -109,11 +114,11 @@ namespace Validators
         /// <returns>
         ///     formatted value.
         /// </returns>
-        private string Format(Match match)
+        private string Format()
         {
             string result = _logic.DisplayFormat;
 
-            foreach (Group group in match.Groups)
+            foreach (Group group in _match.Groups)
             {
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
@@ -135,9 +140,9 @@ namespace Validators
         /// <returns>
         /// 
         /// </returns>
-        private bool IsMatch(Match match, string value)
+        private bool IsMatch(string value)
         {
-            IsValid = match.Success;
+            IsValid = _match.Success;
 
             if (!IsValid)
             {
@@ -162,10 +167,10 @@ namespace Validators
         /// <returns>
         ///     <see cref="bool"/> depending if sanity is valid or not.
         /// </returns>
-        private bool IsSanityValid(Match match)
+        private bool IsSanityValid()
         {
             double checkSum = 0;
-            GenericIndexer<byte> sanityIndexer = CreateSanityIndexer(match);
+            GenericIndexer<byte> sanityIndexer = CreateSanityIndexer();
 
             // research: System.ReadOnlySpan<char> => net core 3.0 new implementation?
             foreach (byte value in sanityIndexer)
@@ -177,6 +182,10 @@ namespace Validators
             }
 
             return checkSum == 1;
+
+            // additional check
+            // => Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
+
         }
 
 
@@ -192,18 +201,18 @@ namespace Validators
         /// <returns>
         ///     <see cref="GenericIndexer{byte}"/> to be used for the sanity check.
         /// </returns>
-        private GenericIndexer<byte> CreateSanityIndexer(Match match)
+        private GenericIndexer<byte> CreateSanityIndexer()
         {
             // => always get sanity number from country
-            var country = match.Groups.Single(
+            var country = _match.Groups.Single(
                 group => group.Name.Equals(
                     "country", StringComparison.OrdinalIgnoreCase)
                 ).Value.ToCharArray().CharAsInt();
 
             // => always get sanity number from bank name, in case match.Groups has a bank name?
             int name = 0;
-            if (match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
-                name = match.Groups.Single(
+            if (_match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
+                name = _match.Groups.Single(
                     group => group.Name.Equals(
                         "name", StringComparison.OrdinalIgnoreCase)
                     ).Value.ToCharArray().CharAsInt();
@@ -212,7 +221,7 @@ namespace Validators
             var formatAsNumbers = _logic.SanityFormat;
             
             // => formats sanity, based on regular expression group.Names and their values.
-            foreach (Group group in match.Groups)
+            foreach (Group group in _match.Groups)
             {
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
