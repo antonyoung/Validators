@@ -23,7 +23,7 @@ namespace Validators.Formatters
     ///     use provided formatters, in case you don't need hyphens and or whitespaces. 
     ///     often an api expects for example The Netherlands without a space "1234AB".
     /// </summary>
-    public static class PostcodeFormatter
+    public static class RemoveFormatter
     {
 
         /// <summary>

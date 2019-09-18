@@ -48,7 +48,7 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as a postcode example of the set country. ( default = <see cref="Countries.Netherlands"/>  
+        ///     used as a postcode example of the set country. ( default = <see cref="Countries.Netherlands"/> )
         /// </summary>
         public string Example { get => _logic.Example; }
 

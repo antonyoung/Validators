@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
+using Validators.Extensions;
+using Validators.Formatters;
 using Validators.Indexers;
 using Validators.Interfaces;
 using Validators.Models;
@@ -32,10 +33,9 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as internal business logic for sanity check, based on the found index.
+        ///     used as internal logic of the current Regular Expression Match.
         /// </summary>
-        private const string _alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+        private Match _match;
 
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
@@ -65,10 +65,7 @@ namespace Validators
         ///     used to validate given iban.
         ///     when false an <seealso cref="ErrorMessage"/> will be given.
         /// </summary>
-        public bool IsValid
-        {
-            get; private set;
-        }
+        public bool IsValid { get; private set; }
 
 
         /// <summary>
@@ -91,59 +88,80 @@ namespace Validators
 
             // => use TwoLetterISORegionName from iban value as key
             if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
-                throw new ArgumentException("no matching country found.");
+                throw new ArgumentException($"No matching country found for {value.Substring(0, 2).ToUpperInvariant()}.");
 
-            var match = Regex.Match(result, _logic.RegexPattern);
+            _match = Regex.Match(result, _logic.RegexPattern);
 
-            IsValid = match.Success;
+            if (!IsMatch(result)) return false;
+             
+            IsValid = IsSanityValid();
+
+            // todo: format match value and as ternary expression. 
+            _ = IsValid
+                ? result = Format()
+                : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
+            
+            return IsValid;
+        }
+
+
+        /// <summary>
+        ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
+        /// </summary>
+        /// <returns>
+        ///     formatted value.
+        /// </returns>
+        private string Format()
+        {
+            string result = _logic.DisplayFormat;
+
+            foreach (Group group in _match.Groups)
+            {
+                if (!string.IsNullOrWhiteSpace(group.Value))
+                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+            }
+
+            return result.ToUpperInvariant();
+        }
+
+
+        /// <summary>
+        ///     used as to validate <see cref="_match"/>
+        /// </summary>
+        /// <param name="value">
+        ///     used as internal logic, to validate <see cref="_match"/> as length without wildcards.
+        /// </param>
+        /// <returns>
+        ///     <see cref="bool"/> true, if success else an <see cref="ErrorMessage"/> will be given.
+        /// </returns>
+        private bool IsMatch(string value)
+        {
+            IsValid = _match.Success;
 
             if (!IsValid)
             {
-                SetErrorMessage(result);
+                // todo: use and add formatter to replace wildcards or add wildcards.
+                int length = value.Format(PostcodeFormatters.WhiteSpaces).Length;
 
-                return IsValid;
-            }
- 
-            IsValid = IsSanityValid(match);
-
-            // todo: format match value and as ternary expression. 
-            if (IsValid)
-            {
-                // to do formatting.
-            }
-            else
-            { 
-                ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
+                ErrorMessage = length == _logic.Length
+                    ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country.ToString()}."
+                    : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country.ToString()}. Use as example \"{Example}\".";
             }
 
             return IsValid;
         }
 
 
-        private void SetErrorMessage(string value)
-        {
-            // todo: use and add formatter to replace everything
-            int length = value.Replace(" ", string.Empty).Length;
-
-            ErrorMessage = length == _logic.Length
-                ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country.ToString()}."
-                : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country.ToString()}. Use as example \"{Example}\".";
-        }
-
-
         /// <summary>
-        ///     used to validate as sanity check, based on modules 97
+        ///     used to validate as sanity check, based on modules 97 created by <see cref="CreateSanityIndexer()"/>
         /// </summary>
-        /// <param name="match">
-        ///     used as the match of the regular expression to generate the sanity check.
-        /// </param>
         /// <returns>
         ///     <see cref="bool"/> depending if sanity is valid or not.
         /// </returns>
-        private bool IsSanityValid(Match match)
+        private bool IsSanityValid()
         {
             double checkSum = 0;
-            GenericIndexer<byte> sanityIndexer = CreateSanityIndexer(match);
+            GenericIndexer<byte> sanityIndexer = CreateSanityIndexer();
 
             // research: System.ReadOnlySpan<char> => net core 3.0 new implementation?
             foreach (byte value in sanityIndexer)
@@ -155,36 +173,43 @@ namespace Validators
             }
 
             return checkSum == 1;
+
+            // additional check
+            // => Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
+
         }
 
 
         /// <summary>
-        ///     used as the complete sanity check <see cref="GenericIndexer{T}"/> for given regular expression match.
+        ///     used as the complete sanity check <see cref="GenericIndexer{T}"/> for regular expression <see cref="_match"/>.
         /// </summary>
-        /// <param name="match">
-        ///     used as regular expression match for the sanity check.
-        /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     throws this exception, when it can not convert <paramref name="match"/> as an <see cref="int"/>.
         /// </exception>
         /// <returns>
         ///     <see cref="GenericIndexer{byte}"/> to be used for the sanity check.
         /// </returns>
-        private GenericIndexer<byte> CreateSanityIndexer(Match match)
+        private GenericIndexer<byte> CreateSanityIndexer()
         {
             // => always get sanity number from country
-            var country = CharAsInt(match.Groups.Single(group => group.Name == "country").Value.ToCharArray());
+            var country = _match.Groups.Single(
+                group => group.Name.Equals(
+                    "country", StringComparison.OrdinalIgnoreCase)
+                ).Value.ToCharArray().CharAsInt();
 
-            // => always get sanity number from bank name, in case regular expression has bank name?
+            // => always get sanity number from bank name, in case match.Groups has a bank name?
             int name = 0;
-            if (match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
-                name = CharAsInt(match.Groups.Single(group => group.Name == "name").Value.ToCharArray());
+            if (_match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
+                name = _match.Groups.Single(
+                    group => group.Name.Equals(
+                        "name", StringComparison.OrdinalIgnoreCase)
+                    ).Value.ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
             
             // => formats sanity, based on regular expression group.Names and their values.
-            foreach (Group group in match.Groups)
+            foreach (Group group in _match.Groups)
             {
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
@@ -205,58 +230,6 @@ namespace Validators
                 formatAsNumbers.ToCharArray()
                     .Select(value => { return byte.Parse(value.ToString()); })
                 );
-        }
-
-
-        // todo: convert as extension
-
-        /// <summary>
-        ///     used as the values that has to be converted to int for the sanity check.
-        /// </summary>
-        /// <param name="value">
-        ///     used as the <see cref="char[]"/> to be converted as <see cref="int"/> value used for the sanity check.
-        /// </param>
-        /// <returns>
-        ///     <see cref="int"/> value used for the sanity check.
-        /// </returns>
-        private int CharAsInt(char[] value)
-        {
-            var stringBuilder = new StringBuilder(value.Length * 2);
-
-            foreach (var alphaNumber in value)
-                stringBuilder.Append(CharAsInt(alphaNumber));
-
-            if (!int.TryParse(stringBuilder.ToString(), out int result))
-                throw new ArgumentException(nameof(value));
-
-            return result;
-        }
-
-
-        // todo: convert as extension
-        
-        /// <summary>
-        ///     used as to convert a letter to an int.
-        /// </summary>
-        /// <param name="value">
-        ///     used as the char, that has to be converted.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     throws exception <paramref name="value"/> has not been found.
-        /// </exception>
-        /// <returns>
-        ///     <see cref="int"/> value of <paramref name="value"/> to be used for the sanity check.
-        /// </returns>
-        private int CharAsInt(char value)
-        {
-            var index = _alphabet.IndexOf(value);
-
-            // => value not found!
-            if (index == -1)
-                throw new ArgumentOutOfRangeException(nameof(value));
-
-            // => where 0 = 0, 1 = 1, ..., 9 = 9, A = 10, B = 11, ..., Z = 35
-            return index;
         }
     }
 }
