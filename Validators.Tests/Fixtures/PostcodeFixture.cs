@@ -11,13 +11,13 @@
     {
 
         /// <summary>
-        ///     used as the interface <see cref="IPostcodeValidator"/> to be used for the test classes.
+        ///     used as interface <see cref="IPostcodeValidator"/> to be used for the test classes.
         /// </summary>
         public IPostcodeValidator Validator { get; private set; }
 
 
         /// <summary>
-        ///     used as constructor logic to define the <see cref="Validator"/>
+        ///     used as constructor logic to define <see cref="Validator"/>
         /// </summary>
         public PostcodeFixture() => Validator = new PostcodeValidator();
     }

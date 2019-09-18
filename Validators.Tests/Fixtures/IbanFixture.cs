@@ -11,13 +11,13 @@
     {
 
         /// <summary>
-        ///     used as the interface <see cref="IIbanValidator"/> to be used for the test classes.
+        ///     used as interface <see cref="IIbanValidator"/> to be used for the test classes.
         /// </summary>
         public IIbanValidator Validator;
 
 
         /// <summary>
-        ///     used as constructor logic to define the <see cref="Validator"/>
+        ///     used as constructor logic to define <see cref="Validator"/>
         /// </summary>
         public IbanFixture() => Validator = new IbanValidator();
     }
