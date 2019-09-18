@@ -15,4 +15,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Fixtures\" />
+    <Folder Include="Tests\Formatters\" />
+    <Folder Include="Tests\Extensions\" />
+    <Folder Include="Tests\Indexers\" />
+    <Folder Include="Tests\Validators\Iban\" />
+    <Folder Include="Tests\Validators\Postcode\" />
+  </ItemGroup>
+
 </Project>
