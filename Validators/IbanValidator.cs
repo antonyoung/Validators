@@ -106,11 +106,8 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as how to format the <paramref name="match"/>, based on <seealso cref="_logic.DisplayFormat"/>.
+        ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
         /// </summary>
-        /// <param name="match">
-        ///     used as the <see cref="Group.Name"/> to format the result as expected. 
-        /// </param>
         /// <returns>
         ///     formatted value.
         /// </returns>
@@ -129,16 +126,13 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as to validate <paramref name="match"/>
+        ///     used as to validate <see cref="_match"/>
         /// </summary>
-        /// <param name="match">
-        /// 
-        /// </param>
         /// <param name="value">
-        ///     used as internal logic, to validate <paramref name="match"/> as length without wildcards.
+        ///     used as internal logic, to validate <see cref="_match"/> as length without wildcards.
         /// </param>
         /// <returns>
-        /// 
+        ///     <see cref="bool"/> true, if success else an <see cref="ErrorMessage"/> will be given.
         /// </returns>
         private bool IsMatch(string value)
         {
@@ -159,11 +153,8 @@ namespace Validators
 
 
         /// <summary>
-        ///     used to validate as sanity check, based on modules 97
+        ///     used to validate as sanity check, based on modules 97 created by <see cref="CreateSanityIndexer()"/>
         /// </summary>
-        /// <param name="match">
-        ///     used as the match of the regular expression to generate the sanity check.
-        /// </param>
         /// <returns>
         ///     <see cref="bool"/> depending if sanity is valid or not.
         /// </returns>
@@ -190,11 +181,8 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as the complete sanity check <see cref="GenericIndexer{T}"/> for given regular expression match.
+        ///     used as the complete sanity check <see cref="GenericIndexer{T}"/> for regular expression <see cref="_match"/>.
         /// </summary>
-        /// <param name="match">
-        ///     used as regular expression match for the sanity check.
-        /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     throws this exception, when it can not convert <paramref name="match"/> as an <see cref="int"/>.
         /// </exception>
