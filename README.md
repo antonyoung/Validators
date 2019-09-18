@@ -35,8 +35,8 @@ I admit I just copied this from internet, I am not sure how this system works.
 ```
 * C# .NET Core 2.2.0	  // => Validators
 * C# .NET Core 2.2.0      // => Formatters.Tests (xUnit) * With 36 tests => ~1 ms per test.
-* C# .NET Core 2.2.0      // => Iban.Tests (xUnit) * With 4 tests => ~10 ms per test.
-* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit) * With 145 tests =>  ~2 ms per test.
+* C# .NET Core 2.2.0      // => Iban.Tests (xUnit)       * With 28 tests => ~3 ms per test.
+* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit)   * With 145 tests =>  ~2 ms per test.
 
 ```
 ### Code examples ( PostcodeValidator )
@@ -68,12 +68,12 @@ result;             // => "0162GD"
 * **Happy flow**
 ```csharp
 bool isValid = new IbanValidator()
-   .Validate("NL71 INGB 1320 9490 10", out string result); // => result = "NL71 INGB 1320 9490 10", isValid = true
+   .Validate("NL71INGB1320949010", out string result); // => result = "NL71 INGB 1320 9490 10", isValid = true
 ```
 * **Or as** 
 ```csharp
 var test = new IbanValidator(); 
-test.Validate("NL71 INGB 1320 9490 10", out string result);
+test.Validate("NL71INGB1320949010", out string result);
 test.IsValid;       // => true					
 test.ErrorMessage   // => null
 test.Country        // => Countries.Netherlands
