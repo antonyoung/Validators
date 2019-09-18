@@ -42,10 +42,8 @@ namespace Validators.Extensions
         }
 
 
-        // todo: convert as extension
-
         /// <summary>
-        ///     used as to convert a letter to an int.
+        ///     used as to convert a alpha numeric to an int.
         /// </summary>
         /// <param name="value">
         ///     used as the char, that has to be converted.
