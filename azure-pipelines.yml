@@ -24,4 +24,4 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration Release --collect "Code coverage"'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
