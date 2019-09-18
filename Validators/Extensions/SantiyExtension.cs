@@ -28,6 +28,8 @@ namespace Validators.Extensions
         /// </returns>
         public static int CharAsInt(this char[] value)
         {
+            // todo: add value.length validation, can't be bigger than an int value, out of range exception.
+
             var stringBuilder = new StringBuilder(value.Length * 2);
 
             foreach (var alphaNumber in value)
