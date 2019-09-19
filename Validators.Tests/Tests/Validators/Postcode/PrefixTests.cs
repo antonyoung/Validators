@@ -1,19 +1,31 @@
-﻿using Validators.Tests.Fixtures;
-using Validators.Interfaces;
+﻿using Validators.Interfaces;
+using Validators.Tests.Fixtures;
 
 using Xunit;
 
 
-namespace Validators.Tests.Postcode.ode.Tests
+namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes with prefix
+    /// </summary>
+    [Collection("Postcodes")]
     public class PrefixTests
-        : IClassFixture<PostcodeFixture>
     {
 
+        /// <summary>
+        ///     used as constructor of this test class
+        /// </summary>
+        /// <param name="fixture">
+        ///     used as <seealso cref="IClassFixture{TFixture}"/> 
+        /// </param>
+        
+        public PrefixTests(PostcodeFixture fixture) 
+            => _postcodeValidator = fixture.Validator;
+
+
         private readonly IPostcodeValidator _postcodeValidator;
-
-
-        public PrefixTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
 
         private const string PREFIX_CROATIA = "HR-";
         private const string PREFIX_LATIVIA = "LV-";

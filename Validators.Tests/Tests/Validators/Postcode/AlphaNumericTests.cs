@@ -4,10 +4,10 @@ using Validators.Interfaces;
 using Xunit;
 
 
-namespace Validators.Tests.Postcode.AlphaNumericTests
+namespace Validators.Tests.Postcode
 {
+    [Collection("Postcodes")]
     public class AlphaNumericTests
-        : IClassFixture<PostcodeFixture>
     {
 
         private readonly IPostcodeValidator _postcodeValidator;

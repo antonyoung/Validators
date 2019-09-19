@@ -4,11 +4,11 @@ using Validators.Interfaces;
 using Xunit;
 
 
-namespace Validators.Tests.Postcode.Tests
+namespace Validators.Tests.Postcode
 {
+    [Collection("Postcodes")]
     public class HasLettersTests
-        : IClassFixture<PostcodeFixture>
-    {
+    { 
 
         private readonly IPostcodeValidator _postcodeValidator;
 

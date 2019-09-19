@@ -4,7 +4,7 @@ using Validators.Interfaces;
 using Xunit;
 
 
-namespace Validators.Tests.Postcode.Tests
+namespace Validators.Tests.Postcode
 {
 
     // Comment Code: Build failure via linux Azure DevOps pipeline, works fine as Build on Windows.
@@ -15,20 +15,19 @@ namespace Validators.Tests.Postcode.Tests
     //      The call is ambiguous between the following methods or properties: 'Record.Exception(Action)' and 'Record.Exception(Func<Task>)' 
     //      [/home/vsts/work/1/s/Postcode.Tests/Postcode.Tests.csproj]
 
+    [Collection("Postcodes")]
     public class ExceptionTests
-        : IClassFixture<PostcodeFixture>
     {
 
-        private readonly IPostcodeValidator _postcodeValidator;
-
-
         public ExceptionTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
+
+        private readonly IPostcodeValidator _postcodeValidator;
 
         //[Fact]
         //public void ThrowsArgumentExceptionOfCountry()
         //{
         //    var test = new PostcodeValidator();
-            
+
         //    void unknownCountry() => test.Validate(string.Empty, Countries.Amsterdam, out string result);
         //    Exception ex = Record.Exception(unknownCountry);
 
