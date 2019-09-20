@@ -1,16 +1,22 @@
 using Xunit;
-using Validators;
+using Validators.Tests.Fixtures;
+using Validators.Interfaces;
 
-namespace Iban.Tests
+namespace Validators.Tests.Iban
 {
-    public class UnitTest1
+
+    public class IbanTests
+        : IClassFixture<IbanFixture>
     {
-        private readonly IbanValidator _ibanValidator = new IbanValidator();
+
+        private readonly IIbanValidator _ibanValidator;
+
+        public IbanTests(IbanFixture fixture) => _ibanValidator = fixture.Validator;
 
         // todo: add sanityextension tests
 
         // => Bulgaria BG07TTBB94004773868743
-        
+
         // todo: add test of all european countries
         // todoL add test of all european countries lowercase
         // todo: add failure tests of all countries

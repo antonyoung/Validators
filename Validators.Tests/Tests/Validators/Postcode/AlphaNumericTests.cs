@@ -1,15 +1,18 @@
-﻿using Validators;
-using Validators.Interfaces;
-
+﻿using Validators.Interfaces;
 using Xunit;
 
 
-namespace Postcode.Tests
+namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes which are alpha numeric.
+    /// </summary>
     public class AlphaNumericTests
     {
 
-        private readonly PostcodeValidator _postcodeValidator = new PostcodeValidator();
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
+
 
         [Theory]
         [InlineData(Countries.UnitedKingdom, "EC1A 1BB")]
