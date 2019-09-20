@@ -4,6 +4,10 @@ using Xunit;
 
 namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes which are alpha numeric.
+    /// </summary>
     public class AlphaNumericTests
     {
 

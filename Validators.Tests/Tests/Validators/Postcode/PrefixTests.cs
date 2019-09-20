@@ -1,6 +1,4 @@
 ﻿using Validators.Interfaces;
-using Validators.Tests.Fixtures;
-
 using Xunit;
 
 
@@ -10,19 +8,8 @@ namespace Validators.Tests.Postcode
     /// <summary>
     ///     used as test class of postcodes with prefix
     /// </summary>
-    //[Collection("Postcodes")]
     public class PrefixTests
     {
-
-        /// <summary>
-        ///     used as constructor of this test class
-        /// </summary>
-        /// <param name="fixture">
-        ///     used as <seealso cref="IClassFixture{TFixture}"/> 
-        /// </param>
-
-        //public PrefixTests(PostcodeFixture fixture) 
-        //    => _postcodeValidator = fixture.Validator;
 
 
         private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();

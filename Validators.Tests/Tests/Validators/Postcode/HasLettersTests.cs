@@ -1,20 +1,20 @@
 using Validators.Interfaces;
 using Validators.Tests.Attributes;
-using Validators.Tests.Fixtures;
-
 using Xunit;
 
 
 namespace Validators.Tests.Postcode
 {
-    //[Collection("Postcodes")]
+
+    /// <summary>
+    ///     used as test class of postcodes which has letters in their postcode.
+    /// </summary>
     public class HasLettersTests
     {
 
+
         private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
 
-
-        //public HasLettersTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
 
         private const string NETHERLANDS = "1062 GD";
         private const string MALTA = "EDG 1062";
