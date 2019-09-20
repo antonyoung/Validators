@@ -101,8 +101,8 @@ namespace Validators
                 ?? throw new ArgumentException(nameof(value));
 
             // => use TwoLetterISORegionName from iban value as key
-            if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
-                throw new ArgumentException($"No matching country found for {value.Substring(0, 2).ToUpperInvariant()}.");
+            if (!_model.Rules.TryGetValue(result.Substring(0, 2).ToUpperInvariant(), out _logic))
+                throw new ArgumentException($"No matching country found for {result.Substring(0, 2).ToUpperInvariant()}.");
 
             _match = Regex.Match(result, _logic.RegexPattern);
 
@@ -222,15 +222,15 @@ namespace Validators
             var country = _match.Groups.Single(
                 group => group.Name.Equals(
                     "country", StringComparison.OrdinalIgnoreCase)
-                ).Value.ToCharArray().CharAsInt();
+                ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
 
             // => always get sanity number from bank name, in case match.Groups has a bank name?
-            int name = 0;
+            int bankCode = 0;
             if (_match.Groups.Any(item => item.Name.Equals("bank", StringComparison.OrdinalIgnoreCase)))
-                name = _match.Groups.Single(
+                bankCode = _match.Groups.Single(
                     group => group.Name.Equals(
                         "bank", StringComparison.OrdinalIgnoreCase)
-                    ).Value.ToCharArray().CharAsInt();
+                    ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
@@ -242,7 +242,7 @@ namespace Validators
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
 
                 if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), name.ToString());
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), bankCode.ToString());
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), group.Value);
