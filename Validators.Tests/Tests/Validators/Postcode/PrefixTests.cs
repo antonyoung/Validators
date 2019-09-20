@@ -1,13 +1,18 @@
-﻿using Xunit;
-using Validators;
-using Validators.Interfaces;
+﻿using Validators.Interfaces;
+using Xunit;
 
-namespace Postcode.Tests
+
+namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes with prefix
+    /// </summary>
     public class PrefixTests
     {
 
-        private readonly PostcodeValidator _postcodeValidator = new PostcodeValidator();
+
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
 
         private const string PREFIX_CROATIA = "HR-";
         private const string PREFIX_LATIVIA = "LV-";

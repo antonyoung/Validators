@@ -1,15 +1,19 @@
-using System;
+using System.Collections.Generic;
+using Validators.Formatters;
 using Xunit;
 
-using Validators.Formatters;
-using System.Collections.Generic;
 
-namespace Formatters.Tests
+namespace Validators.Tests.Formatters
 {
+
+    /// <summary>
+    ///     used as test class, to test the all postalcode formatters.
+    /// </summary>
     public class PostcodeFormatterTests
     {
+
         /// <summary>
-        ///     used as test data.
+        ///     used as internal test data, for this test class. Add additonal test data as you wish.
         /// </summary>
         public static readonly IEnumerable<object[]> TestData = new List<object[]>
         {
@@ -24,6 +28,14 @@ namespace Formatters.Tests
             new object[] { "HR-12345" }
         };
 
+
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="PostcodeFormatters.None"/>, 
+        ///     no formatting.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
         [Theory]
         [MemberData(nameof(TestData))]
         public void None(string value)
@@ -36,6 +48,13 @@ namespace Formatters.Tests
         }
 
 
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="PostcodeFormatters.Hyphens"/>, 
+        ///     formatting removes all hyphens if any.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
         [Theory]
         [MemberData(nameof(TestData))]
         public void Hyphens(string value)
@@ -48,6 +67,13 @@ namespace Formatters.Tests
         }
 
 
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="PostcodeFormatters.WhiteSpaces"/>, 
+        ///     formatting removes all whitespaces if any.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
         [Theory]
         [MemberData(nameof(TestData))]
         public void WhiteSpaces(string value)
@@ -60,11 +86,18 @@ namespace Formatters.Tests
         }
 
 
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="PostcodeFormatters.HyphensAndWhiteSpaces"/>, 
+        ///     formatting removes all hyphens and whitespaces if any.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
         [Theory]
         [MemberData(nameof(TestData))]
         public void HyphenAndWhiteSpaces(string value)
         {
-            // => validate with hyphens and whitespaces formatters
+            // => validate with hyphens and whitespaces formatter
             var result = value.Format(PostcodeFormatters.HyphensAndWhiteSpaces);
 
             // => success, result == value without hyphens and or whitespaces.

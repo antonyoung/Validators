@@ -1,21 +1,26 @@
-using Validators;
 using Validators.Interfaces;
-
+using Validators.Tests.Attributes;
 using Xunit;
 
 
-namespace Postcode.Tests
+namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes which has letters in their postcode.
+    /// </summary>
     public class HasLettersTests
     {
 
-        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
+
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
+
 
         private const string NETHERLANDS = "1062 GD";
         private const string MALTA = "EDG 1062";
 
 
-        [Theory]
+        [Theory, Priority(0)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void WithOutSpace(Countries country, string postcode)
@@ -35,7 +40,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(10)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void WithSingleSpace(Countries country, string postcode)
@@ -55,7 +60,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(20)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void WithDoubleSpace(Countries country, string postcode)
@@ -76,7 +81,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(30)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void WithHyphen(Countries country, string postcode)
@@ -98,7 +103,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(40)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void NoTrim(Countries country, string postcode)
@@ -118,7 +123,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(50)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void LowerCase(Countries country, string postcode)
@@ -138,7 +143,7 @@ namespace Postcode.Tests
         }
 
 
-        [Theory]
+        [Theory, Priority(60)]
         [InlineData(Countries.Netherlands, NETHERLANDS)]
         [InlineData(Countries.Malta, MALTA)]
         public void LeadingZero(Countries country, string postcode)

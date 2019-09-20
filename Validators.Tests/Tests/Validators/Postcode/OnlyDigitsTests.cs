@@ -1,13 +1,19 @@
-﻿using Xunit;
-using Validators;
-using Validators.Interfaces;
+﻿using Validators.Interfaces;
+using Xunit;
 
-namespace Postcode.Tests
+
+namespace Validators.Tests.Postcode
 {
+
+    /// <summary>
+    ///     used as test class of postcodes with has only didgets.
+    ///     these postcodes could have whitespace or an hyphen as format.
+    /// </summary>
     public class OnlyDigitsTests
     {
 
-        private PostcodeValidator _postcodeValidator = new PostcodeValidator();
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
+
 
         private const string DIGITS_4 = "4321";
         private const string DIGITS_5 = "54321";
