@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Validators.Extensions;
@@ -43,6 +44,16 @@ namespace Validators
         public IbanValidator() => _model = new IbanModel();
 
 
+        public string AccountNumber => GroupValues("account");
+
+
+        public byte CheckDidgets => byte.TryParse(GroupValues("checksum"), out byte result) ? result : result;
+        /// <summary>
+        ///     used as the country of the iban value. 
+        /// </summary>
+        public Countries Country => _logic.Country;
+
+
         /// <summary>
         ///     used as an iban example of a country.
         /// </summary>
@@ -56,16 +67,19 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as the country of the iban value. 
-        /// </summary>
-        public Countries Country => _logic.Country;
-
-
-        /// <summary>
         ///     used to validate given iban.
         ///     when false an <seealso cref="ErrorMessage"/> will be given.
         /// </summary>
         public bool IsValid { get; private set; }
+
+
+        public string NationalBankCode => GroupValues("bank");
+
+
+        public string NationalBranchCode => GroupValues("branch");
+
+
+        public byte? NationalCheckDidget => byte.TryParse(GroupValues("ncheck"), out byte result) ? (byte?)result : null;
 
 
         /// <summary>
@@ -104,6 +118,19 @@ namespace Validators
             return IsValid;
         }
 
+
+        private string GroupValues(string groupName)
+        {
+            var append = new StringBuilder();
+            var groups = _match.Groups.Where(group => group.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
+
+            foreach (Group group in groups)
+            {
+                append.Append(group.Value);
+            }
+
+            return append.Length == 0 ? null : append.ToString();
+        }
 
         /// <summary>
         ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
@@ -199,10 +226,10 @@ namespace Validators
 
             // => always get sanity number from bank name, in case match.Groups has a bank name?
             int name = 0;
-            if (_match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
+            if (_match.Groups.Any(item => item.Name.Equals("bank", StringComparison.OrdinalIgnoreCase)))
                 name = _match.Groups.Single(
                     group => group.Name.Equals(
-                        "name", StringComparison.OrdinalIgnoreCase)
+                        "bank", StringComparison.OrdinalIgnoreCase)
                     ).Value.ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
@@ -214,7 +241,7 @@ namespace Validators
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
 
-                if (group.Name.Equals("name", StringComparison.OrdinalIgnoreCase))
+                if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), name.ToString());
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
