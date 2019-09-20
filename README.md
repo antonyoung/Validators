@@ -34,10 +34,7 @@ I admit I just copied this from internet, I am not sure how this system works.
 ### Prerequisites
 ```
 * C# .NET Core 2.2.0	  // => Validators
-* C# .NET Core 2.2.0      // => Formatters.Tests (xUnit) * With 36 tests => ~1 ms per test.
-* C# .NET Core 2.2.0      // => Iban.Tests (xUnit)       * With 28 tests => ~3 ms per test.
-* C# .NET Core 2.2.0      // => Postcode.Tests (xUnit)   * With 145 tests =>  ~2 ms per test.
-
+* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 209 tests => ~2 ms per test.
 ```
 ### Code examples ( PostcodeValidator )
 
