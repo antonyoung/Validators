@@ -6,14 +6,14 @@ using Xunit;
 
 namespace Validators.Tests.Postcode
 {
-    [Collection("Postcodes")]
+    //[Collection("Postcodes")]
     public class OnlyDigitsTests
     {
 
-        private readonly IPostcodeValidator _postcodeValidator;
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
 
 
-        public OnlyDigitsTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
+        //public OnlyDigitsTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
 
         private const string DIGITS_4 = "4321";
         private const string DIGITS_5 = "54321";

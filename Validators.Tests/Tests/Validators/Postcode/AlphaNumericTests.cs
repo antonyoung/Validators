@@ -1,19 +1,13 @@
-﻿using Validators.Tests.Fixtures;
-using Validators.Interfaces;
-
+﻿using Validators.Interfaces;
 using Xunit;
 
 
 namespace Validators.Tests.Postcode
 {
-    [Collection("Postcodes")]
     public class AlphaNumericTests
     {
 
-        private readonly IPostcodeValidator _postcodeValidator;
-
-
-        public AlphaNumericTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
+        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
 
 
         [Theory]
