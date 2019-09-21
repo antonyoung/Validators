@@ -5,7 +5,7 @@
 
         string AccountNumber { get; }
 
-        byte CheckDidgets { get; }
+        byte CheckDigits { get; }
 
         Countries Country { get; }
 
@@ -19,7 +19,7 @@
 
         string NationalBranchCode { get; }
 
-        byte? NationalCheckDidget { get; }
+        byte? NationalCheckDigit { get; }
         
         bool Validate(string value, out string result);
     }

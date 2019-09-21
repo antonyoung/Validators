@@ -11,7 +11,7 @@ namespace Validators.Tests.TestModels
 
         public string AccountNumber { get; set; }
 
-        public byte CheckDidgets { get; set; }
+        public byte CheckDigits { get; set; }
 
         public Countries Country { get; set; }
 
@@ -25,7 +25,7 @@ namespace Validators.Tests.TestModels
 
         public string NationalBranchCode { get; set; }
 
-        public byte? NationalCheckDidget { get; set; }
+        public byte? NationalCheckDigit { get; set; }
 
         public bool Validate(string value, out string result) => throw new NotImplementedException();
     }

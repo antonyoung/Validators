@@ -43,11 +43,11 @@ namespace Validators.Tests.Iban
             // => check all properties of given iban value.
             Assert.Equal(model.AccountNumber, _ibanValidator.AccountNumber);
             Assert.Equal(model.Country, _ibanValidator.Country);
-            Assert.Equal(model.CheckDidgets, _ibanValidator.CheckDidgets);
+            Assert.Equal(model.CheckDigits, _ibanValidator.CheckDigits);
             Assert.Equal(model.Example, _ibanValidator.Example);
             Assert.Equal(model.NationalBankCode, _ibanValidator.NationalBankCode);
             Assert.Equal(model.NationalBranchCode, _ibanValidator.NationalBranchCode);
-            Assert.Equal(model.NationalCheckDidget, _ibanValidator.NationalCheckDidget);
+            Assert.Equal(model.NationalCheckDigit, _ibanValidator.NationalCheckDigit);
 
             // => formatted result as iban value with whitespaces
             Assert.Equal(model.Value, result);
