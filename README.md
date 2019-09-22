@@ -10,7 +10,7 @@ Started this little project in my spare time, because I noticed today (28 August
 The database contains postcodes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
 While the solution is really simple as long you know your regular expressions.
 
-Started with an iban validator, rules of countries still has to be defined, tests still has to be added and add formatters.
+Started with an iban validator, rules of 10 European countries still has to be defined, tests still has to be added and add formatters.
 
 ### Description
 
@@ -30,6 +30,8 @@ Used the following website [publications.europa.eu](http://publications.europa.e
 Source code works for all European countries as given on this website.
 Not sure how valid the regular expressions are for the Alpha Numeric postcodes for the countires Ireland and UK?
 I admit I just copied this from internet, I am not sure how this system works. 
+
+Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/International_Bank_Account_Number) as iban rules and as guide lines in Europe. 
  
 ### Prerequisites
 ```
@@ -76,10 +78,10 @@ test.ErrorMessage		// => null
 test.AccountNumber		// => "1320949010"
 test.Country			// => Countries.Netherlands
 test.CheckDigits		// => 71
-Test.NationalBankCode	// => INGB
-test.NationalBranchCode	// => null
-test.NationalCheckDigit	// => null
-result					// => "NL71 INGB 1320 9490 10"
+Test.NationalBankCode	        // => INGB
+test.NationalBranchCode	        // => null
+test.NationalCheckDigit	        // => null
+result:                         // => "NL71 INGB 1320 9490 10"
 ```
 
 ## Authors
