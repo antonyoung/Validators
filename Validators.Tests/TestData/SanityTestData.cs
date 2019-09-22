@@ -48,37 +48,7 @@ namespace Validators.Tests.TestData
             {
                 new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' },
                 101112131415161718
-            },
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' },
-            //    10111213141516171819
-            //},
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' },
-            //    BigInteger.Parse("1011121314151617181920")
-            //},
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M' },
-            //    BigInteger.Parse("101112131415161718192021")
-            //},
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N' },
-            //    BigInteger.Parse("10111213141516171819202122")
-            //},
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O' },
-            //    BigInteger.Parse("1011121314151617181920212223")
-            //},
-            //new object[] 
-            //{
-            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P' },
-            //    BigInteger.Parse("101112131415161718192021222324")
-            //}
+            }
         };
 
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
