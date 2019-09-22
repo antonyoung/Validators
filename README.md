@@ -34,7 +34,7 @@ I admit I just copied this from internet, I am not sure how this system works.
 ### Prerequisites
 ```
 * C# .NET Core 2.2.0	  // => Validators
-* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 209 tests => ~2 ms per test.
+* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 297 tests => < 2 ms per test.
 ```
 ### Code examples ( PostcodeValidator )
 
@@ -71,10 +71,15 @@ bool isValid = new IbanValidator()
 ```csharp
 var test = new IbanValidator(); 
 test.Validate("NL71INGB1320949010", out string result);
-test.IsValid;       // => true					
-test.ErrorMessage   // => null
-test.Country        // => Countries.Netherlands
-result              // => "NL71 INGB 1320 9490 10"
+test.IsValid;			// => true					
+test.ErrorMessage		// => null
+test.AccountNumber		// => "1320949010"
+test.Country			// => Countries.Netherlands
+test.CheckDigits		// => 71
+Test.NationalBankCode	// => INGB
+test.NationalBranchCode	// => null
+test.NationalCheckDigit	// => null
+result					// => "NL71 INGB 1320 9490 10"
 ```
 
 ## Authors
