@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Validators.Extensions;
@@ -15,6 +16,7 @@ namespace Validators
     /// <summary>
     ///     used as all business logic behind iban of European countries.
     ///     validates and formats the iban according to the iban country.
+    ///     also retrieves the account number, bank code, branch code, check digits, country and national check digit of the iban value, if any?
     /// </summary>
     public class IbanValidator
         : IIbanValidator
@@ -44,6 +46,22 @@ namespace Validators
 
 
         /// <summary>
+        ///     used as the account number of an iban value.
+        /// </summary>
+        public string AccountNumber => GroupValues("account");
+
+
+        /// <summary>
+        ///     used as the international check digits of the iban value. 
+        /// </summary>
+        public byte CheckDigits => byte.TryParse(GroupValues("checksum"), out byte result) ? result : result;
+        /// <summary>
+        ///     used as the country of the iban value. 
+        /// </summary>
+        public Countries Country => _logic.Country;
+
+
+        /// <summary>
         ///     used as an iban example of a country.
         /// </summary>
         public string Example { get => _logic.Example; }
@@ -56,16 +74,28 @@ namespace Validators
 
 
         /// <summary>
-        ///     used as the country of the iban value. 
-        /// </summary>
-        public Countries Country => _logic.Country;
-
-
-        /// <summary>
         ///     used to validate given iban.
         ///     when false an <seealso cref="ErrorMessage"/> will be given.
         /// </summary>
         public bool IsValid { get; private set; }
+
+
+        /// <summary>
+        ///     used as bank code, could contain alpha numeric values.
+        /// </summary>
+        public string NationalBankCode => GroupValues("bank");
+
+
+        /// <summary>
+        ///     used as the branch code of an iban value, if any?
+        /// </summary>
+        public string NationalBranchCode => GroupValues("branch");
+
+
+        /// <summary>
+        ///     used as the check digit of an iban value, if any?
+        /// </summary>
+        public byte? NationalCheckDigit => byte.TryParse(GroupValues("ncheck"), out byte result) ? (byte?)result : null;
 
 
         /// <summary>
@@ -87,8 +117,8 @@ namespace Validators
                 ?? throw new ArgumentException(nameof(value));
 
             // => use TwoLetterISORegionName from iban value as key
-            if (!_model.Rules.TryGetValue(value.Substring(0, 2).ToUpperInvariant(), out _logic))
-                throw new ArgumentException($"No matching country found for {value.Substring(0, 2).ToUpperInvariant()}.");
+            if (!_model.Rules.TryGetValue(result.Substring(0, 2).ToUpperInvariant(), out _logic))
+                throw new ArgumentException($"No matching country found for {result.Substring(0, 2).ToUpperInvariant()}.");
 
             _match = Regex.Match(result, _logic.RegexPattern);
 
@@ -102,26 +132,6 @@ namespace Validators
                 : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
             
             return IsValid;
-        }
-
-
-        /// <summary>
-        ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
-        /// </summary>
-        /// <returns>
-        ///     formatted value.
-        /// </returns>
-        private string Format()
-        {
-            string result = _logic.DisplayFormat;
-
-            foreach (Group group in _match.Groups)
-            {
-                if (!string.IsNullOrWhiteSpace(group.Value))
-                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
-            }
-
-            return result.ToUpperInvariant();
         }
 
 
@@ -195,15 +205,15 @@ namespace Validators
             var country = _match.Groups.Single(
                 group => group.Name.Equals(
                     "country", StringComparison.OrdinalIgnoreCase)
-                ).Value.ToCharArray().CharAsInt();
+                ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
 
-            // => always get sanity number from bank name, in case match.Groups has a bank name?
-            int name = 0;
-            if (_match.Groups.Any(item => item.Name.Equals("name", StringComparison.OrdinalIgnoreCase)))
-                name = _match.Groups.Single(
+            // => always get sanity number from bank code
+            Int64 bankCode = 0;
+            if (_match.Groups.Any(item => item.Name.Equals("bank", StringComparison.OrdinalIgnoreCase)))
+                bankCode = _match.Groups.Single(
                     group => group.Name.Equals(
-                        "name", StringComparison.OrdinalIgnoreCase)
-                    ).Value.ToCharArray().CharAsInt();
+                        "bank", StringComparison.OrdinalIgnoreCase)
+                    ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
             
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
@@ -214,8 +224,8 @@ namespace Validators
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
 
-                if (group.Name.Equals("name", StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), name.ToString());
+                if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), bankCode.ToString());
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), group.Value);
@@ -230,6 +240,49 @@ namespace Validators
                 formatAsNumbers.ToCharArray()
                     .Select(value => { return byte.Parse(value.ToString()); })
                 );
+        }
+
+
+        /// <summary>
+        ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
+        /// </summary>
+        /// <returns>
+        ///     formatted value.
+        /// </returns>
+        private string Format()
+        {
+            string result = _logic.DisplayFormat;
+
+            foreach (Group group in _match.Groups)
+            {
+                if (!string.IsNullOrWhiteSpace(group.Value))
+                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+            }
+
+            return result.ToUpperInvariant();
+        }
+
+
+        /// <summary>
+        ///     used to append all values in given <paramref name="groupName"/> from the regular expression <see cref="_match"/>
+        /// </summary>
+        /// <param name="groupName">
+        ///     used as the group name to be used.
+        /// </param>
+        /// <returns>
+        ///     the appended values of <paramref name="groupName"/>
+        ///     null, if nothing has been found.
+        /// </returns>
+        private string GroupValues(string groupName)
+        {
+            var append = new StringBuilder();
+            var groups = _match.Groups.Where(
+                group => group.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
+
+            foreach (Group group in groups)
+                append.Append(group.Value);
+            
+            return append.Length == 0 ? null : append.ToString();
         }
     }
 }

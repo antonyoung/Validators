@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Validators.Formatters;
+using Validators.Tests.TestData;
 using Xunit;
 
 
@@ -13,23 +13,6 @@ namespace Validators.Tests.Formatters
     {
 
         /// <summary>
-        ///     used as internal test data, for this test class. Add additonal test data as you wish.
-        /// </summary>
-        public static readonly IEnumerable<object[]> TestData = new List<object[]>
-        {
-            new object[] { "EC1A 1BB" },
-            new object[] { "1062 GD" },
-            new object[] { "EDG 1062" },
-            new object[] { "54321" },
-            new object[] { "123 45" },
-            new object[] { "12-345" },
-            new object[] { "123-45" },
-            new object[] { "SE-434 78" },
-            new object[] { "HR-12345" }
-        };
-
-
-        /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="PostcodeFormatters.None"/>, 
         ///     no formatting.
         /// </summary>
@@ -37,7 +20,7 @@ namespace Validators.Tests.Formatters
         ///     used as the value to be formatted.
         /// </param>
         [Theory]
-        [MemberData(nameof(TestData))]
+        [ClassData(typeof(PostcodeFormatterTestData))]
         public void None(string value)
         {
             // => validate without formatting
@@ -56,7 +39,7 @@ namespace Validators.Tests.Formatters
         ///     used as the value to be formatted.
         /// </param>
         [Theory]
-        [MemberData(nameof(TestData))]
+        [ClassData(typeof(PostcodeFormatterTestData))]
         public void Hyphens(string value)
         {
             // => validate with hyphen formatter.
@@ -75,7 +58,7 @@ namespace Validators.Tests.Formatters
         ///     used as the value to be formatted.
         /// </param>
         [Theory]
-        [MemberData(nameof(TestData))]
+        [ClassData(typeof(PostcodeFormatterTestData))]
         public void WhiteSpaces(string value)
         {
             // => validate with whitespace formatter
@@ -94,7 +77,7 @@ namespace Validators.Tests.Formatters
         ///     used as the value to be formatted.
         /// </param>
         [Theory]
-        [MemberData(nameof(TestData))]
+        [ClassData(typeof(PostcodeFormatterTestData))]
         public void HyphenAndWhiteSpaces(string value)
         {
             // => validate with hyphens and whitespaces formatter

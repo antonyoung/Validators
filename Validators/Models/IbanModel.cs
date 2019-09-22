@@ -50,7 +50,7 @@ namespace Validators.Models
         // <checksum>   => kk: 2 didgets
         // <bank>       => b: bank code
         // <account>    => c: account number
-        // <check>      => x: check didgets
+        // <ncheck>      => x: check didgets
         // <type>       => t: account type
         // <branch>     => s: branch code
 
@@ -68,7 +68,7 @@ namespace Validators.Models
                         RegexPattern = @"(?<country>^(?i)AT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
                         DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3>",
                         SanityFormat = "<bank1><bank2><account1><account2><account3><country><checksum>",
-                        Example = "NLKK CCCC CNNN NNNN NNNN",
+                        Example = "ATKK BBBB BNNN NNNN NNNN",
                         Length = 20,
                         Country = Countries.Austria
                     }
@@ -77,10 +77,10 @@ namespace Validators.Models
                 { "BE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)BE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2})(?<whitespace>\s?)(?<check>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank><account1> <account2> <account3><check>",
-                        SanityFormat = "<bank><account1><account2><account3><check><country><checksum>",
-                        Example = "BEKK CCCN NNNN NNXX",
+                        RegexPattern = @"(?<country>^(?i)BE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2})(?<whitespace>\s?)(?<ncheck>[0-9]{2}$)",
+                        DisplayFormat ="<country><checksum> <bank><account1> <account2> <account3><ncheck>",
+                        SanityFormat = "<bank><account1><account2><account3><ncheck><country><checksum>",
+                        Example = "BEKK BBBN NNNN NNXX",
                         Length = 16,
                         Country = Countries.Belgium
                     }
@@ -125,9 +125,9 @@ namespace Validators.Models
 				{ "EE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)EE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch>[0-9]{2})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<check>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch> <account1> <account2> <account3><check>",
-                        SanityFormat = "<bank><branch><account1><account2><account3><check><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)EE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch>[0-9]{2})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<ncheck>[0-9]{1}$)",
+                        DisplayFormat ="<country><checksum> <bank><branch> <account1> <account2> <account3><ncheck>",
+                        SanityFormat = "<bank><branch><account1><account2><account3><ncheck><country><checksum>",
                         Example = "EEKK BBSS NNNN NNNN NNNX",
                         Length = 20,
                         Country = Countries.Estonia
@@ -137,9 +137,9 @@ namespace Validators.Models
 				{ "FI",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)FI)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<check>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3><check>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><check><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)FI)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<ncheck>[0-9]{1}$)",
+                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3><ncheck>",
+                        SanityFormat = "<bank1><bank2><account1><account2><account3><ncheck><country><checksum>",
                         Example = "FIKK BBBB BBNN NNNN NX",
                         Length = 18,
                         Country = Countries.Finland
@@ -161,9 +161,9 @@ namespace Validators.Models
 				{ "HU",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)HU)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<check1>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{3})(?<check2>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><check1> <account1> <account2> <account3> <account4><check2>",
-                        SanityFormat = "<bank><branch1><branch2><check1><account1><account2><account3><account4><check2><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)HU)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<ncheck1>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{3})(?<ncheck2>[0-9]{1}$)",
+                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><ncheck1> <account1> <account2> <account3> <account4><ncheck2>",
+                        SanityFormat = "<bank><branch1><branch2><ncheck1><account1><account2><account3><account4><ncheck2><country><checksum>",
                         Example = "HUKK BBBS SSSX NNNN NNNN NNNN NNNX",
                         Length = 28,
                         Country = Countries.Hungary
@@ -173,10 +173,10 @@ namespace Validators.Models
 				{ "LT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)LT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
+                        RegexPattern = @"(?<country>^(?i)LT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
                         DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3>",
                         SanityFormat = "<bank1><bank2><account1><account2><account3><country><checksum>",
-                        Example = "DEKK BBBB BNNN NNNN NNNN",
+                        Example = "LTKK BBBB BNNN NNNN NNNN",
                         Length = 20,
                         Country = Countries.Lithuania
                     }
@@ -185,9 +185,9 @@ namespace Validators.Models
                 { "NL",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)NL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <name> <account1> <account2> <account3>",
-                        SanityFormat = "<name><account1><account2><account3><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)NL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
+                        DisplayFormat ="<country><checksum> <bank> <account1> <account2> <account3>",
+                        SanityFormat = "<bank><account1><account2><account3><country><checksum>",
                         Example = "NLKK BBBB NNNN NNNN NN",
                         Length = 18,
                         Country = Countries.Netherlands
@@ -197,9 +197,9 @@ namespace Validators.Models
                 { "PL",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)PL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<check>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><check> <account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><branch1><branch2><check><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)PL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<ncheck>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
+                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><ncheck> <account1> <account2> <account3> <account4>",
+                        SanityFormat = "<bank><branch1><branch2><ncheck><account1><account2><account3><account4><country><checksum>",
                         Example = "PLKK BBBS SSSX NNNN NNNN NNNN NNNN",
                         Length = 28,
                         Country = Countries.Poland
@@ -209,9 +209,9 @@ namespace Validators.Models
                 { "PT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)PT)(?<checksum>50)(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<check1>[0-9]{1})(?<whitespace>\s?)(?<check2>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch> <account1> <account2> <account3><check1> <check2>",
-                        SanityFormat = "<bank><branch><account1><account2><account3><check1><check2><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)PT)(?<checksum>50)(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<ncheck1>[0-9]{1})(?<whitespace>\s?)(?<ncheck2>[0-9]{1}$)",
+                        DisplayFormat ="<country><checksum> <bank> <branch> <account1> <account2> <account3><ncheck1> <ncheck2>",
+                        SanityFormat = "<bank><branch><account1><account2><account3><ncheck1><ncheck2><country><checksum>",
                         Example = "PT50 BBBB SSSS NNNN NNNN NNNX X",
                         Length = 25,
                         Country = Countries.Portugal
@@ -233,9 +233,9 @@ namespace Validators.Models
                 { "SI",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)SI)(?<checksum>56)(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch1>[0-9]{2})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<check>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><account1> <account2> <account3><check>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><check><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)SI)(?<checksum>56)(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch1>[0-9]{2})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<ncheck>[0-9]{2}$)",
+                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><account1> <account2> <account3><ncheck>",
+                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><ncheck><country><checksum>",
                         Example = "SI56 BBSS SSNN NNNN NXX",
                         Length = 19,
                         Country = Countries.Slovenia
@@ -245,9 +245,9 @@ namespace Validators.Models
                 { "ES",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)ES)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<check>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch> <check><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch><check><account1><account2><account3><country><checksum>",
+                        RegexPattern = @"(?<country>^(?i)ES)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<ncheck>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
+                        DisplayFormat ="<country><checksum> <bank> <branch> <ncheck><account1> <account2> <account3>",
+                        SanityFormat = "<bank><branch><ncheck><account1><account2><account3><country><checksum>",
                         Example = "ESKK BBBB SSSS XXNN NNNN NNNN",
                         Length = 24,
                         Country = Countries.Spain
@@ -269,10 +269,10 @@ namespace Validators.Models
                 { "GB",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)GB)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<name>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <name> <branch1> <branch2><account1> <account2> <account3>",
-                        SanityFormat = "<name><branch1><branch2><account1><account2><account3><country><checksum>",
-                        Example = "GBKK AAAA RRRR RRNN NNNN NN",
+                        RegexPattern = @"(?<country>^(?i)GB)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
+                        DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3>",
+                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><country><checksum>",
+                        Example = "GBKK BBBB SSSS SSNN NNNN NN",
                         Length = 22,
                         Country = Countries.UnitedKingdom
                     }

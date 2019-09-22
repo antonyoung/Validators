@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Tests\Extensions\" />
     <Folder Include="Tests\Indexers\" />
   </ItemGroup>
 
