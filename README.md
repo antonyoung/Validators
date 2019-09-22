@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/antonyoung/Validator/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/Validator/_build/latest?definitionId=3&branchName=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-## Postcode validator and formatter (C#) .Net Core
+## Postcode and IBAN validator and formatter (C#) .Net Core
 
 Validates and formats European postcodes, plus setup validating international bank account numbers (iban.)
 
