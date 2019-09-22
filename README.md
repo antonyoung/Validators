@@ -10,11 +10,11 @@ Started this little project in my spare time, because I noticed today (28 August
 The database contains postcodes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
 While the solution is really simple as long you know your regular expressions.
 
-Started with an iban validator, rules of 10 European countries still has to be defined, tests still has to be added and add formatters.
+Started with an iban validator, rules, 10 European countries still has to be defined, add their additional tests and add in general the ibnan formatters.
 
 ### Description
 
-This is a simple and fast European postcode validator and formatter. 
+This is a simple and fast European postcode and iban validator and formatter. 
 Could be easily extended to add countries around the world.
 
 As validation regular expressions are used with group names. 
@@ -78,7 +78,7 @@ test.ErrorMessage		// => null
 test.AccountNumber		// => "1320949010"
 test.Country			// => Countries.Netherlands
 test.CheckDigits		// => 71
-Test.NationalBankCode	        // => INGB
+Test.NationalBankCode	        // => "INGB"
 test.NationalBranchCode	        // => null
 test.NationalCheckDigit	        // => null
 result:                         // => "NL71 INGB 1320 9490 10"
