@@ -4,7 +4,7 @@ using Validators.Tests.TestData;
 using Xunit;
 
 
-/// Ubuntu => Latest version, does not happen with windows?
+/// Ubuntu => Latest version, does not happen with windows? see also 
 /// Restore completed in 49.54 ms for /home/vsts/work/1/s/Validators.Tests/Validators.Tests.csproj.
 /// Restore completed in 49.44 ms for /home/vsts/work/1/s/Validators/Validators.csproj.
 /// Validators -> /home/vsts/work/1/s/Validators/bin/Release/netcoreapp2.2/Validators.dll
