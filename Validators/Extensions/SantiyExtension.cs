@@ -6,7 +6,7 @@ namespace Validators.Extensions
 {
 
     /// <summary>
-    ///     used as extension to convert <see cref="Char[]"/> as an <see cref="int"/>, used for iban value sanity check.
+    ///     used as extension to convert <see cref="Char[]"/> as an <see cref="Int64"/>, used for iban value sanity check.
     /// </summary>
     public static class SanityExtension
     {
@@ -21,21 +21,19 @@ namespace Validators.Extensions
         ///     used as the values that has to be converted to int for the sanity check.
         /// </summary>
         /// <param name="value">
-        ///     used as the <see cref="char[]"/> to be converted as <see cref="int"/> value used for the sanity check.
+        ///     used as the <see cref="char[]"/> to be converted as <see cref="Int64"/> value used for the sanity check.
         /// </param>
         /// <returns>
-        ///     <see cref="int"/> value used for the sanity check.
+        ///     <see cref="Int64"/> value used for the sanity check.
         /// </returns>
-        public static int CharAsInt(this char[] value)
+        public static Int64 CharAsInt(this char[] value)
         {
-            // todo: add value.length validation, can't be bigger than an int value, out of range exception.
-
             var stringBuilder = new StringBuilder(value.Length * 2);
 
             foreach (var alphaNumber in value)
                 stringBuilder.Append(CharAsInt(alphaNumber));
 
-            if (!int.TryParse(stringBuilder.ToString(), out int result))
+            if (!Int64.TryParse(stringBuilder.ToString(), out Int64 result))
                 throw new ArgumentException(nameof(value));
 
             return result;

@@ -208,7 +208,7 @@ namespace Validators
                 ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
 
             // => always get sanity number from bank code
-            int bankCode = 0;
+            Int64 bankCode = 0;
             if (_match.Groups.Any(item => item.Name.Equals("bank", StringComparison.OrdinalIgnoreCase)))
                 bankCode = _match.Groups.Single(
                     group => group.Name.Equals(
