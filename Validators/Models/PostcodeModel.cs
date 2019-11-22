@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Validators.Enums;
 using Validators.Interfaces;
 
 
