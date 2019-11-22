@@ -42,6 +42,7 @@ namespace Validators.Tests.Iban
 
             // => check all properties of given iban value.
             Assert.Equal(model.AccountNumber, _ibanValidator.AccountNumber);
+            Assert.Equal(model.AccountType, _ibanValidator.AccountType);
             Assert.Equal(model.Country, _ibanValidator.Country);
             Assert.Equal(model.CheckDigits, _ibanValidator.CheckDigits);
             Assert.Equal(model.Example, _ibanValidator.Example);

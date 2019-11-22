@@ -198,7 +198,7 @@ namespace Validators.Models
 				{ "GR",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)GR)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4})(?<whitespace>\s?)(?<account5>[0-9]{3}$)",
+                        RegexPattern = @"(?<country>^(?i)GR)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4})(?<whitespace>\s?)(?<account5>[0-9]{3}$)",
                         DisplayFormat ="<country><checksum> <bank><branch1> <branch2><account1> <account2> <account3> <account4> <account5>",
                         SanityFormat = "<bank><branch1><branch2><account1><account2><account3><account4><account5><country><checksum>",
                         Example = "GRKK BBBS SSSC CCCC CCCC CCCC CCC",

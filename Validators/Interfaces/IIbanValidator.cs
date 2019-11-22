@@ -6,6 +6,8 @@ namespace Validators.Interfaces
     {
 
         string AccountNumber { get; }
+            
+        string AccountType { get; }
 
         byte CheckDigits { get; }
 

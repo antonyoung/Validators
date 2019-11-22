@@ -11,7 +11,9 @@ namespace Validators.Tests.TestModels
         public string Value { get; set; }
 
         public string AccountNumber { get; set; }
-
+        
+        public string AccountType { get; set; }
+        
         public byte CheckDigits { get; set; }
 
         public Countries Country { get; set; }

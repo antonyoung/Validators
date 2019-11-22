@@ -53,6 +53,8 @@ namespace Validators
         public string AccountNumber => GroupValues("account");
 
 
+        public string AccountType => GroupValues("bban");
+
         /// <summary>
         ///     used as the international check digits of the iban value. 
         /// </summary>
