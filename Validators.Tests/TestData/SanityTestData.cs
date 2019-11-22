@@ -28,26 +28,26 @@ namespace Validators.Tests.TestData
             {
                 new char[] { 'A', 'B', 'C', 'D', 'E' },
                 1011121314
-            },
-            new object[] {
-                new char[] { 'A', 'B', 'C', 'D', 'E', 'F' },
-                101112131415
-            },
-            new object[] 
-            {
-                new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G' },
-                10111213141516
-            },
-            new object[] 
-            {
-                new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' },
-                1011121314151617
-            },
-            new object[] 
-            {
-                new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' },
-                101112131415161718
             }
+            //new object[] {
+            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F' },
+            //    101112131415
+            //},
+            //new object[] 
+            //{
+            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G' },
+            //    10111213141516
+            //},
+            //new object[] 
+            //{
+            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' },
+            //    1011121314151617
+            //},
+            //new object[] 
+            //{
+            //    new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' },
+            //    101112131415161718
+            //}
         };
 
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
