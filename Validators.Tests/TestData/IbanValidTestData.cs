@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Validators.Enums;
-using Validators.Interfaces;
 using Validators.Tests.TestModels;
 
 
@@ -13,16 +12,16 @@ namespace Validators.Tests.TestData
     {
 
         //  todo: add following test ibans
-        //  BG77 STSA 9300 1398 8332 79
-        //  CY61 9441 1634 1695 6269 2359 9979
+        //  * BG77 STSA 9300 1398 8332 79
+        //  * CY61 9441 1634 1695 6269 2359 9979
         //  FR94 1273 9000 3033 3857 4342 N27
-        //  GR52 0179 7165 4546 6367 7356 532
-        //  IE44 BOFI 9000 1739 2177
+        //  * GR52 0179 7165 4546 6367 7356 532
+        //  * IE44 BOFI 9000 1739 2177
         //  IT11 M030 0203 2808 5811 3313 922
-        //  => Lativia: 	LV80 BANK 0000 4351 9500 1
-        //  LU89 0105 6393 2177 8274
-        //  MT46 OAVL 2242 3413 9526 3277 8597 695
-        //  RO04 RZBR 5898 6478 5349 8572
+        //  * LV80 BANK 0000 4351 9500 1
+        //  * LU89 0105 6393 2177 8274
+        //  * MT46 OAVL 2242 3413 9526 3277 8597 695
+        //  * RO04 RZBR 5898 6478 5349 8572
 
 
         /// <summary>
@@ -38,10 +37,7 @@ namespace Validators.Tests.TestData
                     Country = Countries.Austria,
                     CheckDigits = 37,
                     Example = "ATKK BBBB BNNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "32195",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "33447157523"
                 }
             },
@@ -53,11 +49,23 @@ namespace Validators.Tests.TestData
                     Country = Countries.Belgium,
                     CheckDigits = 83,
                     Example = "BEKK BBBN NNNN NNXX",
-                    ErrorMessage = null,
                     NationalBankCode = "548",
-                    NationalBranchCode = null,
                     NationalCheckDigit = 15,
                     AccountNumber = "3187497"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "BG77 STSA 9300 1398 8332 79",
+                    Country = Countries.Bulgaria,
+                    CheckDigits = 77,
+                    Example = "BGKK BBBB SSSS TTCC CCCC CC",
+                    NationalBankCode = "STSA",
+                    NationalBranchCode = "9300",
+                    AccountNumber = "98833279",
+                    AccountType = "13"
                 }
             },
             new object[]
@@ -68,11 +76,21 @@ namespace Validators.Tests.TestData
                     Country = Countries.Croatia,
                     CheckDigits = 55,
                     Example = "HRKK BBBB BBBN NNNN NNNN N",
-                    ErrorMessage = null,
                     NationalBankCode = "2484008",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "4651834179"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "CY61 9441 1634 1695 6269 2359 9979",
+                    Country = Countries.Cyprus,
+                    CheckDigits = 61,
+                    Example = "CYKK BBBS SSSS CCCC CCCC CCCC CCCC",
+                    NationalBankCode = "944",
+                    NationalBranchCode = "11634",
+                    AccountNumber = "1695626923599979"
                 }
             },
             new object[]
@@ -83,10 +101,8 @@ namespace Validators.Tests.TestData
                     Country = Countries.Czechia,
                     CheckDigits = 65,
                     Example = "CZKK BBBB SSSS SSNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "5051",
                     NationalBranchCode = "835373",
-                    NationalCheckDigit = null,
                     AccountNumber = "9933897417"
                 }
             },
@@ -98,10 +114,7 @@ namespace Validators.Tests.TestData
                     Country = Countries.Denmark,
                     CheckDigits = 65,
                     Example = "DKKK BBBB NNNN NNNN NN",
-                    ErrorMessage = null,
                     NationalBankCode = "5051",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "8748763752"
                 }
             },
@@ -113,7 +126,6 @@ namespace Validators.Tests.TestData
                     Country = Countries.Estonia,
                     CheckDigits = 97,
                     Example = "EEKK BBSS NNNN NNNN NNNX",
-                    ErrorMessage = null,
                     NationalBankCode = "12",
                     NationalBranchCode = "75",
                     NationalCheckDigit = 9,
@@ -128,11 +140,23 @@ namespace Validators.Tests.TestData
                     Country = Countries.Finland,
                     CheckDigits = 78,
                     Example = "FIKK BBBB BBNN NNNN NX",
-                    ErrorMessage = null,
                     NationalBankCode = "425355",
-                    NationalBranchCode = null,
                     NationalCheckDigit = 5,
                     AccountNumber = "9115587"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "FR94 1273 9000 3033 3857 4342 N27",
+                    Country = Countries.France,
+                    CheckDigits = 94,
+                    Example = "FRKK BBBB BSSS SSCC CCCC CCCC CXX",
+                    NationalBankCode = "12739",
+                    NationalBranchCode = "00030",
+                    NationalCheckDigit = 27,
+                    AccountNumber = "3338574342N"
                 }
             },
             new object[]
@@ -143,11 +167,21 @@ namespace Validators.Tests.TestData
                     Country = Countries.Germany,
                     CheckDigits = 48,
                     Example = "DEKK BBBB BBBB NNNN NNNN NN",
-                    ErrorMessage = null,
                     NationalBankCode = "50010517",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "9774122948"
+                }
+            },
+           new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "GR52 0179 7165 4546 6367 7356 532",
+                    Country = Countries.Greece,
+                    CheckDigits = 52,
+                    Example = "GRKK BBBS SSSC CCCC CCCC CCCC CCC",
+                    NationalBankCode = "017",
+                    NationalBranchCode = "9716",
+                    AccountNumber = "5454663677356532"
                 }
             },
             new object[]
@@ -158,7 +192,6 @@ namespace Validators.Tests.TestData
                     Country = Countries.Hungary,
                     CheckDigits = 12,
                     Example = "HUKK BBBS SSSX NNNN NNNN NNNN NNNX",
-                    ErrorMessage = null,
                     NationalBankCode = "107",
                     NationalBranchCode = "0002",
                     NationalCheckDigit = 42,
@@ -169,15 +202,77 @@ namespace Validators.Tests.TestData
             {
                 new IbanTestModel
                 {
+                    Value = "IE44 BOFI 9000 1739 2177",
+                    Country = Countries.Ireland,
+                    CheckDigits = 44,
+                    Example = "IEKK BBBB SSSS SSCC CCCC",
+                    NationalBankCode = "BOFI",
+                    NationalBranchCode = "900017",
+                    AccountNumber = "392177"
+                }
+            },
+            //    * Italy,            // => 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "IT11 M030 0203 2808 5811 3313 922",
+                    Country = Countries.Italy,
+                    CheckDigits = 11,
+                    Example = "ITKK XBBB BBSS SSSC CCCC CCCC CCC",
+                    NationalBankCode = "03002",
+                    NationalBranchCode = "03280",
+                    // => NationalCheckDigit = "M",  feckin' Italians using a check char. instead of a digit!
+                    AccountNumber = "858113313922"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "LV80 BANK 0000 4351 9500 1",
+                    Country = Countries.Latvia,
+                    CheckDigits = 80,
+                    Example = "LVKK BBBB CCCC CCCC CCCC C",
+                    NationalBankCode = "BANK",
+                    AccountNumber = "0000435195001"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
                     Value = "LT22 6285 8538 7987 6641",
                     Country = Countries.Lithuania,
                     CheckDigits = 22,
                     Example = "LTKK BBBB BNNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "62858",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "53879876641"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "LU89 0105 6393 2177 8274",
+                    Country = Countries.Luxembourg,
+                    CheckDigits = 89,
+                    Example = "LUKK BBBC CCCC CCCC CCCC",
+                    NationalBankCode = "010",
+                    AccountNumber = "5639321778274"
+                }
+            },
+            new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "MT46 OAVL 2242 3413 9526 3277 8597 695",
+                    Country = Countries.Malta,
+                    CheckDigits = 46,
+                    Example = "MTKK BBBB SSSS SCCC CCCC CCCC CCCC CCC",
+                    NationalBankCode = "OAVL",
+                    NationalBranchCode = "22423",
+                    AccountNumber = "413952632778597695"
                 }
             },
             new object[]
@@ -188,10 +283,7 @@ namespace Validators.Tests.TestData
                     Country = Countries.Netherlands,
                     CheckDigits = 22,
                     Example = "NLKK BBBB NNNN NNNN NN",
-                    ErrorMessage = null,
                     NationalBankCode = "ABNA",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "6034837898"
                 }
             },
@@ -203,7 +295,6 @@ namespace Validators.Tests.TestData
                     Country = Countries.Poland,
                     CheckDigits = 50,
                     Example = "PLKK BBBS SSSX NNNN NNNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "109",
                     NationalBranchCode = "0240",
                     NationalCheckDigit = 2,
@@ -218,11 +309,22 @@ namespace Validators.Tests.TestData
                     Country = Countries.Portugal,
                     CheckDigits = 50,
                     Example = "PT50 BBBB SSSS NNNN NNNN NNNX X",
-                    ErrorMessage = null,
                     NationalBankCode = "0035",
                     NationalBranchCode = "0651",
                     NationalCheckDigit = 13,
                     AccountNumber = "21597249448"
+                }
+            },
+             new object[]
+            {
+                new IbanTestModel
+                {
+                    Value = "RO04 RZBR 5898 6478 5349 8572",
+                    Country = Countries.Romania,
+                    CheckDigits = 04,
+                    Example = "ROKK BBBB CCCC CCCC CCCC CCCC",
+                    NationalBankCode = "RZBR",
+                    AccountNumber = "5898647853498572"
                 }
             },
             new object[]
@@ -233,10 +335,8 @@ namespace Validators.Tests.TestData
                     Country = Countries.Slovakia,
                     CheckDigits = 28,
                     Example = "SKKK BBBB SSSS SSNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "7742",
                     NationalBranchCode = "451312",
-                    NationalCheckDigit = null,
                     AccountNumber = "8861628345"
                 }
             },
@@ -248,7 +348,6 @@ namespace Validators.Tests.TestData
                     Country = Countries.Slovenia,
                     CheckDigits = 56,
                     Example = "SI56 BBSS SSNN NNNN NXX",
-                    ErrorMessage = null,
                     NationalBankCode = "83",
                     NationalBranchCode = "3917",
                     NationalCheckDigit = 31,
@@ -263,7 +362,6 @@ namespace Validators.Tests.TestData
                     Country = Countries.Spain,
                     CheckDigits = 44,
                     Example = "ESKK BBBB SSSS XXNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "0075",
                     NationalBranchCode = "3585",
                     NationalCheckDigit = 81,
@@ -278,10 +376,7 @@ namespace Validators.Tests.TestData
                     Country = Countries.Sweden,
                     CheckDigits = 44,
                     Example = "SEKK BBBN NNNN NNNN NNNN NNNN",
-                    ErrorMessage = null,
                     NationalBankCode = "875",
-                    NationalBranchCode = null,
-                    NationalCheckDigit = null,
                     AccountNumber = "56616314341432154"
                 }
             },
@@ -293,10 +388,8 @@ namespace Validators.Tests.TestData
                     Country = Countries.UnitedKingdom,
                     CheckDigits = 20,
                     Example = "GBKK BBBB SSSS SSNN NNNN NN",
-                    ErrorMessage = null,
                     NationalBankCode = "BARC",
                     NationalBranchCode = "200318",
-                    NationalCheckDigit = null,
                     AccountNumber = "16528558"
                 }
             }
