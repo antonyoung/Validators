@@ -65,7 +65,7 @@ namespace Validators.Tests.TestData
                     NationalBankCode = "STSA",
                     NationalBranchCode = "9300",
                     AccountNumber = "98833279",
-                    AccountType = "13"
+                    AccountType = 13
                 }
             },
             new object[]
