@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using Validators.Enums;
 using Validators.Interfaces;
 using Validators.Tests.TestModels;
 
@@ -10,6 +11,18 @@ namespace Validators.Tests.TestData
     public class IbanValidTestData
         : IEnumerable<object[]>
     {
+
+        //  todo: add following test ibans
+        //  BG77 STSA 9300 1398 8332 79
+        //  CY61 9441 1634 1695 6269 2359 9979
+        //  FR94 1273 9000 3033 3857 4342 N27
+        //  GR52 0179 7165 4546 6367 7356 532
+        //  IE44 BOFI 9000 1739 2177
+        //  IT11 M030 0203 2808 5811 3313 922
+        //  => Lativia: 	LV80 BANK 0000 4351 9500 1
+        //  LU89 0105 6393 2177 8274
+        //  MT46 OAVL 2242 3413 9526 3277 8597 695
+        //  RO04 RZBR 5898 6478 5349 8572
 
 
         /// <summary>
