@@ -21,19 +21,19 @@ namespace Validators.Extensions
         ///     used as the values that has to be converted to int for the sanity check.
         /// </summary>
         /// <param name="value">
-        ///     used as the <see cref="char[]"/> to be converted as <see cref="Int64"/> value used for the sanity check.
+        ///     used as the <see cref="char[]"/> to be converted as <see cref="int"/> value used for the sanity check.
         /// </param>
         /// <returns>
-        ///     <see cref="Int64"/> value used for the sanity check.
+        ///     <see cref="int"/> value used for the sanity check.
         /// </returns>
-        public static Int64 CharAsInt(this char[] value)
+        public static int CharAsInt(this char[] value)
         {
             var stringBuilder = new StringBuilder(value.Length * 2);
 
             foreach (var alphaNumber in value)
                 stringBuilder.Append(CharAsInt(alphaNumber));
 
-            if (!Int64.TryParse(stringBuilder.ToString(), out Int64 result))
+            if (!int.TryParse(stringBuilder.ToString(), out int result))
                 throw new ArgumentException(nameof(value));
 
             return result;

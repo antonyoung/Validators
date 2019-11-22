@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using Validators.Enums;
 using Validators.Extensions;
 using Validators.Formatters;
 using Validators.Indexers;
@@ -39,6 +40,7 @@ namespace Validators
         /// </summary>
         private Match _match;
 
+
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
         /// </summary>
@@ -55,6 +57,8 @@ namespace Validators
         ///     used as the international check digits of the iban value. 
         /// </summary>
         public byte CheckDigits => byte.TryParse(GroupValues("checksum"), out byte result) ? result : result;
+        
+        
         /// <summary>
         ///     used as the country of the iban value. 
         /// </summary>
@@ -201,20 +205,7 @@ namespace Validators
         /// </returns>
         private GenericIndexer<byte> CreateSanityIndexer()
         {
-            // => always get sanity number from country
-            var country = _match.Groups.Single(
-                group => group.Name.Equals(
-                    "country", StringComparison.OrdinalIgnoreCase)
-                ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
 
-            // => always get sanity number from bank code
-            Int64 bankCode = 0;
-            if (_match.Groups.Any(item => item.Name.Equals("bank", StringComparison.OrdinalIgnoreCase)))
-                bankCode = _match.Groups.Single(
-                    group => group.Name.Equals(
-                        "bank", StringComparison.OrdinalIgnoreCase)
-                    ).Value.ToUpperInvariant().ToCharArray().CharAsInt();
-            
             // => internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
             
@@ -222,10 +213,20 @@ namespace Validators
             foreach (Group group in _match.Groups)
             {
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), country.ToString());
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                        , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                 if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), bankCode.ToString());
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
+
+                if (group.Name.Equals("ncheck", StringComparison.OrdinalIgnoreCase))
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                        , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
+
+                if (group.Name.Equals("account4", StringComparison.OrdinalIgnoreCase))
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), group.Value);

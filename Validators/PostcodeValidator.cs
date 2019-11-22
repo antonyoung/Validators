@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
+using Validators.Enums;
 using Validators.Formatters;
 using Validators.Interfaces;
 using Validators.Models;
