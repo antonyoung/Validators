@@ -1,4 +1,6 @@
-﻿namespace Validators.Interfaces
+﻿using Validators.Enums;
+
+namespace Validators.Interfaces
 {
     public interface IIbanValidator
     {
