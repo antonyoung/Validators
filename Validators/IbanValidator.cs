@@ -53,7 +53,7 @@ namespace Validators
         public string AccountNumber => GroupValues("account");
 
 
-        public string AccountType => GroupValues("bban");
+        public byte AccountType => byte.TryParse(GroupValues("bban"), out byte result) ? result : result;
 
         /// <summary>
         ///     used as the international check digits of the iban value. 
