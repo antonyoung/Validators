@@ -1,3 +1,4 @@
+using Validators.Enums;
 using Validators.Interfaces;
 using Validators.Tests.Attributes;
 using Xunit;

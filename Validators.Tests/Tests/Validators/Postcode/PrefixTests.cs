@@ -1,4 +1,5 @@
-﻿using Validators.Interfaces;
+﻿using Validators.Enums;
+using Validators.Interfaces;
 using Xunit;
 
 
