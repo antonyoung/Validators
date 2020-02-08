@@ -22,7 +22,11 @@ namespace Validators
     public class IbanValidator
         : IIbanValidator
     {
-
+        // todo: => use constants as internal logic instead 
+        private const string COUNRTY = "counrty";
+        private const string CHECKSUM = "checksum";
+        private const string BANK = "bank";
+        
         /// <summary>
         ///     used as internal business rules of European iban.
         /// </summary>
@@ -53,6 +57,9 @@ namespace Validators
         public string AccountNumber => GroupValues("account");
 
 
+        /// <summary>
+        ///     used as the account type of an iban value <see cref="Countries.Bulgaria"/> as as exception using this property.
+        /// </summary>
         public byte AccountType => byte.TryParse(GroupValues("bban"), out byte result) ? result : result;
 
         /// <summary>
@@ -119,7 +126,7 @@ namespace Validators
         /// </returns>
         public bool Validate(string value, out string result)
         {
-            result = value.Trim()
+            result = value.Trim().ToUpperInvariant()
                 ?? throw new ArgumentException(nameof(value));
 
             // => use TwoLetterISORegionName from iban value as key
@@ -215,8 +222,12 @@ namespace Validators
             foreach (Group group in _match.Groups)
             {
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
+                {
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
+
+                    continue;
+                }
 
                 if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)

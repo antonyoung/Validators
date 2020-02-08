@@ -24,7 +24,7 @@ namespace Validators.Models
     //    * Greece,           // => 27,	7n,16c,	    GRkk bbbs sssc cccc cccc cccc ccc,	    b = National bank code, s = Branch code, c = Account number
     //    * Hungary,          // => 28,	24n,	    HUkk bbbs sssx cccc cccc cccc cccx,	    b = National bank code, s = Branch code, c = Account number, x = National check digit
     //    Ireland,          // => 22,	4c,14n,	    IEkk aaaa bbbb bbcc cccc cc,	        a = BIC bank code, b = Bank/branch code(sort code), c = Account number
-    //    * Italy,            // => 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
+    //    Italy,            // => 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
     //    * Latvia,           // => 21,	4a,13c,	    LVkk bbbb cccc cccc cccc c,	            b = BIC Bank code, c = Account number
     //    * Lithuania,        // => 20,	16n,	    LTkk bbbb bccc cccc cccc,	            b = National bank code, c = Account number
     //    * Luxembourg,       // => 20,	3n,13c,	    LUkk bbbc cccc cccc cccc,	            b = National bank code, c = Account number

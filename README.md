@@ -36,7 +36,7 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
 ### Prerequisites
 ```
 * C# .NET Core 2.2.0	  // => Validators
-* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 297 tests => < 2 ms per test.
+* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 333 tests => < 2 ms per test.
 ```
 ### Code examples ( PostcodeValidator )
 
