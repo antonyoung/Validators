@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Validators.Enums
+﻿namespace Validators.Enums
 {
     public enum Countries
     {

@@ -11,7 +11,7 @@ namespace Validators.Indexers
     /// <typeparam name="T"><
     ///     used as the anonymous type, that has to be indexed.
     /// /typeparam>
-    public class GenericIndexer<T>
+    public class GenericIndexer<T> where T: struct
     {
 
         /// <summary>

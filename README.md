@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/antonyoung/Validator/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/Validator/_build/latest?definitionId=3&branchName=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-## Postcode and IBAN validator and formatter (C#) .Net Core
+## Postcode and IBAN validator and formatter (C#) .Net Standard
 
 Validates and formats European postcodes, plus setup validating international bank account numbers (iban.)
 
@@ -10,7 +10,7 @@ Started this little project in my spare time, because I noticed today (28 August
 The database contains postcodes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
 While the solution is really simple as long you know your regular expressions.
 
-Started with an iban validator, rules, 10 European countries still has to be defined, add their additional tests and add in general the ibnan formatters.
+Started with an iban validator, rules, all European countries, except Ierland are correctly validated, have to add in general the ibnan formatters.
 
 ### Description
 
@@ -35,8 +35,8 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
  
 ### Prerequisites
 ```
-* C# .NET Core 2.2.0	  // => Validators
-* C# .NET Core 2.2.0      // => Validators.Tests (xUnit) * With 333 tests => < 2 ms per test.
+* C# .NET Standard 2.1	  // => Validators
+* C# .NET Core 3.1.0      // => Validators.Tests (xUnit) * With 306 tests => ~80 ms as test set.
 ```
 ### Code examples ( PostcodeValidator )
 
