@@ -19,9 +19,9 @@ namespace Validators.Tests.Postcode
     public class ExceptionTests
     {
 
-        public ExceptionTests(PostcodeFixture fixture) => _postcodeValidator = fixture.Validator;
+        public ExceptionTests(PostalcodeFixture fixture) => _postalcodeValidator = fixture.Validator;
 
-        private readonly IPostcodeValidator _postcodeValidator;
+        private readonly IPostalcodeValidator _postalcodeValidator;
 
         //[Fact]
         //public void ThrowsArgumentExceptionOfCountry()

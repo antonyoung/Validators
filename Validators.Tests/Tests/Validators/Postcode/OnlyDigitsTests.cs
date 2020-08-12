@@ -13,7 +13,7 @@ namespace Validators.Tests.Postcode
     public class OnlyDigitsTests
     {
 
-        private readonly IPostcodeValidator _postcodeValidator = new PostcodeValidator();
+        private readonly IPostalcodeValidator _postalcodeValidator = new PostalcodeValidator();
 
 
         private const string DIGITS_4 = "4321";
@@ -45,14 +45,14 @@ namespace Validators.Tests.Postcode
         public void Valid(Countries country, string postcode)
         {
             // => validate postcodes as expected formatted result.
-            bool isValid = _postcodeValidator.TryValidate(postcode, country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
 
             //=> success
             Assert.True(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => formatted result postcode with whitespace or not.
             Assert.Equal(postcode, result);
@@ -80,14 +80,14 @@ namespace Validators.Tests.Postcode
         public void NoTrim(Countries country, string postcode)
         {
             // => validate postcodes without trim
-            bool isValid = _postcodeValidator.TryValidate($" {postcode} ", country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate($" {postcode} ", country, out string result);
 
             // => success
             Assert.True(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => formatted result postcode with trim and whitespace or not.
             Assert.Equal(postcode, result);
@@ -116,14 +116,14 @@ namespace Validators.Tests.Postcode
         { 
             // => validate postcodes with alpha, only digits allowed. 
             postcode = postcode.Replace("2", "A");
-            bool isValid = _postcodeValidator.TryValidate(postcode, country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
 
             // => unsuccessful
             Assert.False(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has error message
-            Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.False(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => unformatted result postcode with alpha
             Assert.Equal(postcode, result);
@@ -152,14 +152,14 @@ namespace Validators.Tests.Postcode
         {
             // => validate postcodes with leading zero
             postcode = postcode.Replace(postcode.Substring(0, 1), "0");
-            bool isValid = _postcodeValidator.TryValidate(postcode, country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
 
             // => unsuccessful
             Assert.False(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has error message
-            Assert.False(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.False(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => unformatted result postcode with leading zero.
             Assert.Equal(postcode, result);
@@ -173,14 +173,14 @@ namespace Validators.Tests.Postcode
         public void WithOutSpace(Countries country, string postcode)
         {
             // => validate postcodes without whitespace
-            bool isValid = _postcodeValidator.TryValidate(postcode.Replace(" ", string.Empty), country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate(postcode.Replace(" ", string.Empty), country, out string result);
 
             // => succes
             Assert.True(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => formatted result postcode with whitespace.
             Assert.Equal(postcode, result);
@@ -193,14 +193,14 @@ namespace Validators.Tests.Postcode
         public void WithOutHyphen(Countries country, string postalCode)
         {
             // => validate postcodes without hyphen.
-            bool isValid = _postcodeValidator.TryValidate(postalCode.Replace("-", string.Empty), country, out string result);
+            bool isValid = _postalcodeValidator.TryValidate(postalCode.Replace("-", string.Empty), country, out string result);
             
             // => success
             Assert.True(isValid);
-            Assert.Equal(isValid, _postcodeValidator.IsValid);
+            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
             // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postcodeValidator.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
 
             // => formatted result postcode with hyphen.   
             Assert.Equal(postalCode, result);

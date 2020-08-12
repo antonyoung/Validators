@@ -10,7 +10,7 @@ namespace Validators.Interfaces
     /// <summary>
     ///     interface: used to define the postcode in memory internal logic as data source.
     /// </summary>as 
-    public interface IPostcodeModel
+    public interface IPostalcodeModel
     {
 
         /// <summary>
@@ -20,6 +20,6 @@ namespace Validators.Interfaces
         /// <exception cref=System.ArgumentException">
         ///     thrown, when country is not found in defined data source.
         /// </exception>
-        Dictionary<Countries, PostcodeRuleSetModel> Rules { get; }
+        Dictionary<Countries, PostalcodeRuleSetModel> Rules { get; }
     }
 }

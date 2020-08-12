@@ -2,7 +2,7 @@
 
 namespace Validators.Models
 {
-    public struct PostcodeRuleSetModel
+    public struct PostalcodeRuleSetModel
         : IRuleSet
     {
 

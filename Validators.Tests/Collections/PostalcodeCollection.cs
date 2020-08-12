@@ -6,7 +6,7 @@ using Xunit;
 namespace Validators.Tests.Collections
 {
     [CollectionDefinition("Postcodes")]
-    public class PostcodeCollection
-        : ICollectionFixture<PostcodeFixture>
+    public class PostalcodeCollection
+        : ICollectionFixture<PostalcodeFixture>
     { }
 }

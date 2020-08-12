@@ -8,8 +8,8 @@ using Validators.Interfaces;
 namespace Validators.Models
 {
 
-    public class PostcodeModel
-        : IPostcodeModel
+    public class PostalcodeModel
+        : IPostalcodeModel
     {
 
         // constants => used 2 => n times.
@@ -46,33 +46,33 @@ namespace Validators.Models
         /// <exception cref="ArgumentException">
         ///     throws ArgumentException, in case country is not found in current Dictionary, 
         /// </exception> 
-        public Dictionary<Countries, PostcodeRuleSetModel> Rules
+        public Dictionary<Countries, PostalcodeRuleSetModel> Rules
         {
-            get => new Dictionary<Countries, PostcodeRuleSetModel>()
+            get => new Dictionary<Countries, PostalcodeRuleSetModel>()
             {
                 { Countries.Austria,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                 { Countries.Belgium,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                 { Countries.Bulgaria,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                 { Countries.Croatia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = REGEX_5_DIGITS_PREFIX.Replace(REPLACE_PREFIX, PREFIX_CROATIA),
                         Prefix = PREFIX_CROATIA,
@@ -80,28 +80,28 @@ namespace Validators.Models
                     }
                 },
                 { Countries.Cyprus,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                 { Countries.Czechia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS_WHITESPACE,
                         RegexPattern = REGEX_5_DIGITS_WHITESPACE,
                         Example = EXAMPLE_5_DIGITS_WHITESPACE
                     }
                 },
                 { Countries.Denmark,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                 { Countries.Estonia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
@@ -109,7 +109,7 @@ namespace Validators.Models
                 },
                 // Finland: The postal code must be preceded by ‘FI-’ = default (or by ‘AX-’ for the Åland Islands) 
                 { Countries.Finland,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = "^(?<prefix>(?i)(FI-)|(AX-))?(?<digits>[1-9][0-9]{4}$)",
                         Prefix = PREFIX_FINLAND,
@@ -117,35 +117,35 @@ namespace Validators.Models
                     }
                 },
                 { Countries.France,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
                 { Countries.Germany,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
                 { Countries.Greece,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS_WHITESPACE,
                         RegexPattern = REGEX_5_DIGITS_WHITESPACE,
                         Example = EXAMPLE_5_DIGITS_WHITESPACE
                     }
                 },
                 { Countries.Hungary,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_4_DIGITS,
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
                     { Countries.Italy,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
@@ -153,14 +153,14 @@ namespace Validators.Models
                 },
                 // Ireland: not sure how correct this is?
                 { Countries.Ireland,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
                         RegexPattern = @"(?<alphanumeric1>(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W))(?<whitespace>\s?)(?<alphanumeric2>[0-9AC-FHKNPRTV-Y]{4}$)",
                         Example = "D22 YD82"
                     }
                 },
                 { Countries.Latvia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = REGEX_4_DIGITS_PREFIX.Replace(REPLACE_PREFIX, PREFIX_LATVIA),
                         Prefix = PREFIX_LATVIA,
@@ -168,7 +168,7 @@ namespace Validators.Models
                     }
                 },
                 { Countries.Lithuania,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = REGEX_5_DIGITS_PREFIX.Replace(REPLACE_PREFIX, PREFIX_LITHUANIA),
                         Prefix = PREFIX_LITHUANIA,
@@ -176,7 +176,7 @@ namespace Validators.Models
                     }
                 },
                 { Countries.Luxembourg,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = REGEX_4_DIGITS_PREFIX.Replace(REPLACE_PREFIX, PREFIX_LUXEMBOURG),
                         Prefix = PREFIX_LUXEMBOURG,
@@ -184,49 +184,49 @@ namespace Validators.Models
                     }
                 },
                 { Countries.Malta,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = "<letters> <digits>",
                         RegexPattern = @"(?<letters>^[A-Za-z]{3})(?<whitespace>\s?)(?<digits>[1-9][0-9]{3}$)",
                         Example = "ABC 1234"
                     }
                 },
                 { Countries.Netherlands,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = "<digits> <letters>",
                         RegexPattern = @"(?<digits>^[1-9][0-9]{3})(?<whitespace>\s?)(?<letters>[A-Za-z]{2}$)",
                         Example = "1234 AB"
                     }
                 },
                 { Countries.Poland,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS_HYPHEN,
                         RegexPattern = @"(?<digits1>^[1-9][0-9]{1})(?<hyphen>-?)(?<digits2>[0-9]{3}$)",
                         Example = "12-345"
                     }
                 },
                 { Countries.Portugal,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS_HYPHEN,
                         RegexPattern = @"(?<digits1>^[1-9][0-9]{3})(?<hyphen>-?)(?<digits2>[0-9]{3}$)",
                         Example = "1234-567"
                     }
                 },
                 { Countries.Romania,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = "(?<digits>^[1-9][0-9]{5}$)",
                         Example = "123456"
                     }
                 },
                 { Countries.Slovakia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS_WHITESPACE,
                         RegexPattern = REGEX_5_DIGITS_WHITESPACE,
                         Example = EXAMPLE_5_DIGITS_WHITESPACE
                     }
                 },
                 { Countries.Slovenia,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
                         RegexPattern = REGEX_4_DIGITS_PREFIX.Replace(REPLACE_PREFIX, PREFIX_SLOVENIA),
                         Prefix = PREFIX_SLOVENIA,
@@ -234,14 +234,14 @@ namespace Validators.Models
                     }
                 },
                 { Countries.Spain,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
                 { Countries.Sweden,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = "<prefix><digits1> <digits2>",
                         RegexPattern = @"^(?<prefix>(?i)SE-)?(?<digits1>[1-9][0-9]{2})(?<whitespace>\s?)(?<digits2>[0-9]{2}$)",
                         Prefix = PREFIX_SWEDEN,
@@ -250,7 +250,7 @@ namespace Validators.Models
                 },
                 // United Kingdom: not sure how correct this is?
                 { Countries.UnitedKingdom,
-                    new PostcodeRuleSetModel {
+                    new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
                         RegexPattern = @"^(?<alphanumeric1>(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))))(?<whitespace>\s?)(?<alphanumeric2>[0-9][A-Z]{2}$)",
                         Example = "DN55 1PT"

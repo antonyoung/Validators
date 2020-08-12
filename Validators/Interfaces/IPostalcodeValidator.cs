@@ -7,7 +7,7 @@ namespace Validators.Interfaces
     /// <summary>
     ///     interface to be used for postal code business logic according to each country in Europe
     /// </summary>
-    public interface IPostcodeValidator // : IPostcodeModel
+    public interface IPostalcodeValidator // : IPostcodeModel
     {
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Validators.Interfaces
         bool TryValidate(string value, Countries country, out string result);
 
 
-        bool TryValidate(string value, Countries country, PostcodeFormatters formatter, out string result);
+        bool TryValidate(string value, Countries country, PostalcodeFormatters formatter, out string result);
 
     }
 }
