@@ -4,7 +4,6 @@ namespace Validators.Interfaces
 {
     public interface IIbanValidator
     {
-
         string AccountNumber { get; }
             
         byte AccountType { get; }
@@ -25,6 +24,6 @@ namespace Validators.Interfaces
 
         byte? NationalCheckDigit { get; }
         
-        bool Validate(string value, out string result);
+        bool TryValidate(string value, out string result);
     }
 }

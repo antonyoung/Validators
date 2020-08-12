@@ -36,19 +36,19 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
 ### Prerequisites
 ```
 * C# .NET Standard 2.1	  // => Validators
-* C# .NET Core 3.1.0      // => Validators.Tests (xUnit) * With 306 tests => ~80 ms as test set.
+* C# .NET Core 3.1.0      // => Validators.Tests (xUnit) * With 333 tests => ~80 ms as test set.
 ```
 ### Code examples ( PostcodeValidator )
 
 * **Happy flow**
 ```csharp
 bool isValid = new PostcodeValidator()
-   .Validate("1062GD", Countries.Netherlands, out string result); // => result = "1062 GD", isValid = true
+   .TryValidate("1062GD", Countries.Netherlands, out string result); // => result = "1062 GD", isValid = true
 ```
 * **Or as** 
 ```csharp
 var test = new PostcodeValidator(); 
-test.Validate("1062GD", Countries.Netherlands, out string result);
+test.TryValidate("1062GD", Countries.Netherlands, out string result);
 test.IsValid;       // => true					
 test.ErrorMessage   // => null
 result              // => "1062 GD"
@@ -56,7 +56,7 @@ result              // => "1062 GD"
 * **Unhappy flow ( has leading zero )**
 ```csharp
 var test = new PostcodeValidator(); 
-test.Validate("0162GD", Countries.Netherlands, out string result);
+test.TryValidate("0162GD", Countries.Netherlands, out string result);
 test.IsValid;       // => false					
 test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Use as example \"1234 AB\"."
 result;             // => "0162GD"
@@ -67,12 +67,12 @@ result;             // => "0162GD"
 * **Happy flow**
 ```csharp
 bool isValid = new IbanValidator()
-   .Validate("NL71INGB1320949010", out string result); // => result = "NL71 INGB 1320 9490 10", isValid = true
+   .TryValidate("NL71INGB1320949010", out string result); // => result = "NL71 INGB 1320 9490 10", isValid = true
 ```
 * **Or as** 
 ```csharp
 var test = new IbanValidator(); 
-test.Validate("NL71INGB1320949010", out string result);
+test.TryValidate("NL71INGB1320949010", out string result);
 test.IsValid;			// => true					
 test.ErrorMessage		// => null
 test.AccountNumber		// => "1320949010"

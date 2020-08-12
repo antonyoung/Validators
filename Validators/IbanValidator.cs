@@ -124,7 +124,7 @@ namespace Validators
         /// <returns>
         ///     <see cref="IsValid"/> is a valid iban or not?
         /// </returns>
-        public bool Validate(string value, out string result)
+        public bool TryValidate(string value, out string result)
         {
             result = value.Trim().ToUpperInvariant()
                 ?? throw new ArgumentException(nameof(value));
@@ -142,7 +142,7 @@ namespace Validators
             // todo: format match value and as ternary expression. 
             _ = IsValid
                 ? result = Format()
-                : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country.ToString()}.";
+                : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country}.";
             
             return IsValid;
         }
@@ -167,8 +167,8 @@ namespace Validators
                 int length = value.Format(PostcodeFormatters.WhiteSpaces).Length;
 
                 ErrorMessage = length == _logic.Length
-                    ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country.ToString()}."
-                    : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country.ToString()}. Use as example \"{Example}\".";
+                    ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country}."
+                    : $"Length {length} of given Iban is not valid. It should be an Length of {_logic.Length} for country {Country}. Use as example \"{Example}\".";
             }
 
             return IsValid;

@@ -91,8 +91,8 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool Validate(string value, out string result) 
-            => Validate(value, Countries.Netherlands, out result);
+        public bool TryValidate(string value, out string result) 
+            => TryValidate(value, Countries.Netherlands, out result);
 
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool Validate(string value, Countries country, out string result) 
-            => Validate(value, country, PostcodeFormatters.None, out result);
+        public bool TryValidate(string value, Countries country, out string result) 
+            => TryValidate(value, country, PostcodeFormatters.None, out result);
 
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool Validate(string value, Countries country, PostcodeFormatters formatter, out string result)
+        public bool TryValidate(string value, Countries country, PostcodeFormatters formatter, out string result)
         {
             _input = result = value.Trim()
                 ?? throw new ArgumentException(nameof(value));
