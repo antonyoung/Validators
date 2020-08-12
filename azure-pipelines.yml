@@ -14,7 +14,7 @@ pool:
 # install dotnet sdk 3.x
 steps:
 - task: UseDotNet@2
-  displayName: 'Use dotnet sdk 3.x'
+  displayName: '// => install dotnet sdk 3.x'
   inputs:
     packageType: sdk
     version: 3.x
@@ -22,11 +22,11 @@ steps:
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 # restore nuget packages
-- script: dotnet restore
+# - script: dotnet restore
 
 # build all projects as Release
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: '// => dotnet build'
   inputs:
     command: build
     projects: '**/*.csproj'
@@ -34,7 +34,7 @@ steps:
 
 # run all tests and collect code coverage
 - task: DotNetCoreCLI@2
-  displayName: Tests
+  displayName: '// => dotnet test'
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
