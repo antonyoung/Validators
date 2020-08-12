@@ -28,13 +28,13 @@ namespace Validators.Interfaces
         bool IsValid { get; }
 
 
-        bool Validate(string value, out string result);
+        bool TryValidate(string value, out string result);
 
 
-        bool Validate(string value, Countries country, out string result);
+        bool TryValidate(string value, Countries country, out string result);
 
 
-        bool Validate(string value, Countries country, PostcodeFormatters formatter, out string result);
+        bool TryValidate(string value, Countries country, PostcodeFormatters formatter, out string result);
 
     }
 }

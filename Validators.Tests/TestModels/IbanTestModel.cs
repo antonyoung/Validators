@@ -30,6 +30,6 @@ namespace Validators.Tests.TestModels
 
         public byte? NationalCheckDigit { get; set; }
 
-        public bool Validate(string value, out string result) => throw new NotImplementedException();
+        public bool TryValidate(string value, out string result) => throw new NotImplementedException();
     }
 }

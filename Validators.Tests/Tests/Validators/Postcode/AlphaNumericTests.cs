@@ -26,7 +26,7 @@ namespace Validators.Tests.Postcode
         public void Valid(Countries country, string postcode)
         {
             // => validate valid postcodes as expected format.
-            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
+            bool isValid = _postcodeValidator.TryValidate(postcode, country, out string result);
 
             //=> success
             Assert.True(isValid);
@@ -47,7 +47,7 @@ namespace Validators.Tests.Postcode
         public void InValid(Countries country, string postcode)
         {
             // => validate invalid postcodes
-            bool isValid = _postcodeValidator.Validate(postcode, country, out string result);
+            bool isValid = _postcodeValidator.TryValidate(postcode, country, out string result);
 
             // => unsuccessful
             Assert.False(isValid);
@@ -72,7 +72,7 @@ namespace Validators.Tests.Postcode
         public void WithOutSpace(Countries country, string postcode)
         {
             // => validate postcode without whitespace
-            bool isValid = _postcodeValidator.Validate(postcode.Replace(" ", string.Empty), country, out string result);
+            bool isValid = _postcodeValidator.TryValidate(postcode.Replace(" ", string.Empty), country, out string result);
             
             //=> success
             Assert.True(isValid);

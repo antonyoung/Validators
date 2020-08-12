@@ -31,7 +31,7 @@ namespace Validators.Tests.Iban
         public void Everything(IbanTestModel model)
         {
             // => validate iban values without whitespaces.
-            var isValid = _ibanValidator.Validate(model.Value.Replace(" ", string.Empty), out string result);
+            var isValid = _ibanValidator.TryValidate(model.Value.Replace(" ", string.Empty), out string result);
 
             // => success
             Assert.True(isValid);
@@ -60,7 +60,7 @@ namespace Validators.Tests.Iban
         public void NoWhiteSpaces(string value)
         {
             // => validate iban values with whitespaces.
-            var isValid = _ibanValidator.Validate(value.Replace(" ", string.Empty), out string result);
+            var isValid = _ibanValidator.TryValidate(value.Replace(" ", string.Empty), out string result);
 
             // => success
             Assert.True(isValid);
@@ -79,7 +79,7 @@ namespace Validators.Tests.Iban
         public void LowerCase(string value)
         {
             // => validate iban values with whitespaces.
-            var isValid = _ibanValidator.Validate(value.ToLowerInvariant(), out string result);
+            var isValid = _ibanValidator.TryValidate(value.ToLowerInvariant(), out string result);
 
             // => success
             Assert.True(isValid);
@@ -98,7 +98,7 @@ namespace Validators.Tests.Iban
         public void NoTrim(string value)
         {
             // => validate iban values with whitespaces.
-            var isValid = _ibanValidator.Validate($" {value} ", out string result);
+            var isValid = _ibanValidator.TryValidate($" {value} ", out string result);
 
             // => success
             Assert.True(isValid);
