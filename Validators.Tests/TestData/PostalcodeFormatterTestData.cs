@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Validators.Tests.TestData
 {
-    public class PostcodeFormatterTestData 
+    public class PostalcodeFormatterTestData 
         : IEnumerable<object[]>
     {
 

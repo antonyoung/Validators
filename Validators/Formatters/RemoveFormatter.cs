@@ -9,7 +9,7 @@ namespace Validators.Formatters
     /// <summary>
     ///     available formatters for postcode.
     /// </summary>
-    public enum PostcodeFormatters
+    public enum PostalcodeFormatters
     {
         None,                       // none: keep as original with hyphens and or whitespaces. 
         Hyphens,                    // removes: hyphens
@@ -29,12 +29,12 @@ namespace Validators.Formatters
         /// <summary>
         ///     used as internal logic of available formatters.
         /// </summary>
-        private static readonly Dictionary<PostcodeFormatters, string> _formatters = new Dictionary<PostcodeFormatters, string>()
+        private static readonly Dictionary<PostalcodeFormatters, string> _formatters = new Dictionary<PostalcodeFormatters, string>()
         {
-            { PostcodeFormatters.None, string.Empty },
-            { PostcodeFormatters.WhiteSpaces, @"\s+" },
-            { PostcodeFormatters.Hyphens,  @"\-+" },
-            { PostcodeFormatters.HyphensAndWhiteSpaces,  @"[\s+-+]"}
+            { PostalcodeFormatters.None, string.Empty },
+            { PostalcodeFormatters.WhiteSpaces, @"\s+" },
+            { PostalcodeFormatters.Hyphens,  @"\-+" },
+            { PostalcodeFormatters.HyphensAndWhiteSpaces,  @"[\s+-+]"}
         };
 
 
@@ -48,7 +48,7 @@ namespace Validators.Formatters
         ///     the formatted value with the default formatter.
         /// </returns>
         public static string Format(this string value)
-            => Format(value, PostcodeFormatters.None);
+            => Format(value, PostalcodeFormatters.None);
 
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Validators.Formatters
         /// <returns>
         ///     the formatted value.
         /// </returns>
-        public static string Format(this string value, PostcodeFormatters formatter)
+        public static string Format(this string value, PostalcodeFormatters formatter)
         {
             if (!_formatters.TryGetValue(formatter, out string replaceExpression))
                 throw new ArgumentException(nameof(formatter));

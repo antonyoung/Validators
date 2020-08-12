@@ -164,7 +164,7 @@ namespace Validators
             if (!IsValid)
             {
                 // todo: use and add formatter to replace wildcards or add wildcards.
-                int length = value.Format(PostcodeFormatters.WhiteSpaces).Length;
+                int length = value.Format(PostalcodeFormatters.WhiteSpaces).Length;
 
                 ErrorMessage = length == _logic.Length
                     ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country}."

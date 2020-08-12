@@ -14,20 +14,20 @@ namespace Validators
     ///     used as all business logic behind postcodes of European countries ( with the exceptions with preifix <see cref="Countries.Finland"/> )
     ///     validates and formats the postal code according to the selected country.
     /// </summary>
-    public class PostcodeValidator
-        : IPostcodeValidator
+    public class PostalcodeValidator
+        : IPostalcodeValidator
     {
 
         /// <summary>
         ///     used as internal business rules of European postcodes.
         /// </summary>
-        private readonly IPostcodeModel _model;
+        private readonly IPostalcodeModel _model;
 
 
         /// <summary>
         ///     used as internal business rules of postcode of selected country.
         /// </summary>
-        private PostcodeRuleSetModel _logic;
+        private PostalcodeRuleSetModel _logic;
 
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Validators
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal postcodes.
         /// </summary>
-        public PostcodeValidator() => _model = new PostcodeModel();
+        public PostalcodeValidator() => _model = new PostalcodeModel();
 
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Validators
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
         public bool TryValidate(string value, Countries country, out string result) 
-            => TryValidate(value, country, PostcodeFormatters.None, out result);
+            => TryValidate(value, country, PostalcodeFormatters.None, out result);
 
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Validators
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
         /// </returns>
-        public bool TryValidate(string value, Countries country, PostcodeFormatters formatter, out string result)
+        public bool TryValidate(string value, Countries country, PostalcodeFormatters formatter, out string result)
         {
             _input = result = value.Trim()
                 ?? throw new ArgumentException(nameof(value));
@@ -166,7 +166,7 @@ namespace Validators
         /// <returns>
         ///     the formatted postcode of the match result and with given formatter. 
         /// </returns>
-        private string Format(Match match, PostcodeFormatters formatter)
+        private string Format(Match match, PostalcodeFormatters formatter)
         {
             string result = _logic.DisplayFormat;
 
