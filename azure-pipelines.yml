@@ -3,21 +3,28 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+# trigger azure devops pipeline on commit on master
 trigger:
 - master
 
+# use latest ubuntu vm
 pool:
   vmImage: 'ubuntu-latest'
 
+# install dotnet sdk 3.x
 steps:
 - task: UseDotNet@2
   displayName: 'Use dotnet sdk 3.x'
   inputs:
+    packageType: sdk
     version: 3.x
     includePreviewVersions: false
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
+# restore nuget packages
 - script: dotnet restore
 
+# build all projects as Release
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -25,9 +32,10 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration Release'
 
+# run all tests and collect code coverage
 - task: DotNetCoreCLI@2
   displayName: Tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
+    arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
