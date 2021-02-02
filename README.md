@@ -6,21 +6,21 @@ Validates and formats European postal codes, plus setup validating international
 
 ### Intro
 
-Started this little project in my spare time, because I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. 
+Started this little project in my spare time, for the reason that I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. 
 The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
-While the solution is really simple as long you know your regular expressions.
+As always, how can I keep my life simple and it works, fast and reliable. While the solution is really simple as long you know your regular expressions.
 
-Started with an iban validator, rules, all European countries, except Ierland are correctly validated, have to add in general the ibnan formatters.
+Started as additional feature with an iban validator, as rules, as all European countries, except is Ierland correctly validated? Plus still have to think about how to implement formatters as postal codes, or as IBAN?
 
 ### Description
 
-This is a simple and fast European postal code and iban validator and formatter. 
-Could be easily extended to add countries around the world.
+As a simple and fast European postal code and as a iban validator with simplistic formatters. 
+Could be easily extended to add countries around the world or to have different types of formatting.
 
-As validation regular expressions are used with group names. 
-For formatting the postcode the match groups of the regular expression are used. 
+Technical: As validation regular expressions are used with group names. 
+For formatting the postcode off the match groups in the regular expression are used. 
 All countries with space or with hyphen or with prefix.
-Are all validated correctly without it, and will be automatically formatted in the correct way with space, hyphen or prefix. 
+Are all validated correctly without, and will be automatically formatted in the correct way in case off with space, hyphen or prefix. 
 With one exception Finland has two prefixes FI- / AX- without prefix FI- is choosen as default.
 Default country as expected is for now The Netherlands.    
 
@@ -90,7 +90,7 @@ result:                         // => "NL71 INGB 1320 9490 10"
 
 ## License
 
-This project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed for now under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
 
 ### Acknowledgments
 See also issues: [is:issue is:open check in:title](https://github.com/antonyoung/postalcode/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+check+in%3Atitle)
