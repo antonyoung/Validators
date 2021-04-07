@@ -2,7 +2,7 @@
 {
     public enum Countries
     {
-        Amsterdam,      // => argument exception
+        Amsterdam,      //=> argument exception
         Austria,
         Belgium,
         Bulgaria,

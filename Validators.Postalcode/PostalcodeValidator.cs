@@ -9,38 +9,38 @@ using Validators.Postalcode.Models;
 namespace Validators.Postalcode
 {
     /// <summary>
-    ///     used as all business logic behind postcodes of European countries ( with the exceptions with preifix <see cref="Countries.Finland"/> )
-    ///     validates and formats the postal code according to the selected country.
+    ///     used as all business logic behind postalcodes of European countries ( with the exceptions with preifix <see cref="Countries.Finland"/> )
+    ///     validates and formats the postalcode according to the selected country.
     /// </summary>
     public class PostalcodeValidator : IPostalcodeValidator
     {
         /// <summary>
-        ///     used as internal business rules of European postcodes.
+        ///     used as internal business rules of European postalcodes.
         /// </summary>
         private readonly IPostalcodeModel _model;
 
         /// <summary>
-        ///     used as internal business rules of postcode of selected country.
+        ///     used as internal business rules of postalcode of selected country.
         /// </summary>
         private PostalcodeRuleSetModel _logic;
 
         /// <summary>
-        ///     used as the internal postcode, that has to be validated to the set country.
+        ///     used as the internal postalcode, that has to be validated to the set country.
         /// </summary>
         private string _input;
 
         /// <summary>
-        ///     used as internal business logic, if postcode of selected country is valid.
+        ///     used as internal business logic, if postalcode of selected country is valid.
         /// </summary>
         private bool _isValid;
 
         /// <summary>
-        ///     used as constructor to initiliaze the class with the internal business rules of all internal postcodes.
+        ///     used as constructor to initiliaze the class with the internal business rules of all internal postalcodes.
         /// </summary>
         public PostalcodeValidator() => _model = new PostalcodeModel();
 
         /// <summary>
-        ///     used as a postcode example of the set country. ( default = <see cref="Countries.Netherlands"/> )
+        ///     used as a postalcode example of the set country. ( default = <see cref="Countries.Netherlands"/> )
         /// </summary>
         public string Example { get => _logic.Example; }
 
@@ -66,10 +66,10 @@ namespace Validators.Postalcode
         }
 
         /// <summary>
-        ///     validates and formats postcode with default country The Netherlands and default formatter as expected.
+        ///     validates and formats postalcode with default country The Netherlands and default formatter as expected.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode, that has to be validated with default country <see cref="Countries.Netherlands"/>. 
+        ///     used as the postalcode, that has to be validated with default country <see cref="Countries.Netherlands"/>. 
         /// </param>
         /// <param name="result">
         ///     used as <see cref="IsValid"/> <paramref name="value"/> with default country <see cref="Countries.Netherlands"/> formatted as the default formatter.
@@ -77,16 +77,16 @@ namespace Validators.Postalcode
         /// <exception cref="ArgumentException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
         public bool TryValidate(string value, out string result) 
             => TryValidate(value, Countries.Netherlands, out result);
 
         /// <summary>
-        ///     validates and formats postcode with provided country with default formatter as writen lanquage.
+        ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode, that has to be validated. 
+        ///     used as the postalcode, that has to be validated. 
         /// </param>
         /// <param name="country">
         ///     used as the country, that has to be validated.
@@ -97,16 +97,16 @@ namespace Validators.Postalcode
         /// <exception cref="ArgumentException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
         public bool TryValidate(string value, Countries country, out string result) 
             => TryValidate(value, country, PostalcodeFormatters.None, out result);
 
         /// <summary>
-        ///     validates and formats postcode with provided country with default formatter as writen lanquage.
+        ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
         /// </summary>
         /// <param name="value">
-        ///     used as the postcode, that has to be validated. 
+        ///     used as the postalcode, that has to be validated. 
         /// </param>
         /// <param name="country">
         ///     used as the country, that has to be validated.
@@ -115,18 +115,20 @@ namespace Validators.Postalcode
         ///     usead as the formatter that has to be used.
         /// </param>
         /// <param name="result">
-        ///     used as postcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with <paramref name="formatter"/>.
+        ///     used as postalcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with <paramref name="formatter"/>.
         /// </param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postcode.
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
         public bool TryValidate(string value, Countries country, PostalcodeFormatters formatter, out string result)
         {
-            _input = result = value.Trim()
-                ?? throw new ArgumentException(nameof(value));
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
+            _input = result = value.Trim();
+                
             if (!_model.Rules.TryGetValue(country, out _logic))
                 throw new ArgumentException(nameof(country));
 
@@ -149,7 +151,7 @@ namespace Validators.Postalcode
         ///     used as the formatter how to format the result.
         /// </param>
         /// <returns>
-        ///     the formatted postcode of the match result and with given formatter. 
+        ///     the formatted postalcode of the match result and with given formatter. 
         /// </returns>
         private string Format(Match match, PostalcodeFormatters formatter)
         {

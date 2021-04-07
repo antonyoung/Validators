@@ -1,43 +1,28 @@
-﻿using Validators.Postalcode.Infrastructure;
+﻿using FluentAssertions;
+using System;
+using Validators.Abstractions.Enums;
+using Validators.Postalcode;
 using Xunit;
 
 namespace Validators.Tests.Postcode
 {
-    // Comment Code: Build failure via linux Azure DevOps pipeline, works fine as Build on Windows.
-    // ExceptionTests.cs(19,35): error CS0121: 
-    //      The call is ambiguous between the following methods or properties: 'Record.Exception(Action)' and 'Record.Exception(Func<Task>)' 
-    //      [/home/vsts/work/1/s/Postcode.Tests/Postcode.Tests.csproj]
-    // ExceptionTests.cs(30,35): error CS0121: 
-    //      The call is ambiguous between the following methods or properties: 'Record.Exception(Action)' and 'Record.Exception(Func<Task>)' 
-    //      [/home/vsts/work/1/s/Postcode.Tests/Postcode.Tests.csproj]
-
-    [Collection("Postcodes")]
     public class ExceptionTests
-    {
-        //public ExceptionTests(PostalcodeFixture fixture) => _postalcodeValidator = fixture.Validator;
+    { 
+        [Fact]
+        public void ThrowsArgumentExceptionOfCountry()
+        {
+            Action act = () => new PostalcodeValidator().TryValidate(string.Empty, Countries.Amsterdam, out string result);
 
-        private readonly IPostalcodeValidator _postalcodeValidator;
+            act.Should().Throw<ArgumentException>();
+        }
 
-        //[Fact]
-        //public void ThrowsArgumentExceptionOfCountry()
-        //{
-        //    var test = new PostcodeValidator();
+        [Fact]
+        public void ThrowsArgumentNullExceptionOfValue()
+        {
+            Action act = () => new PostalcodeValidator().TryValidate(null, Countries.Netherlands, out string result);
 
-        //    void unknownCountry() => test.Validate(string.Empty, Countries.Amsterdam, out string result);
-        //    Exception ex = Record.Exception(unknownCountry);
-
-        //    Assert.IsType<ArgumentException>(ex);
-        //}
-
-        //[Fact]
-        //public void ThrowsArgumentExceptionOfValue()
-        //{
-        //    var test = new PostcodeValidator();
-
-        //    void value() => test.Validate(null, Countries.Netherlands, out string result);
-        //    Exception ex = Record.Exception(value);
-
-        //    Assert.IsType<ArgumentException>(ex);
-        //}
+            act.Should().Throw<ArgumentNullException>()
+                .And.ParamName.Should().Be("value");
+        }
     }
 }

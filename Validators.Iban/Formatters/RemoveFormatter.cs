@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace Validators.Iban.Formatters
 {
     /// <summary>
-    ///     available formatters for postcode.
+    ///     available formatters for postalcode.
     /// </summary>
     public enum PostalcodeFormatters
     {
@@ -16,7 +16,7 @@ namespace Validators.Iban.Formatters
     }
 
     /// <summary>
-    ///     formats postalcodes with a postcode formatter.
+    ///     formats postalcodes with a postalcode formatter.
     ///     use provided formatters, in case you don't need hyphens and or whitespaces. 
     ///     often an api expects for example The Netherlands without a space "1234AB".
     /// </summary>
