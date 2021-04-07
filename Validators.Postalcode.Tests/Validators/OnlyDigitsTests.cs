@@ -1,4 +1,5 @@
-﻿using Validators.Abstractions.Enums;
+﻿using FluentAssertions;
+using Validators.Abstractions.Enums;
 using Validators.Postalcode;
 using Validators.Postalcode.Infrastructure;
 using Xunit;
@@ -6,8 +7,8 @@ using Xunit;
 namespace Validators.Tests.Postcode
 {
     /// <summary>
-    ///     used as test class of postcodes with has only didgets.
-    ///     these postcodes could have whitespace or an hyphen as format.
+    ///     used as test class of postalcodes with has only didgets.
+    ///     these postalcodes could have whitespace or an hyphen as format.
     /// </summary>
     public class OnlyDigitsTests
     {
@@ -38,20 +39,20 @@ namespace Validators.Tests.Postcode
         [InlineData(Countries.Slovakia, WHITESPACE)]
         [InlineData(Countries.Poland, POLAND)]
         [InlineData(Countries.Portugal, PORTUGAL)]
-        public void Valid(Countries country, string postcode)
+        public void Valid(Countries country, string postalCode)
         {
-            // => validate postcodes as expected formatted result.
-            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
+            //=> validate postalcodes as expected formatted result.
+            bool isValid = _postalcodeValidator.TryValidate(postalCode, country, out string result);
 
             //=> success
-            Assert.True(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
+            isValid.Should().BeTrue();
+            _postalcodeValidator.IsValid.Should().Be(isValid);
 
-            // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> has no error message
+            _postalcodeValidator.ErrorMessage.Should().BeNullOrEmpty();
 
-            // => formatted result postcode with whitespace or not.
-            Assert.Equal(postcode, result);
+            //=> formatted result postalcode with whitespace or not.
+            result.Should().Be(postalCode);
         }
 
         [Theory]
@@ -72,20 +73,20 @@ namespace Validators.Tests.Postcode
         [InlineData(Countries.Slovakia, WHITESPACE)]
         [InlineData(Countries.Poland, POLAND)]
         [InlineData(Countries.Portugal, PORTUGAL)]
-        public void NoTrim(Countries country, string postcode)
+        public void NoTrim(Countries country, string postalCode)
         {
-            // => validate postcodes without trim
-            bool isValid = _postalcodeValidator.TryValidate($" {postcode} ", country, out string result);
+            //=> validate postalcodes without trim
+            bool isValid = _postalcodeValidator.TryValidate($" {postalCode} ", country, out string result);
 
-            // => success
-            Assert.True(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
+            //=> success
+            isValid.Should().BeTrue();
+            _postalcodeValidator.IsValid.Should().Be(isValid);
 
-            // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> has no error message
+            _postalcodeValidator.ErrorMessage.Should().BeNullOrEmpty();
 
-            // => formatted result postcode with trim and whitespace or not.
-            Assert.Equal(postcode, result);
+            //=> formatted result postalcode with trim and whitespace or not.
+            result.Should().Be(postalCode);
         }
 
         [Theory]
@@ -106,21 +107,21 @@ namespace Validators.Tests.Postcode
         [InlineData(Countries.Slovakia, WHITESPACE)]
         [InlineData(Countries.Poland, POLAND)]
         [InlineData(Countries.Portugal, PORTUGAL)]
-        public void InValid(Countries country, string postcode)
+        public void InValid(Countries country, string postalCode)
         { 
-            // => validate postcodes with alpha, only digits allowed. 
-            postcode = postcode.Replace("2", "A");
-            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
+            //=> validate postalcodes with alpha, only digits allowed. 
+            postalCode = postalCode.Replace("2", "A");
+            bool isValid = _postalcodeValidator.TryValidate(postalCode, country, out string result);
 
-            // => unsuccessful
-            Assert.False(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
+            //=> unsuccessful
+            _postalcodeValidator.IsValid.Should().Be(isValid);
+            isValid.Should().BeFalse();
 
-            // => has error message
-            Assert.False(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> has error message
+            _postalcodeValidator.ErrorMessage.Should().NotBeNullOrEmpty();
 
-            // => unformatted result postcode with alpha
-            Assert.Equal(postcode, result);
+            //=> unformatted result postalcode with alpha
+            result.Should().Be(postalCode);
         }
 
         [Theory]
@@ -141,41 +142,41 @@ namespace Validators.Tests.Postcode
         [InlineData(Countries.Slovakia, WHITESPACE)]
         [InlineData(Countries.Poland, POLAND)]
         [InlineData(Countries.Portugal, PORTUGAL)]
-        public void LeadingZero(Countries country, string postcode)
+        public void LeadingZero(Countries country, string postalCode)
         {
-            // => validate postcodes with leading zero
-            postcode = postcode.Replace(postcode.Substring(0, 1), "0");
-            bool isValid = _postalcodeValidator.TryValidate(postcode, country, out string result);
+            //=> validate postalcodes with leading zero
+            postalCode = postalCode.Replace(postalCode.Substring(0, 1), "0");
+            bool isValid = _postalcodeValidator.TryValidate(postalCode, country, out string result);
 
-            // => unsuccessful
-            Assert.False(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
+            //=> unsuccessful
+            isValid.Should().BeFalse();
+            _postalcodeValidator.IsValid.Should().Be(isValid);
 
-            // => has error message
-            Assert.False(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> has error message
+            _postalcodeValidator.ErrorMessage.Should().NotBeNullOrEmpty();
 
-            // => unformatted result postcode with leading zero.
-            Assert.Equal(postcode, result);
+            //=> unformatted result postalcode with leading zero.
+            result.Should().Be(postalCode);
         }
 
         [Theory]
         [InlineData(Countries.Czechia, WHITESPACE)]
         [InlineData(Countries.Greece, WHITESPACE)]
         [InlineData(Countries.Slovakia, WHITESPACE)]
-        public void WithOutSpace(Countries country, string postcode)
+        public void WithOutSpace(Countries country, string postalCode)
         {
-            // => validate postcodes without whitespace
-            bool isValid = _postalcodeValidator.TryValidate(postcode.Replace(" ", string.Empty), country, out string result);
+            //=> validate postalcodes without whitespace
+            bool isValid = _postalcodeValidator.TryValidate(postalCode.Replace(" ", string.Empty), country, out string result);
 
-            // => succes
-            Assert.True(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
+            //=> succes
+            isValid.Should().BeTrue();
+            _postalcodeValidator.IsValid.Should().Be(isValid);
 
-            // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> has no error message
+            _postalcodeValidator.ErrorMessage.Should().BeNullOrEmpty();
 
-            // => formatted result postcode with whitespace.
-            Assert.Equal(postcode, result);
+            //=> formatted result postalcode with whitespace.
+            result.Should().Be(postalCode);
         }
 
         [Theory]
@@ -183,18 +184,18 @@ namespace Validators.Tests.Postcode
         [InlineData(Countries.Portugal, PORTUGAL)]
         public void WithOutHyphen(Countries country, string postalCode)
         {
-            // => validate postcodes without hyphen.
+            //=> validate postalcodes without hyphen.
             bool isValid = _postalcodeValidator.TryValidate(postalCode.Replace("-", string.Empty), country, out string result);
-            
-            // => success
-            Assert.True(isValid);
-            Assert.Equal(isValid, _postalcodeValidator.IsValid);
 
-            // => has no error message
-            Assert.True(string.IsNullOrEmpty(_postalcodeValidator.ErrorMessage));
+            //=> success
+            isValid.Should().BeTrue();
+            _postalcodeValidator.IsValid.Should().Be(isValid);
+ 
+            //=> has no error message
+            _postalcodeValidator.ErrorMessage.Should().BeNullOrEmpty();
 
-            // => formatted result postcode with hyphen.   
-            Assert.Equal(postalCode, result);
+            //=> formatted result postalcode with hyphen.   
+            result.Should().Be(postalCode);
         }
     }
 }

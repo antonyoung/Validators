@@ -51,11 +51,11 @@ namespace Validators.Iban.Extensions
         {
             var index = _alphabet.IndexOf(value);
 
-            // => value not found!
+            //=> value not found!
             if (index == -1)
                 throw new ArgumentOutOfRangeException(nameof(value));
 
-            // => where 0 = 0, 1 = 1, ..., 9 = 9, A = 10, B = 11, ..., Z = 35
+            //=> where 0 = 0, 1 = 1, ..., 9 = 9, A = 10, B = 11, ..., Z = 35
             return index;
         }
     }

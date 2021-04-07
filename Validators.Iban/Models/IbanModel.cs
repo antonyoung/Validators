@@ -9,35 +9,35 @@ namespace Validators.Iban.Models
 
     // DATA: based on https://en.wikipedia.org/wiki/International_Bank_Account_Number
 
-    //    Amsterdam,        // => argument exception
-    //    * Austria,          // => 20,	16n,	    ATkk bbbb bccc cccc cccc,	            b = National bank code, c = Account number
-    //    * Belgium,          // => 16,	12n,	    BEkk bbbc cccc ccxx,	                b = National bank code, c = Account number, x = National check digits
-    //    * Bulgaria,         // => 22,	4a,6n,8c,   BGkk bbbb ssss ttcc cccc cc,	        b = BIC bank code, s = Branch(BAE) number, t = Account type, c = Account number
-    //    * Croatia,          // => 21,	17n,	    HRkk bbbb bbbc cccc cccc c, 	        b = Bank code, c = Account number
-    //    * Cyprus,           // => 28,	8n,16c,	    CYkk bbbs ssss cccc cccc cccc cccc,	    b = National bank code, s = Branch code, c = Account number
-    //    * Czechia,          // => 24,	20n,	    CZkk bbbb ssss sscc cccc cccc,	        b = National bank code, s = Account number prefix, c = Account number
-    //    * Denmark,          // => 18,	14n,	    DKkk bbbb cccc cccc cc,	                b = National bank code, c = Account number
-    //    * Estonia,          // => 20,	16n,	    EEkk bbss cccc cccc cccx,	            b = National bank code, s = Branch code, c = Account number, x = National check digit
-    //    * Finland,          // => 18,	14n,	    FIkk bbbb bbcc cccc cx,	                b = Bank and branch code, c = Account number, x = National check digit
-    //    France,           // => 27,	10n,11c,2n,	FRkk bbbb bsss sscc cccc cccc cxx,	    b = National bank code, s = Branch code(fr:code guichet), c = Account number, x = National check digits(fr:clé RIB)
-    //    * Germany,          // => 22,	18n,	    DEkk bbbb bbbb cccc cccc cc,	        b = Bank and branch identifier (de:Bankleitzahl or BLZ), c = Account number
-    //    * Greece,           // => 27,	7n,16c,	    GRkk bbbs sssc cccc cccc cccc ccc,	    b = National bank code, s = Branch code, c = Account number
-    //    * Hungary,          // => 28,	24n,	    HUkk bbbs sssx cccc cccc cccc cccx,	    b = National bank code, s = Branch code, c = Account number, x = National check digit
-    //    Ireland,          // => 22,	4c,14n,	    IEkk aaaa bbbb bbcc cccc cc,	        a = BIC bank code, b = Bank/branch code(sort code), c = Account number
-    //    Italy,            // => 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
-    //    * Latvia,           // => 21,	4a,13c,	    LVkk bbbb cccc cccc cccc c,	            b = BIC Bank code, c = Account number
-    //    * Lithuania,        // => 20,	16n,	    LTkk bbbb bccc cccc cccc,	            b = National bank code, c = Account number
-    //    * Luxembourg,       // => 20,	3n,13c,	    LUkk bbbc cccc cccc cccc,	            b = National bank code, c = Account number
-    //    * Malta,            // => 31,	4a,5n,18c,	MTkk bbbb ssss sccc cccc cccc cccc ccc,	b = BIC bank code, s = Branch code, c = Account number
-    //    * Netherlands,      // => 18,	4a,10n,	    NLkk bbbb cccc cccc cc,	                b = BIC Bank code, c = Account number
-    //    * Poland,           // => 28,	24n,	    PLkk bbbs sssx cccc cccc cccc cccc,	    b = National bank code, s = Branch code, x = National check digit, c = Account number,
-    //    * Portugal,         // => 25,	21n,	    PTkk bbbb ssss cccc cccc cccx x,	    k = IBAN check digits (always = "50"), b = National bank code(numeric only), s = Branch code(numeric only), c = Account number(numeric only), x = National check digits(numeric only)
-    //    * Romania,          // => 24,	4a,16c,	    ROkk bbbb cccc cccc cccc cccc,	        b = BIC Bank code (first four alpha characters), c = Branch code and account number(bank-specific format)
-    //    * Slovakia,         // => 24,	20n,	    SKkk bbbb ssss sscc cccc cccc,	        b = National bank code, s = Account number prefix, c = Account number
-    //    * Slovenia,         // => 19,	15n,	    SIkk bbss sccc cccc cxx,	            k = IBAN check digits (always = "56"), b = National bank code, s = Branch code, c = Account number, x = National check digits
-    //    * Spain,            // => 24,	20n,	    ESkk bbbb ssss xxcc cccc cccc,	        b = National bank code, s = Branch code, x = Check digits, c = Account number
-    //    * Sweden,           // => 24,	20n,	    SEkk bbbc cccc cccc cccc cccc,	        b = National bank code, c = Account number
-    //    * UnitedKingdom     // => 22,	4a,14n,	    GBkk bbbb ssss sscc cccc cc,	        b = BIC bank code, s = Bank and branch code(sort code), c = Account number
+    //    Amsterdam,        //=> argument exception
+    //    * Austria,          //=> 20,	16n,	    ATkk bbbb bccc cccc cccc,	            b = National bank code, c = Account number
+    //    * Belgium,          //=> 16,	12n,	    BEkk bbbc cccc ccxx,	                b = National bank code, c = Account number, x = National check digits
+    //    * Bulgaria,         //=> 22,	4a,6n,8c,   BGkk bbbb ssss ttcc cccc cc,	        b = BIC bank code, s = Branch(BAE) number, t = Account type, c = Account number
+    //    * Croatia,          //=> 21,	17n,	    HRkk bbbb bbbc cccc cccc c, 	        b = Bank code, c = Account number
+    //    * Cyprus,           //=> 28,	8n,16c,	    CYkk bbbs ssss cccc cccc cccc cccc,	    b = National bank code, s = Branch code, c = Account number
+    //    * Czechia,          //=> 24,	20n,	    CZkk bbbb ssss sscc cccc cccc,	        b = National bank code, s = Account number prefix, c = Account number
+    //    * Denmark,          //=> 18,	14n,	    DKkk bbbb cccc cccc cc,	                b = National bank code, c = Account number
+    //    * Estonia,          //=> 20,	16n,	    EEkk bbss cccc cccc cccx,	            b = National bank code, s = Branch code, c = Account number, x = National check digit
+    //    * Finland,          //=> 18,	14n,	    FIkk bbbb bbcc cccc cx,	                b = Bank and branch code, c = Account number, x = National check digit
+    //    France,           //=> 27,	10n,11c,2n,	FRkk bbbb bsss sscc cccc cccc cxx,	    b = National bank code, s = Branch code(fr:code guichet), c = Account number, x = National check digits(fr:clé RIB)
+    //    * Germany,          //=> 22,	18n,	    DEkk bbbb bbbb cccc cccc cc,	        b = Bank and branch identifier (de:Bankleitzahl or BLZ), c = Account number
+    //    * Greece,           //=> 27,	7n,16c,	    GRkk bbbs sssc cccc cccc cccc ccc,	    b = National bank code, s = Branch code, c = Account number
+    //    * Hungary,          //=> 28,	24n,	    HUkk bbbs sssx cccc cccc cccc cccx,	    b = National bank code, s = Branch code, c = Account number, x = National check digit
+    //    Ireland,          //=> 22,	4c,14n,	    IEkk aaaa bbbb bbcc cccc cc,	        a = BIC bank code, b = Bank/branch code(sort code), c = Account number
+    //    Italy,            //=> 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
+    //    * Latvia,           //=> 21,	4a,13c,	    LVkk bbbb cccc cccc cccc c,	            b = BIC Bank code, c = Account number
+    //    * Lithuania,        //=> 20,	16n,	    LTkk bbbb bccc cccc cccc,	            b = National bank code, c = Account number
+    //    * Luxembourg,       //=> 20,	3n,13c,	    LUkk bbbc cccc cccc cccc,	            b = National bank code, c = Account number
+    //    * Malta,            //=> 31,	4a,5n,18c,	MTkk bbbb ssss sccc cccc cccc cccc ccc,	b = BIC bank code, s = Branch code, c = Account number
+    //    * Netherlands,      //=> 18,	4a,10n,	    NLkk bbbb cccc cccc cc,	                b = BIC Bank code, c = Account number
+    //    * Poland,           //=> 28,	24n,	    PLkk bbbs sssx cccc cccc cccc cccc,	    b = National bank code, s = Branch code, x = National check digit, c = Account number,
+    //    * Portugal,         //=> 25,	21n,	    PTkk bbbb ssss cccc cccc cccx x,	    k = IBAN check digits (always = "50"), b = National bank code(numeric only), s = Branch code(numeric only), c = Account number(numeric only), x = National check digits(numeric only)
+    //    * Romania,          //=> 24,	4a,16c,	    ROkk bbbb cccc cccc cccc cccc,	        b = BIC Bank code (first four alpha characters), c = Branch code and account number(bank-specific format)
+    //    * Slovakia,         //=> 24,	20n,	    SKkk bbbb ssss sscc cccc cccc,	        b = National bank code, s = Account number prefix, c = Account number
+    //    * Slovenia,         //=> 19,	15n,	    SIkk bbss sccc cccc cxx,	            k = IBAN check digits (always = "56"), b = National bank code, s = Branch code, c = Account number, x = National check digits
+    //    * Spain,            //=> 24,	20n,	    ESkk bbbb ssss xxcc cccc cccc,	        b = National bank code, s = Branch code, x = Check digits, c = Account number
+    //    * Sweden,           //=> 24,	20n,	    SEkk bbbc cccc cccc cccc cccc,	        b = National bank code, c = Account number
+    //    * UnitedKingdom     //=> 22,	4a,14n,	    GBkk bbbb ssss sscc cccc cc,	        b = BIC bank code, s = Bank and branch code(sort code), c = Account number
 
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace Validators.Iban.Models
         {
             get => new Dictionary<string, IbanRuleSetModel>
             {
-                // => ATkk bbbb bccc cccc cccc
+                //=> ATkk bbbb bccc cccc cccc
                 { "AT",
                     new IbanRuleSetModel
                     {
@@ -74,7 +74,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Austria
                     }
                 },
-                // => BEkk bbbc cccc ccxx
+                //=> BEkk bbbc cccc ccxx
                 { "BE",
                     new IbanRuleSetModel
                     {
@@ -86,7 +86,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Belgium
                     }
                 },
-                // => BGkk bbbb ssss ttcc cccc cc
+                //=> BGkk bbbb ssss ttcc cccc cc
                 { "BG",
                     new IbanRuleSetModel
                     {
@@ -98,7 +98,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Bulgaria
                     }
                 },
-                // => HRkk bbbb bbbc cccc cccc c
+                //=> HRkk bbbb bbbc cccc cccc c
                 { "HR",
                     new IbanRuleSetModel
                     {
@@ -110,7 +110,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Croatia
                     }
                 },
-                // => CYkk bbbs ssss cccc cccc cccc cccc
+                //=> CYkk bbbs ssss cccc cccc cccc cccc
                 { "CY",
                     new IbanRuleSetModel
                     {
@@ -122,7 +122,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Cyprus
                     }
                 },
-                // => CZkk bbbb ssss sscc cccc cccc
+                //=> CZkk bbbb ssss sscc cccc cccc
                 { "CZ",
                     new IbanRuleSetModel
                     {
@@ -134,7 +134,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Czechia
                     }
                 },
-                // => DKkk bbbb cccc cccc cc
+                //=> DKkk bbbb cccc cccc cc
                 { "DK",
                     new IbanRuleSetModel
                     {
@@ -146,7 +146,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Denmark
                     }
                 },
-                // => EEkk bbss cccc cccc cccx
+                //=> EEkk bbss cccc cccc cccx
 				{ "EE",
                     new IbanRuleSetModel
                     {
@@ -158,7 +158,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Estonia
                     }
                 },
-				// => FIkk bbbb bbcc cccc cx
+				//=> FIkk bbbb bbcc cccc cx
 				{ "FI",
                     new IbanRuleSetModel
                     {
@@ -170,7 +170,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Finland
                     }
                 },
-                // => FRkk bbbb bsss sscc cccc cccc cxx
+                //=> FRkk bbbb bsss sscc cccc cccc cxx
                 { "FR",
                     new IbanRuleSetModel
                     {
@@ -182,7 +182,7 @@ namespace Validators.Iban.Models
                         Country = Countries.France
                     }
                 },
-				// => DEkk bbbb bbbb cccc cccc cc
+				//=> DEkk bbbb bbbb cccc cccc cc
 				{ "DE",
                     new IbanRuleSetModel
                     {
@@ -194,7 +194,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Germany
                     }
                 },				
-                // => GRkk bbbs sssc cccc cccc cccc ccc
+                //=> GRkk bbbs sssc cccc cccc cccc ccc
 				{ "GR",
                     new IbanRuleSetModel
                     {
@@ -206,7 +206,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Greece
                     }
                 },
-                // => HUkk bbbs sssx cccc cccc cccc cccx
+                //=> HUkk bbbs sssx cccc cccc cccc cccx
 				{ "HU",
                     new IbanRuleSetModel
                     {
@@ -218,7 +218,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Hungary
                     }
                 },
-                // => IEkk aaaa bbbb bbcc cccc cc
+                //=> IEkk aaaa bbbb bbcc cccc cc
                 { "IE",
                     //new IbanRuleSetModel
                     //{
@@ -239,7 +239,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Ireland
                     }
                 },
-                // => ITkk xbbb bbss sssc cccc cccc ccc
+                //=> ITkk xbbb bbss sssc cccc cccc ccc
                 { "IT",
                     new IbanRuleSetModel
                     {
@@ -251,7 +251,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Italy
                     }
                 },
-                // => LVkk bbbb cccc cccc cccc c
+                //=> LVkk bbbb cccc cccc cccc c
                 { "LV",
                     new IbanRuleSetModel
                     {
@@ -263,7 +263,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Latvia
                     }
                 },
-				// => LTkk bbbb bccc cccc cccc
+				//=> LTkk bbbb bccc cccc cccc
 				{ "LT",
                     new IbanRuleSetModel
                     {
@@ -275,7 +275,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Lithuania
                     }
                 },
-                // => LUkk bbbc cccc cccc cccc
+                //=> LUkk bbbc cccc cccc cccc
                 { "LU",
                     new IbanRuleSetModel
                     {
@@ -287,7 +287,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Luxembourg
                     }
                 },
-                // => MTkk bbbb ssss sccc cccc cccc cccc ccc
+                //=> MTkk bbbb ssss sccc cccc cccc cccc ccc
                 { "MT",
                     new IbanRuleSetModel
                     {
@@ -299,7 +299,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Malta
                     }
                 },
-                // => NLkk bbbb cccc cccc cc
+                //=> NLkk bbbb cccc cccc cc
                 { "NL",
                     new IbanRuleSetModel
                     {
@@ -311,7 +311,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Netherlands
                     }    
                 },
-                // => PLkk bbbs sssx cccc cccc cccc cccc
+                //=> PLkk bbbs sssx cccc cccc cccc cccc
                 { "PL",
                     new IbanRuleSetModel
                     {
@@ -323,7 +323,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Poland
                     }
                 },
-                // => PTkk bbbb ssss cccc cccc cccx x
+                //=> PTkk bbbb ssss cccc cccc cccx x
                 { "PT",
                     new IbanRuleSetModel
                     {
@@ -335,7 +335,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Portugal
                     }
                 },
-                // => ROkk bbbb cccc cccc cccc cccc
+                //=> ROkk bbbb cccc cccc cccc cccc
                 { "RO",
                     new IbanRuleSetModel
                     {
@@ -347,7 +347,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Romania
                     }
                 },
-                // => SKkk bbbb ssss sscc cccc cccc
+                //=> SKkk bbbb ssss sscc cccc cccc
                 { "SK",
                     new IbanRuleSetModel
                     {
@@ -359,7 +359,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Slovakia
                     }
                 },
-                // => SIkk bbss sccc cccc cxx,
+                //=> SIkk bbss sccc cccc cxx,
                 { "SI",
                     new IbanRuleSetModel
                     {
@@ -371,7 +371,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Slovenia
                     }
                 },
-                // => ESkk bbbb ssss xxcc cccc cccc
+                //=> ESkk bbbb ssss xxcc cccc cccc
                 { "ES",
                     new IbanRuleSetModel
                     {
@@ -383,7 +383,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Spain
                     }
                 },
-                // => SEkk bbbc cccc cccc cccc cccc
+                //=> SEkk bbbc cccc cccc cccc cccc
                 { "SE",
                     new IbanRuleSetModel
                     {
@@ -395,7 +395,7 @@ namespace Validators.Iban.Models
                         Country = Countries.Sweden
                     }
                 },
-                // => GBkk bbbb ssss sscc cccc cc
+                //=> GBkk bbbb ssss sscc cccc cc
                 { "GB",
                     new IbanRuleSetModel
                     {

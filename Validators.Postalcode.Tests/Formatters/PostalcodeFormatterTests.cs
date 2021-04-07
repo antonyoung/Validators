@@ -1,8 +1,8 @@
 using FluentAssertions;
-using Validators.Postalcode.Enums;
-using Validators.Postalcode.Formatters;
 using System.Collections;
 using System.Collections.Generic;
+using Validators.Postalcode.Enums;
+using Validators.Postalcode.Formatters;
 using Xunit;
 
 namespace Validators.Postalcode.Tests.Formatters
@@ -23,12 +23,11 @@ namespace Validators.Postalcode.Tests.Formatters
         [ClassData(typeof(PostalcodeFormatterTestData))]
         public void None(string value)
         {
-            // => validate without formatting
+            //=> validate without formatting
             var result = value.Format(PostalcodeFormatters.None);
 
-            // => success, result == value
+            //=> success, result == value
             result.Should().Be(value);
-            //Assert.Equal(result, value);
         }
 
         /// <summary>
@@ -42,11 +41,10 @@ namespace Validators.Postalcode.Tests.Formatters
         [ClassData(typeof(PostalcodeFormatterTestData))]
         public void Hyphens(string value)
         {
-            // => validate with hyphen formatter.
+            //=> validate with hyphen formatter.
             var result = value.Format(PostalcodeFormatters.Hyphens);
 
-            // => success, result == value without hyphens.
-            //Assert.Equal(result, value.Replace("-", string.Empty));
+            //=> success, result == value without hyphens.
             result.Should().Be(value.Replace("-", string.Empty));
         }
 
@@ -61,12 +59,11 @@ namespace Validators.Postalcode.Tests.Formatters
         [ClassData(typeof(PostalcodeFormatterTestData))]
         public void WhiteSpaces(string value)
         {
-            // => validate with whitespace formatter
+            //=> validate with whitespace formatter
             var result = value.Format(PostalcodeFormatters.WhiteSpaces);
 
-            // => success, result == value without whitespaces.
+            //=> success, result == value without whitespaces.
             result.Should().Be(value.Replace(" ", string.Empty));
-            //Assert.Equal(result, value.Replace(" ", string.Empty));
         }
 
         /// <summary>
@@ -80,12 +77,11 @@ namespace Validators.Postalcode.Tests.Formatters
         [ClassData(typeof(PostalcodeFormatterTestData))]
         public void HyphenAndWhiteSpaces(string value)
         {
-            // => validate with hyphens and whitespaces formatter
+            //=> validate with hyphens and whitespaces formatter
             var result = value.Format(PostalcodeFormatters.HyphensAndWhiteSpaces);
 
-            // => success, result == value without hyphens and or whitespaces.
+            //=> success, result == value without hyphens and or whitespaces.
             result.Should().Be(value.Replace("-", string.Empty).Replace(" ", string.Empty));
-            //Assert.Equal(result, value.Replace(" ", string.Empty).Replace(" ", string.Empty));
         }
     }
     public class PostalcodeFormatterTestData : IEnumerable<object[]>

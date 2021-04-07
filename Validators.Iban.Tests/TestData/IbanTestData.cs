@@ -19,11 +19,11 @@ namespace Validators.Iban.Tests.TestData
             new object[] { "DK65 5051 8748 7637 52" },
             new object[] { "EE97 1275 4713 6579 3179" },
             new object[] { "FI78 4253 5591 1558 75" },
-            new object[] { "FR94 1273 9000 3033 3857 4342 N27" }, // =>  Has letter, that has to be formated, regex and sainty will fail !
+            new object[] { "FR94 1273 9000 3033 3857 4342 N27" }, //=>  Has letter, that has to be formated, regex and sainty will fail !
             new object[] { "DE48 5001 0517 9774 1229 48" },
             new object[] { "GR52 0179 7165 4546 6367 7356 532" },
             new object[] { "HU12 1070 0024 6863 1528 5668 4732" },
-            new object[] { "IE44 BOFI 9000 1739 2177" }, // => has 2 digits less than website says
+            new object[] { "IE44 BOFI 9000 1739 2177" }, //=> has 2 digits less than website says
             new object[] { "IT11 M030 0203 2808 5811 3313 922" },
             new object[] { "LV80 BANK 0000 4351 9500 1" },
             new object[] { "LT22 6285 8538 7987 6641" },

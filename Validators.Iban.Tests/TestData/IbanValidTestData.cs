@@ -207,7 +207,7 @@ namespace Validators.Iban.Tests.TestData
                     AccountNumber = "392177"
                 }
             },
-            //    * Italy,            // => 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
+            //    * Italy,            //=> 27,	1a,10n,12c,	ITkk xbbb bbss sssc cccc cccc ccc,	    x = Check char (CIN), b = National bank code(Associazione Bancaria Italiana or Codice ABI), s = Branch code(it:Coordinate bancarie or CAB – Codice d'Avviamento Bancario), c = Account number
             new object[]
             {
                 new IbanTestModel
@@ -218,7 +218,7 @@ namespace Validators.Iban.Tests.TestData
                     Example = "ITKK XBBB BBSS SSSC CCCC CCCC CCC",
                     NationalBankCode = "03002",
                     NationalBranchCode = "03280",
-                    // => NationalCheckDigit = "M",  feckin' Italians using a check char. instead of a digit!
+                    //=> NationalCheckDigit = "M",  feckin' Italians using a check char. instead of a digit!
                     AccountNumber = "858113313922"
                 }
             },

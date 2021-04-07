@@ -1,13 +1,13 @@
-﻿using Validators.Abstractions.Enums;
-using Validators.Postalcode.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Validators.Abstractions.Enums;
+using Validators.Postalcode.Infrastructure;
 
 namespace Validators.Postalcode.Models
 {
     public class PostalcodeModel : IPostalcodeModel
     {
-        // constants => used 2 => n times.
+        //=> constants: used 2 => n times.
         private const string EXAMPLE_4_DIGITS               = "1234";
         private const string EXAMPLE_5_DIGITS               = "12345";
         private const string EXAMPLE_5_DIGITS_WHITESPACE    = "123 45";
@@ -40,7 +40,7 @@ namespace Validators.Postalcode.Models
         /// <exception cref="ArgumentException">
         ///     throws ArgumentException, in case country is not found in current Dictionary, 
         /// </exception> 
-        public Dictionary<Countries, PostalcodeRuleSetModel> Rules
+        public IDictionary<Countries, PostalcodeRuleSetModel> Rules
         {
             get => new Dictionary<Countries, PostalcodeRuleSetModel>()
             {
@@ -101,7 +101,7 @@ namespace Validators.Postalcode.Models
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
-                // Finland: The postal code must be preceded by ‘FI-’ = default (or by ‘AX-’ for the Åland Islands) 
+                //=> Finland: The postal code must be preceded by ‘FI-’ = default (or by ‘AX-’ for the Åland Islands) 
                 { Countries.Finland,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_PREFIX,
@@ -138,14 +138,14 @@ namespace Validators.Postalcode.Models
                         Example = EXAMPLE_4_DIGITS
                     }
                 },
-                    { Countries.Italy,
+                { Countries.Italy,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_DIGITS,
                         RegexPattern = REGEX_5_DIGITS,
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
-                // Ireland: not sure how correct this is?
+                //=> Ireland: not sure how correct this is?
                 { Countries.Ireland,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
@@ -242,7 +242,7 @@ namespace Validators.Postalcode.Models
                         Example = $"{PREFIX_SWEDEN}{EXAMPLE_5_DIGITS_WHITESPACE}"
                     }
                 },
-                // United Kingdom: not sure how correct this is?
+                //=> United Kingdom: not sure how correct this is?
                 { Countries.UnitedKingdom,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,

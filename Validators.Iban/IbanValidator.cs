@@ -113,7 +113,7 @@ namespace Validators.Iban
             result = value.Trim().ToUpperInvariant()
                 ?? throw new ArgumentException(nameof(value));
 
-            // => use TwoLetterISORegionName from iban value as key
+            //=> use TwoLetterISORegionName from iban value as key
             if (!_model.Rules.TryGetValue(result.Substring(0, 2).ToUpperInvariant(), out _logic))
                 throw new ArgumentException($"No matching country found for {result.Substring(0, 2).ToUpperInvariant()}.");
 
@@ -171,7 +171,7 @@ namespace Validators.Iban
             // research: System.ReadOnlySpan<char> => net core 3.0 new implementation?
             foreach (byte value in sanityIndexer)
             {
-                // => sanity check, current value * 10 + value modulus of 97.
+                //=> sanity check, current value * 10 + value modulus of 97.
                 checkSum *= 10;
                 checkSum += value;
                 checkSum %= 97;
@@ -180,7 +180,7 @@ namespace Validators.Iban
             return checkSum == 1;
 
             // additional check
-            // => Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
+            //=> Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
 
         }
 
@@ -196,10 +196,10 @@ namespace Validators.Iban
         private GenericIndexer<byte> CreateSanityIndexer()
         {
 
-            // => internal logic how we have to format the sanity check
+            //=> internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
             
-            // => formats sanity, based on regular expression group.Names and their values.
+            //=> formats sanity, based on regular expression group.Names and their values.
             foreach (Group group in _match.Groups)
             {
                 if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
@@ -226,11 +226,11 @@ namespace Validators.Iban
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
 
-            // => validate sanity is a number
+            //=> validate sanity is a number
             if (!double.TryParse(formatAsNumbers, out double sanityNumber))
                 throw new ArgumentOutOfRangeException(nameof(sanityNumber));
 
-            // => reindex every didget [0- 9] as a byte
+            //=> reindex every didget [0- 9] as a byte
             return new GenericIndexer<byte>(
                 formatAsNumbers.ToCharArray()
                     .Select(value => { return byte.Parse(value.ToString()); })
