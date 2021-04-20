@@ -51,9 +51,7 @@ steps:
      packDestination: $(Build.ArtifactStagingDirectory)
      #arguments: '--include-symbols --verbosity normal --configuration Release --output https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json'
 
-steps:
-- task: NuGetAuthenticate@0
-  displayName: '//=> NuGet Authenticate'
+# dotenet push nuget-packages to project/feed
 - task: NuGetCommand@2
   displayName: '//=> dotnet push'
   inputs:
