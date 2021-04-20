@@ -14,7 +14,7 @@ pool:
 # install dotnet sdk 3.x
 steps:
 - task: UseDotNet@2
-  displayName: '//=> install dotnet sdk 3.x'
+  displayName: '//=> dotnet install sdk 3.x'
   inputs:
     packageType: sdk
     version: 3.x
@@ -45,5 +45,18 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
-     projects: '**/*.csproj'
-     arguments: '--include-symbols --verbosity normal --configuration Release --output https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json'
+     versioningScheme: byPrereleaseNumbe
+     packagesToPack: '**/*.csproj'
+     configuration: $(BuildConfiguration)
+     packDestination: $(Build.ArtifactStagingDirectory)
+     #arguments: '--include-symbols --verbosity normal --configuration Release --output https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json'
+
+steps:
+- task: NuGetAuthenticate@0
+  displayName: '//=> NuGet Authenticate'
+- task: NuGetCommand@2
+  displayName: '//=> dotnet push'
+  inputs:
+    command: push
+    publishVstsFeed: 'Validator/antonyoung-nuget-packages'
+    allowPackageConflicts: true
