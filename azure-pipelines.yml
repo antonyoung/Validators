@@ -14,7 +14,7 @@ pool:
 # install dotnet sdk 3.x
 steps:
 - task: UseDotNet@2
-  displayName: '// => install dotnet sdk 3.x'
+  displayName: '//=> install dotnet sdk 3.x'
   inputs:
     packageType: sdk
     version: 3.x
@@ -24,18 +24,26 @@ steps:
 # restore nuget packages
 # - script: dotnet restore
 
-# build all projects as Release
+# dotenet build all projects as Release
 - task: DotNetCoreCLI@2
-  displayName: '// => dotnet build'
+  displayName: '//=> dotnet build'
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration Release'
 
-# run all tests and collect code coverage
+# dotenet test all tests and collect code coverage
 - task: DotNetCoreCLI@2
-  displayName: '// => dotnet test'
+  displayName: '//=> dotnet test'
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
+
+# dotenet pack all projects as Release
+task: DotNetCoreCLI@2
+displayName: '//=> dotnet pack'
+inputs:
+    command: pack
+    projects: '**/*.csproj'
+    arguments: '--include-symbols --verbosity normal --configuration Release --output https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json'
