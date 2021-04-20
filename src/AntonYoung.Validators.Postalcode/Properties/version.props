@@ -8,8 +8,8 @@
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix>F60</VersionSuffix>
     <Product>AntonYoung.Validators.Postalcode</Product>
-    <PackageTags>Validator European postalcodes</PackageTags>
-    <Description>Validator for Euroepan Postalcodes</Description>
+    <PackageTags>European postalcodes Validator</PackageTags>
+    <Description>Validator for European Postalcodes</Description>
     <Copyright>Copyright © 2021 Anton Young, Amsterdam</Copyright>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>

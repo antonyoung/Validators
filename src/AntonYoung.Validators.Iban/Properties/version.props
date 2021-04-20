@@ -8,7 +8,7 @@
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix>F60</VersionSuffix>
     <Product>AntonYoung.Validators.Iban</Product>
-    <PackageTags>European iban Validator</PackageTags>
+    <PackageTags>European IBAN Validator</PackageTags>
     <Description>Validator for European International Bank Account Number (IBAN)</Description>
     <Copyright>Copyright © 2021 Anton Young, Amsterdam</Copyright>
     <SignAssembly>True</SignAssembly>

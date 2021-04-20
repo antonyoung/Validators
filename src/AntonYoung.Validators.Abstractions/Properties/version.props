@@ -8,7 +8,7 @@
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix>F60</VersionSuffix>
     <Product>AntonYoung.Validators.Abstractions</Product>
-    <PackageTags>Validators shared dependency</PackageTags>
+    <PackageTags>Shared dependency used by Anton.Young.Validators</PackageTags>
     <Description>Shared dependency on Iban, Postalcode validators</Description>
     <Copyright>Copyright © 2021 Anton Young, Amsterdam</Copyright>
     <SignAssembly>True</SignAssembly>
