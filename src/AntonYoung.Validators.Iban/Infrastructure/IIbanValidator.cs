@@ -1,6 +1,5 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 
-
 namespace AntonYoung.Validators.Iban.Infrastructure
 {
     public interface IIbanValidator

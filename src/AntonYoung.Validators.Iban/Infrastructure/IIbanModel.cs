@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using AntonYoung.Validators.Iban.Models;
-
+﻿using AntonYoung.Validators.Iban.Models;
+using System.Collections.Generic;
 
 namespace AntonYoung.Validators.Iban.Infrastructure
 {

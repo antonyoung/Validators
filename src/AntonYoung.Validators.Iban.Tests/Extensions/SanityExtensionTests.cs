@@ -20,6 +20,7 @@ namespace AntonYoung.Validators.Tests.Extensions
         /// <param name="expected">
         ///     used as the expected result.
         /// </param>
+        
         [Theory]
         [ClassData(typeof(SanityIndexTestData))]
         public void ValidateIndex(char[] value, Int64 expected)
@@ -64,9 +65,9 @@ namespace AntonYoung.Validators.Tests.Extensions
             act.Should().Throw<ArgumentException>();
         }
 
-        ///// <summary>
-        /////     used as to validate argument out of range exception.
-        ///// </summary>
+        /// <summary>
+        ///     used as to validate argument out of range exception.
+        /// </summary>
         [Fact]
         public void ThrowsArgumentOutOfRangeException()
         {

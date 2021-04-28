@@ -1,19 +1,18 @@
-using AntonYoung.Validators.Postalcode.Enums;
-using AntonYoung.Validators.Postalcode.Formatters;
+using AntonYoung.Validators.Abstractions.Extensions;
 using FluentAssertions;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace AntonYoung.Validators.Postalcode.Tests.Formatters
+namespace AntonYoung.Validators.Abstractions.Tests.Extensions
 {
     /// <summary>
     ///     used as test class, to test the all postalcode formatters.
     /// </summary>
-    public class PostalcodeFormatterTests
+    public class FormatterTests
     {
         /// <summary>
-        ///     used as tests <see cref="TestData"/> with <see cref="PostalcodeFormatters.None"/>, 
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.None"/>, 
         ///     no formatting.
         /// </summary>
         /// <param name="value">
@@ -24,14 +23,14 @@ namespace AntonYoung.Validators.Postalcode.Tests.Formatters
         public void None(string value)
         {
             //=> validate without formatting
-            var result = value.Format(PostalcodeFormatters.None);
+            var result = value.Format(Enums.Formatters.None);
 
             //=> success, result == value
             result.Should().Be(value);
         }
 
         /// <summary>
-        ///     used as tests <see cref="TestData"/> with <see cref="PostalcodeFormatters.Hyphens"/>, 
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.Hyphens"/>, 
         ///     formatting removes all hyphens if any.
         /// </summary>
         /// <param name="value">
@@ -42,14 +41,14 @@ namespace AntonYoung.Validators.Postalcode.Tests.Formatters
         public void Hyphens(string value)
         {
             //=> validate with hyphen formatter.
-            var result = value.Format(PostalcodeFormatters.Hyphens);
+            var result = value.Format(Enums.Formatters.Hyphens);
 
             //=> success, result == value without hyphens.
             result.Should().Be(value.Replace("-", string.Empty));
         }
 
         /// <summary>
-        ///     used as tests <see cref="TestData"/> with <see cref="PostalcodeFormatters.WhiteSpaces"/>, 
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.WhiteSpaces"/>, 
         ///     formatting removes all whitespaces if any.
         /// </summary>
         /// <param name="value">
@@ -60,14 +59,14 @@ namespace AntonYoung.Validators.Postalcode.Tests.Formatters
         public void WhiteSpaces(string value)
         {
             //=> validate with whitespace formatter
-            var result = value.Format(PostalcodeFormatters.WhiteSpaces);
+            var result = value.Format(Enums.Formatters.WhiteSpaces);
 
             //=> success, result == value without whitespaces.
             result.Should().Be(value.Replace(" ", string.Empty));
         }
 
         /// <summary>
-        ///     used as tests <see cref="TestData"/> with <see cref="PostalcodeFormatters.HyphensAndWhiteSpaces"/>, 
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.HyphensAndWhiteSpaces"/>, 
         ///     formatting removes all hyphens and whitespaces if any.
         /// </summary>
         /// <param name="value">
@@ -78,12 +77,13 @@ namespace AntonYoung.Validators.Postalcode.Tests.Formatters
         public void HyphenAndWhiteSpaces(string value)
         {
             //=> validate with hyphens and whitespaces formatter
-            var result = value.Format(PostalcodeFormatters.HyphensAndWhiteSpaces);
+            var result = value.Format(Enums.Formatters.HyphensAndWhiteSpaces);
 
             //=> success, result == value without hyphens and or whitespaces.
             result.Should().Be(value.Replace("-", string.Empty).Replace(" ", string.Empty));
         }
     }
+
     public class PostalcodeFormatterTestData : IEnumerable<object[]>
     {
         /// <summary>

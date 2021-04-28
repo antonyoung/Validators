@@ -1,6 +1,5 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
-using AntonYoung.Validators.Postalcode.Enums;
-using AntonYoung.Validators.Postalcode.Formatters;
+using AntonYoung.Validators.Abstractions.Extensions;
 using AntonYoung.Validators.Postalcode.Infrastructure;
 using AntonYoung.Validators.Postalcode.Models;
 using System;
@@ -100,7 +99,7 @@ namespace AntonYoung.Validators.Postalcode
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
         public bool TryValidate(string value, Countries country, out string result) 
-            => TryValidate(value, country, PostalcodeFormatters.None, out result);
+            => TryValidate(value, country, Formatters.None, out result);
 
         /// <summary>
         ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
@@ -122,7 +121,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <returns>
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
-        public bool TryValidate(string value, Countries country, PostalcodeFormatters formatter, out string result)
+        public bool TryValidate(string value, Countries country, Formatters formatter, out string result)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -153,7 +152,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <returns>
         ///     the formatted postalcode of the match result and with given formatter. 
         /// </returns>
-        private string Format(Match match, PostalcodeFormatters formatter)
+        private string Format(Match match, Formatters formatter)
         {
             string result = _logic.DisplayFormat;
 
@@ -166,7 +165,7 @@ namespace AntonYoung.Validators.Postalcode
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
 
-            return result.Format(formatter).ToUpperInvariant();
+            return result.ToUpperInvariant().Format(formatter);
         }
     }
 }

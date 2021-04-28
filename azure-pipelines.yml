@@ -40,12 +40,12 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
 
-# dotenet pack all projects as Release
+# dotenet pack all projects as release
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
-     versioningScheme: byPrereleaseNumbe
+     versioningScheme: 'byPrereleaseNumber'
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)

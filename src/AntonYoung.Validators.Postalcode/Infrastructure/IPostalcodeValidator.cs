@@ -1,5 +1,4 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
-using AntonYoung.Validators.Postalcode.Enums;
 
 namespace AntonYoung.Validators.Postalcode.Infrastructure
 {
@@ -27,6 +26,6 @@ namespace AntonYoung.Validators.Postalcode.Infrastructure
 
         bool TryValidate(string value, Countries country, out string result);
 
-        bool TryValidate(string value, Countries country, PostalcodeFormatters formatter, out string result);
+        bool TryValidate(string value, Countries country, Formatters formatter, out string result);
     }
 }
