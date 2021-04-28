@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace AntonYoung.Validators.Iban.Models
 {
-
     // DATA: based on https://en.wikipedia.org/wiki/International_Bank_Account_Number
 
     //    Amsterdam,        //=> argument exception

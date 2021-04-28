@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using AntonYoung.Validators.Abstractions.Enums;
+﻿using AntonYoung.Validators.Abstractions.Enums;
+using AntonYoung.Validators.Abstractions.Extensions;
 using AntonYoung.Validators.Iban.Extensions;
-using AntonYoung.Validators.Iban.Formatters;
 using AntonYoung.Validators.Iban.Indexers;
 using AntonYoung.Validators.Iban.Infrastructure;
 using AntonYoung.Validators.Iban.Models;
+using System;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AntonYoung.Validators.Iban
 {
@@ -147,7 +147,7 @@ namespace AntonYoung.Validators.Iban
             if (!IsValid)
             {
                 // todo: use and add formatter to replace wildcards or add wildcards.
-                int length = value.Format(PostalcodeFormatters.WhiteSpaces).Length;
+                int length = value.Format(Formatters.WhiteSpaces).Length;
 
                 ErrorMessage = length == _logic.Length
                     ? $"Iban value of \"{value}\" is not valid. Use as example \"{_logic.Example}\" for country {Country}."
@@ -195,7 +195,6 @@ namespace AntonYoung.Validators.Iban
         /// </returns>
         private GenericIndexer<byte> CreateSanityIndexer()
         {
-
             //=> internal logic how we have to format the sanity check
             var formatAsNumbers = _logic.SanityFormat;
             
