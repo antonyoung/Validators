@@ -14,10 +14,10 @@ pool:
 # install dotnet sdk 3.x
 steps:
 - task: UseDotNet@2
-  displayName: '//=> dotnet install sdk 3.x'
+  displayName: '//=> dotnet install sdk 5.x'
   inputs:
     packageType: sdk
-    version: 3.x
+    version: 5.0.x
     includePreviewVersions: false
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
