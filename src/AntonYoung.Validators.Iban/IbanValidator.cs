@@ -268,10 +268,10 @@ namespace AntonYoung.Validators.Iban
         private string GroupValues(string groupName)
         {
             var append = new StringBuilder();
-            var groups = _match.Groups.Where(
-                group => group.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
+            var groups = _match.Groups.Values
+                .Where(_ => _.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
 
-            foreach (Group group in groups)
+            foreach (var group in groups)
                 append.Append(group.Value);
             
             return append.Length == 0 ? null : append.ToString();

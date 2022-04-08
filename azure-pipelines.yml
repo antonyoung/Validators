@@ -11,13 +11,13 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 5.x
+# install dotnet sdk 6.x
 steps:
 - task: UseDotNet@2
-  displayName: '//=> dotnet install sdk 5.x'
+  displayName: '//=> dotnet install sdk 6.x'
   inputs:
     packageType: sdk
-    version: 5.0.x
+    version: 6.0.x
     includePreviewVersions: false
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
