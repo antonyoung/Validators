@@ -11,7 +11,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 3.x
+# install dotnet sdk 5.x
 steps:
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 5.x'
@@ -45,6 +45,7 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
+     # todo: publish as version '<VersionPrefix>-<VersionSuffix>''
      versioningScheme: 'byPrereleaseNumber'
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)

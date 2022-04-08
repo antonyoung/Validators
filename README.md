@@ -2,15 +2,25 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Postal code and IBAN validator and formatter (C#) .Net Standard
 
-Validates and formats European postal codes, plus setup validating international bank account numbers (iban.)
+Validates and formats European postal codes, plus validates International Bank Account Numbers ( IBAN )
 
 ### Intro
 
-Started this little project in my spare time, for the reason that I noticed today (28 August 2019) at work that validation of Dutch postal codes is barely or none existent. 
+Started this little project in my spare time, for the reason that I noticed today ( 28 August 2019 ) at a project. 
+That validation of Dutch postal codes is barely or none existent. 
 The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
-As always, how can I keep my life simple and it works, fast and reliable. While the solution is really simple as long you know your regular expressions.
+Just all corrupt data in their systems, and then you have to work all around this.
+Not helping as Clean Code, Performance or just as SOLID principles and as my time.
 
-Started as additional feature with an iban validator, as rules, as all European countries, except is Ierland correctly validated? Plus still have to think about how to implement formatters as postal codes, or as IBAN?
+As thought? 
+This is a nice example to get started in GitHub, DevOps and as a Sandbox as an open source project as a "simple" project and as example. 
+This all can be done much easier than having all this logic, that is not compileable, debugable and not testable as MS SQL Server Functions?" 
+
+Repository works, it's fast and it's reliable. 
+As solution is really simple as long you know your regular expressions!
+In the meantime as additional feature I added also an European IBAN validator "bit more complex, compared to postal code validations." 
+As rules, all European countries, except is AlphaNumeric postal codes as only "UK and Ierland are they correctly validated?" 
+Plus still have to think about how to implement formatters as postal code, or as IBAN? Implementation is there.
 
 ### Description
 
@@ -36,7 +46,7 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
 ### Prerequisites
 ```
 * C# .NET Standard 2.1	  // => Validators
-* C# .NET Core 3.1.0      // => Validators.Tests (xUnit) * With 333 tests => ~80 ms as test set.
+* C# .NET Core 5.1.0      // => Validators.Tests (xUnit) * With 310 tests => ~120 ms as test set.
 ```
 ### Code examples ( PostalcodeValidator )
 
@@ -60,6 +70,12 @@ test.TryValidate("0162GD", Countries.Netherlands, out string result);
 test.IsValid;       // => false					
 test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Use as example \"1234 AB\"."
 result;             // => "0162GD"
+```
+* **Happy flow ( with Formatters.WhiteSpaces == No Spaces )**
+* Example: In case there's a white space, and we don't want any white spaces as result? Remove white space(s) as result
+```csharp
+bool isValid = new PostalcodeValidator()
+   .TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); // => result = "1062GD", isValid = true
 ```
 
 ### Code examples ( IbanValidator )
