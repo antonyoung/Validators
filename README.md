@@ -28,7 +28,7 @@ As a simple and fast European postal code and as a iban validator with simplisti
 Could be easily extended to add countries around the world or to have different types of formatting.
 
 Technical: As validation regular expressions are used with group names. 
-For formatting the postcode off the match groups in the regular expression are used. 
+For formatting the match groups in the regular expression are used. 
 All countries with space or with hyphen or with prefix.
 Are all validated correctly without, and will be automatically formatted in the correct way in case off with space, hyphen or prefix. 
 With one exception Finland has two prefixes FI- / AX- without prefix FI- is choosen as default.
@@ -45,8 +45,7 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
  
 ### Prerequisites
 ```
-* C# .NET Standard 2.1	  // => Validators
-* C# .NET Core 5.1.0      // => Validators.Tests (xUnit) * With 310 tests => ~120 ms as test set.
+* C# .NET Core 6.0      // => Validators.Tests (xUnit) * With 310 tests => ~120 ms as test set.
 ```
 ### Code examples ( PostalcodeValidator )
 
@@ -76,6 +75,14 @@ result;             // => "0162GD"
 ```csharp
 bool isValid = new PostalcodeValidator()
    .TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); // => result = "1062GD", isValid = true
+```
+* **Or as** 
+```csharp
+var test = new PostalcodeValidator(); 
+test.TryValidate("1062 GD", Countries.Netherlands, out string result);
+test.IsValid;       // => true					
+test.ErrorMessage   // => null
+result              // => "1062GD"
 ```
 
 ### Code examples ( IbanValidator )

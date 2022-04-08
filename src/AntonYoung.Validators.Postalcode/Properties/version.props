@@ -5,12 +5,12 @@
   <PropertyGroup>
     <Authors>Anton Young</Authors>
     <Company/>
-    <VersionPrefix>0.0.4</VersionPrefix>
-    <VersionSuffix>F66</VersionSuffix>
+    <VersionPrefix>0.0.5</VersionPrefix>
+    <VersionSuffix>F67</VersionSuffix>
     <Product>AntonYoung.Validators.Postalcode</Product>
     <PackageTags>European postalcodes Validator</PackageTags>
     <Description>Validator for European Postalcodes</Description>
-    <Copyright>Copyright © 2021 Anton Young, Amsterdam</Copyright>
+    <Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
