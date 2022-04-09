@@ -1,4 +1,5 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
+using AntonYoung.Validators.Iban.Constants;
 using AntonYoung.Validators.Iban.Infrastructure;
 using System.Collections.Generic;
 
@@ -40,22 +41,15 @@ namespace AntonYoung.Validators.Iban.Models
     /// <summary>
     ///     used as complete model of all iban logic for each defined internal country <seealso cref="Rules"/>
     /// </summary>
-    public class IbanModel
+    internal class IbanModel
         : IIbanModel
     {
-
-        // <country>    => 2 Letter ISO
-        // <checksum>   => kk: 2 didgets
-        // <bank>       => b: bank code
-        // <account>    => c: account number
-        // <ncheck>     => x: check didgets
-        // <type>       => t: account type
-        // <branch>     => s: branch code
-
+        private const string OptionalWhiteSpace = $"(?<{GroupNames.WhiteSpace}>\\s?)";
+        
         /// <summary>
         ///     used as in memory data source as all intenral business iban logic of the set TwoLetterISORegionName of countries <see cref="Rules"/>.
         /// </summary>
-        public Dictionary<string, IbanRuleSetModel> Rules
+        public IDictionary<string, IbanRuleSetModel> Rules
         {
             get => new Dictionary<string, IbanRuleSetModel>
             {
@@ -63,9 +57,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "AT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)AT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)AT)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{1}})(?<{GroupNames.Account}1>[0-9]{{3}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "ATKK BBBB BNNN NNNN NNNN",
                         Length = 20,
                         Country = Countries.Austria
@@ -75,9 +69,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "BE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)BE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2})(?<whitespace>\s?)(?<ncheck>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank><account1> <account2> <account3><ncheck>",
-                        SanityFormat = "<bank><account1><account2><account3><ncheck><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)BE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.NationalCheckDigit}>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3><{GroupNames.NationalCheckDigit}>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.NationalCheckDigit}><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "BEKK BBBN NNNN NNXX",
                         Length = 16,
                         Country = Countries.Belgium
@@ -87,9 +81,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "BG",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)BG)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<bban>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch> <bban><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch><bban><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)BG)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.AccountType}>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}> <{GroupNames.AccountType}><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}><{GroupNames.AccountType}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "BGKK BBBB SSSS TTCC CCCC CC",
                         Length = 22,
                         Country = Countries.Bulgaria
@@ -99,9 +93,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "HR",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)HR)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)HR)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "HRKK BBBB BBBN NNNN NNNN N",
                         Length = 21,
                         Country = Countries.Croatia
@@ -111,9 +105,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "CY",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)CY)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2> <account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)CY)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Branch}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}1> <{GroupNames.Branch}2> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "CYKK BBBS SSSS CCCC CCCC CCCC CCCC",
                         Length = 28,
                         Country = Countries.Cyprus
@@ -123,9 +117,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "CZ",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)CZ)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)CZ)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><checksum> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "CZKK BBBB SSSS SSNN NNNN NNNN",
                         Length = 24,
                         Country = Countries.Czechia
@@ -135,9 +129,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "DK",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)DK)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank> <account1> <account2> <account3>",
-                        SanityFormat = "<bank><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)DK)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "DKKK BBBB NNNN NNNN NN",
                         Length = 18,
                         Country = Countries.Denmark
@@ -147,9 +141,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "EE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)EE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch>[0-9]{2})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<ncheck>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch> <account1> <account2> <account3><ncheck>",
-                        SanityFormat = "<bank><branch><account1><account2><account3><ncheck><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)EE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{2}})(?<{GroupNames.Branch}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{3}})(?<ncheck>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3><ncheck>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><ncheck><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "EEKK BBSS NNNN NNNN NNNX",
                         Length = 20,
                         Country = Countries.Estonia
@@ -159,9 +153,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "FI",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)FI)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<ncheck>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3><ncheck>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><ncheck><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)FI)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{1}})(?<ncheck>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3><ncheck>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><ncheck><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "FIKK BBBB BBNN NNNN NX",
                         Length = 18,
                         Country = Countries.Finland
@@ -171,9 +165,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "FR",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)FR)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{1})(?<branch1>[0-9]{3})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[a-zA-Z]{1})(?<ncheck>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><branch1> <branch2><account1> <account2> <account3> <account4><ncheck>",
-                        SanityFormat = "<bank1><bank2><branch1><branch2><account1><account2><account3><account4><ncheck><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)FR)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{1}})(?<{GroupNames.Branch}1>[0-9]{{3}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[a-zA-Z]{{1}})(?<{GroupNames.NationalCheckDigit}>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4><ncheck>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><ncheck><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "FRKK BBBB BSSS SSCC CCCC CCCC CXX",
                         Length = 27,
                         Country = Countries.France
@@ -183,9 +177,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "DE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)DE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2> <account1> <account2> <account3>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)DE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "DEKK BBBB BBBB NNNN NNNN NN",
                         Length = 22,
                         Country = Countries.Germany
@@ -195,9 +189,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "GR",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)GR)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4})(?<whitespace>\s?)(?<account5>[0-9]{3}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><account1> <account2> <account3> <account4> <account5>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><account4><account5><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)GR)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Branch}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}5>[0-9]{{3}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4> <{GroupNames.Account}5>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Account}5><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "GRKK BBBS SSSC CCCC CCCC CCCC CCC",
                         Length = 27,
                         Country = Countries.Greece
@@ -207,9 +201,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "HU",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)HU)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<ncheck1>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{3})(?<ncheck2>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><ncheck1> <account1> <account2> <account3> <account4><ncheck2>",
-                        SanityFormat = "<bank><branch1><branch2><ncheck1><account1><account2><account3><account4><ncheck2><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)HU)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Branch}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{3}})(?<ncheck1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{3}})(?<ncheck2>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}1> <{GroupNames.Branch}2><ncheck1> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4><ncheck2>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><ncheck1><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><ncheck2><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "HUKK BBBS SSSX NNNN NNNN NNNN NNNX",
                         Length = 28,
                         Country = Countries.Hungary
@@ -219,18 +213,18 @@ namespace AntonYoung.Validators.Iban.Models
                 { "IE",
                     //new IbanRuleSetModel
                     //{
-                    //    RegexPattern = @"(?<country>^(?i)IE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                    //    DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3>",
-                    //    SanityFormat = "<bank><branch1><branch2><account1><account2><account3><country><checksum>",
+                    //    RegexPattern = $"(?<{GroupNames.Country}>^(?i)IE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                    //    DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                    //    SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                     //    Example = "IEKK BBBB SSSS SSCC CCCC CC",
                     //    Length = 22,
                     //    Country = Countries.Ireland
                     //}
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)IE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)IE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "IEKK BBBB SSSS SSCC CCCC",
                         Length = 22,
                         Country = Countries.Ireland
@@ -240,9 +234,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "IT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)IT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<ncheck>[a-zA-Z]{1})(?<bank1>[0-9]{3})(?<whitespace>\s?)(?<bank2>[0-9]{2})(?<branch1>[0-9]{2})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{3}$)",
-                        DisplayFormat ="<country><checksum> <ncheck><bank1> <bank2><branch1> <branch2><account1> <account2> <account3> <account4>",
-                        SanityFormat = "<ncheck><bank1><bank2><branch1><branch2><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)IT)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<ncheck>[a-zA-Z]{{1}})(?<{GroupNames.Bank}1>[0-9]{{3}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{2}})(?<{GroupNames.Branch}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{3}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <ncheck><{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<ncheck><{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "ITKK XBBB BBSS SSSC CCCC CCCC CCC",
                         Length = 27,
                         Country = Countries.Italy
@@ -252,9 +246,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "LV",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)LV)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank> <account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)LV)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "LVKK BBBB CCCC CCCC CCCC C",
                         Length = 21,
                         Country = Countries.Latvia
@@ -264,9 +258,9 @@ namespace AntonYoung.Validators.Iban.Models
 				{ "LT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)LT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank1>[0-9]{4})(?<whitespace>\s?)(?<bank2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank1> <bank2><account1> <account2> <account3>",
-                        SanityFormat = "<bank1><bank2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)LT)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Bank}2>[0-9]{{1}})(?<{GroupNames.Account}1>[0-9]{{3}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}1> <{GroupNames.Bank}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}1><{GroupNames.Bank}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "LTKK BBBB BNNN NNNN NNNN",
                         Length = 20,
                         Country = Countries.Lithuania
@@ -276,9 +270,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "LU",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)LU)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank><account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)LU)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "LUKK BBBC CCCC CCCC CCCC",
                         Length = 20,
                         Country = Countries.Luxembourg
@@ -288,9 +282,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "MT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)MT)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<branch2>[0-9]{1})(?<account1>[0-9]{3})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4})(?<whitespace>\s?)(?<account5>[0-9]{3}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3> <account4> <account5>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><account4><account5><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)MT)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{1}})(?<{GroupNames.Account}1>[0-9]{{3}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}5>[0-9]{{3}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4> <{GroupNames.Account}5>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Account}5><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "MTKK BBBB SSSS SCCC CCCC CCCC CCCC CCC",
                         Length = 31,
                         Country = Countries.Malta
@@ -300,9 +294,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "NL",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)NL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank> <account1> <account2> <account3>",
-                        SanityFormat = "<bank><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)NL)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "NLKK BBBB NNNN NNNN NN",
                         Length = 18,
                         Country = Countries.Netherlands
@@ -312,9 +306,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "PL",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)PL)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<branch1>[0-9]{1})(?<whitespace>\s?)(?<branch2>[0-9]{3})(?<ncheck>[0-9]{1})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><ncheck> <account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><branch1><branch2><ncheck><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)PL)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Branch}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{3}})(?<ncheck>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}1> <{GroupNames.Branch}2><ncheck> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><ncheck><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "PLKK BBBS SSSX NNNN NNNN NNNN NNNN",
                         Length = 28,
                         Country = Countries.Poland
@@ -324,9 +318,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "PT",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)PT)(?<checksum>50)(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{3})(?<ncheck1>[0-9]{1})(?<whitespace>\s?)(?<ncheck2>[0-9]{1}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch> <account1> <account2> <account3><ncheck1> <ncheck2>",
-                        SanityFormat = "<bank><branch><account1><account2><account3><ncheck1><ncheck2><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)PT)(?<{GroupNames.CheckDigits}>50){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{3}})(?<ncheck1>[0-9]{{1}}){OptionalWhiteSpace}(?<ncheck2>[0-9]{{1}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3><ncheck1> <ncheck2>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><ncheck1><ncheck2><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "PT50 BBBB SSSS NNNN NNNN NNNX X",
                         Length = 25,
                         Country = Countries.Portugal
@@ -336,9 +330,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "RO",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)RO)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<account1>[0-9]{4})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4}$)",
-                        DisplayFormat = "<country><checksum> <bank> <account1> <account2> <account3> <account4>",
-                        SanityFormat = "<bank><account1><account2><account3><account4><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)RO)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "ROKK BBBB CCCC CCCC CCCC CCCC",
                         Length = 24,
                         Country = Countries.Romania
@@ -348,9 +342,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "SK",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)Sk)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
-                        DisplayFormat = "<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)Sk)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "SKKK BBBB SSSS SSNN NNNN NNNN",
                         Length = 24,
                         Country = Countries.Slovakia
@@ -360,9 +354,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "SI",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)SI)(?<checksum>56)(?<whitespace>\s?)(?<bank>[0-9]{2})(?<branch1>[0-9]{2})(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{1})(?<ncheck>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank><branch1> <branch2><account1> <account2> <account3><ncheck>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><ncheck><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)SI)(?<{GroupNames.CheckDigits}>56){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{2}})(?<{GroupNames.Branch}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{1}})(?<ncheck>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3><ncheck>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><ncheck><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "SI56 BBSS SSNN NNNN NXX",
                         Length = 19,
                         Country = Countries.Slovenia
@@ -372,9 +366,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "ES",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)ES)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{4})(?<whitespace>\s?)(?<branch>[0-9]{4})(?<whitespace>\s?)(?<ncheck>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch> <ncheck><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch><ncheck><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)ES)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}>[0-9]{{4}}){OptionalWhiteSpace}(?<ncheck>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}> <ncheck><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}><ncheck><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "ESKK BBBB SSSS XXNN NNNN NNNN",
                         Length = 24,
                         Country = Countries.Spain
@@ -384,9 +378,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "SE",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)SE)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[0-9]{3})(?<account1>[0-9]{1})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{4})(?<whitespace>\s?)(?<account4>[0-9]{4})(?<whitespace>\s?)(?<account5>[0-9]{4}$)",
-                        DisplayFormat ="<country><checksum> <bank><account1> <account2> <account3> <account4> <account5>",
-                        SanityFormat = "<bank><account1><account2><account3><account4><account5><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)SE)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[0-9]{{3}})(?<{GroupNames.Account}1>[0-9]{{1}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}4>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}5>[0-9]{{4}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3> <{GroupNames.Account}4> <{GroupNames.Account}5>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Account}4><{GroupNames.Account}5><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "SEKK BBBN NNNN NNNN NNNN NNNN",
                         Length = 24,
                         Country = Countries.Sweden
@@ -396,9 +390,9 @@ namespace AntonYoung.Validators.Iban.Models
                 { "GB",
                     new IbanRuleSetModel
                     {
-                        RegexPattern = @"(?<country>^(?i)GB)(?<checksum>[0-9]{2})(?<whitespace>\s?)(?<bank>[a-zA-Z]{4})(?<whitespace>\s?)(?<branch1>[0-9]{4})(?<whitespace>\s?)(?<whitespace>\s?)(?<branch2>[0-9]{2})(?<account1>[0-9]{2})(?<whitespace>\s?)(?<account2>[0-9]{4})(?<whitespace>\s?)(?<account3>[0-9]{2}$)",
-                        DisplayFormat ="<country><checksum> <bank> <branch1> <branch2><account1> <account2> <account3>",
-                        SanityFormat = "<bank><branch1><branch2><account1><account2><account3><country><checksum>",
+                        RegexPattern = $"(?<{GroupNames.Country}>^(?i)GB)(?<{GroupNames.CheckDigits}>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Bank}>[a-zA-Z]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Branch}1>[0-9]{{4}}){OptionalWhiteSpace}{OptionalWhiteSpace}(?<{GroupNames.Branch}2>[0-9]{{2}})(?<{GroupNames.Account}1>[0-9]{{2}}){OptionalWhiteSpace}(?<{GroupNames.Account}2>[0-9]{{4}}){OptionalWhiteSpace}(?<{GroupNames.Account}3>[0-9]{{2}}$)",
+                        DisplayFormat = $"<{GroupNames.Country}><{GroupNames.CheckDigits}> <{GroupNames.Bank}> <{GroupNames.Branch}1> <{GroupNames.Branch}2><{GroupNames.Account}1> <{GroupNames.Account}2> <{GroupNames.Account}3>",
+                        SanityFormat = $"<{GroupNames.Bank}><{GroupNames.Branch}1><{GroupNames.Branch}2><{GroupNames.Account}1><{GroupNames.Account}2><{GroupNames.Account}3><{GroupNames.Country}><{GroupNames.CheckDigits}>",
                         Example = "GBKK BBBB SSSS SSNN NNNN NN",
                         Length = 22,
                         Country = Countries.UnitedKingdom

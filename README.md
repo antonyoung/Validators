@@ -45,7 +45,7 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
  
 ### Prerequisites
 ```
-* C# .NET Core 6.0      // => Validators.Tests (xUnit) * With 310 tests => ~120 ms as test set.
+* C# .NET Core 6.0      // => Validators.Tests (xUnit) * With 3346 tests => ~150 ms as test set.
 ```
 ### Code examples ( PostalcodeValidator )
 
@@ -105,6 +105,28 @@ Test.NationalBankCode	        // => "INGB"
 test.NationalBranchCode	        // => null
 test.NationalCheckDigit	        // => null
 result:                         // => "NL71 INGB 1320 9490 10"
+```
+
+### Code examples ( Formatters )
+
+* **Example: Replace whitespaces with "."**
+```csharp
+bool isValid = new IbanValidator()
+   .TryValidate("NL71INGB1320949010", Formatter.WhiteSpace, ".", out string result); // => result = "NL71.INGB.1320.9490.10", isValid = true
+```
+* **Or as** 
+```csharp
+var test = new IbanValidator(); 
+test.TryValidate("NL71INGB1320949010", out string result);
+test.IsValid;			// => true					
+test.ErrorMessage		// => null
+test.AccountNumber		// => "1320949010"
+test.Country			// => Countries.Netherlands
+test.CheckDigits		// => 71
+Test.NationalBankCode	        // => "INGB"
+test.NationalBranchCode	        // => null
+test.NationalCheckDigit	        // => null
+result:                         // => "NL71.INGB.1320.9490.10"
 ```
 
 ## Authors

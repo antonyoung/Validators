@@ -6,7 +6,7 @@
     <Authors>Anton Young</Authors>
     <Company/>
     <VersionPrefix>0.0.5</VersionPrefix>
-    <VersionSuffix>F67</VersionSuffix>
+    <VersionSuffix>F70</VersionSuffix>
     <Product>AntonYoung.Validators.Abstractions</Product>
     <PackageTags>Shared dependency used by Anton.Young.Validators</PackageTags>
     <Description>Shared dependency on Iban, Postalcode validators</Description>

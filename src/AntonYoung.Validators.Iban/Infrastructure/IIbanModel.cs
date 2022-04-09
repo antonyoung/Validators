@@ -15,6 +15,6 @@ namespace AntonYoung.Validators.Iban.Infrastructure
         /// <exception cref=System.ArgumentException">
         ///     thrown, when country is not found in defined data set.
         /// </exception>
-        Dictionary<string, IbanRuleSetModel> Rules { get; }
+        IDictionary<string, IbanRuleSetModel> Rules { get; }
     }
 }
