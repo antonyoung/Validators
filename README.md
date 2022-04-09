@@ -45,7 +45,7 @@ Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/Inte
  
 ### Prerequisites
 ```
-* C# .NET Core 6.0      // => Validators.Tests (xUnit) * With 3346 tests => ~150 ms as test set.
+* C# .NET Core 6.0      // => Validators.Tests (xUnit) * With 346 tests => ~150 ms as test set.
 ```
 ### Code examples ( PostalcodeValidator )
 

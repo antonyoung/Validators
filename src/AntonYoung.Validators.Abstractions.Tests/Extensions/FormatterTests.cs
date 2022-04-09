@@ -87,11 +87,9 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
                 .Replace(" ", string.Empty));
         }
 
-
-
         /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="Formatters.None"/>, 
-        ///     no formatting.
+        ///     no formatting with replace value.
         /// </summary>
         /// <param name="value">
         ///     used as the value to be formatted.
@@ -103,13 +101,13 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
             //=> validate without formatting
             var result = value.Format(Enums.Formatters.None, ReplaceValue);
 
-            //=> success, result == value
+            //=> success, result == value ( no replace shoud happen )
             result.Should().Be(value);
         }
 
         /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="Formatters.Hyphens"/>, 
-        ///     formatting removes all hyphens if any.
+        ///     formatting replaces all hyphens with replace value, if any
         /// </summary>
         /// <param name="value">
         ///     used as the value to be formatted.
@@ -121,13 +119,13 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
             //=> validate with hyphen formatter.
             var result = value.Format(Enums.Formatters.Hyphens, ReplaceValue);
 
-            //=> success, result == value without hyphens.
+            //=> success, result == value without hyphens are replaced with replace value.
             result.Should().Be(value.Replace("-", ReplaceValue));
         }
 
         /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="Formatters.WhiteSpaces"/>, 
-        ///     formatting removes all whitespaces if any.
+        ///     formatting replaces all whitespaces with replace value, if any.
         /// </summary>
         /// <param name="value">
         ///     used as the value to be formatted.
@@ -139,13 +137,13 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
             //=> validate with whitespace formatter
             var result = value.Format(Enums.Formatters.WhiteSpaces, ReplaceValue);
 
-            //=> success, result == value without whitespaces.
+            //=> success, result == value without whitespaces are replaced with replace value.
             result.Should().Be(value.Replace(" ", ReplaceValue));
         }
 
         /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="Formatters.HyphensAndWhiteSpaces"/>, 
-        ///     formatting removes all hyphens and whitespaces if any.
+        ///     formatting replaces all hyphens and whitespaces with replace value, if any.
         /// </summary>
         /// <param name="value">
         ///     used as the value to be formatted.
@@ -157,7 +155,7 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
             //=> validate with hyphens and whitespaces formatter
             var result = value.Format(Enums.Formatters.HyphensAndWhiteSpaces, ReplaceValue);
 
-            //=> success, result == value without hyphens and or whitespaces.
+            //=> success, result == value without hyphens and or whitespaces are replaces with replace value.
             result.Should().Be(value
                 .Replace("-", ReplaceValue)
                 .Replace(" ", ReplaceValue));
