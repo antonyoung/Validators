@@ -122,12 +122,39 @@ namespace AntonYoung.Validators.Postalcode
         ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
         /// </returns>
         public bool TryValidate(string value, Countries country, Formatters formatter, out string result)
+            => TryValidate(value, country, formatter, string.Empty, out result);
+
+        /// <summary>
+        ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the postalcode, that has to be validated. 
+        /// </param>
+        /// <param name="country">
+        ///     used as the country, that has to be validated.
+        /// </param>
+        /// <param name="formatter">
+        ///     usead as the formatter that has to be used.
+        /// </param>
+        /// <param name="replace">
+        ///     usead as custom replace value to be used with the given formatter.
+        /// </param>
+        /// <param name="result">
+        ///     used as postalcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/> 
+        ///     formatted with <paramref name="formatter"/> and <paramref name="replace"/> custom value to be used with the formatter.
+        /// </param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="RegexMatchTimeoutException"/>
+        /// <returns>
+        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
+        /// </returns>
+        public bool TryValidate(string value, Countries country, Formatters formatter, string replace, out string result)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             _input = result = value.Trim();
-                
+
             if (!_model.Rules.TryGetValue(country, out _logic))
                 throw new ArgumentException(nameof(country));
 
@@ -135,7 +162,7 @@ namespace AntonYoung.Validators.Postalcode
 
             IsValid = match.Success;
 
-            if (_isValid) result = Format(match, formatter);
+            if (_isValid) result = Format(match, formatter, replace);
 
             return _isValid;
         }
@@ -152,7 +179,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <returns>
         ///     the formatted postalcode of the match result and with given formatter. 
         /// </returns>
-        private string Format(Match match, Formatters formatter)
+        private string Format(Match match, Formatters formatter, string replace)
         {
             string result = _logic.DisplayFormat;
 
@@ -165,7 +192,7 @@ namespace AntonYoung.Validators.Postalcode
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
 
-            return result.ToUpperInvariant().Format(formatter);
+            return result.ToUpperInvariant().Format(formatter, replace);
         }
     }
 }

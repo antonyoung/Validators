@@ -1,5 +1,6 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Abstractions.Extensions;
+using AntonYoung.Validators.Iban.Constants;
 using AntonYoung.Validators.Iban.Extensions;
 using AntonYoung.Validators.Iban.Indexers;
 using AntonYoung.Validators.Iban.Infrastructure;
@@ -19,11 +20,6 @@ namespace AntonYoung.Validators.Iban
     public class IbanValidator
         : IIbanValidator
     {
-        // todo: => use constants as internal logic instead 
-        private const string COUNRTY = "counrty";
-        private const string CHECKSUM = "checksum";
-        private const string BANK = "bank";
-        
         /// <summary>
         ///     used as internal business rules of European iban.
         /// </summary>
@@ -47,17 +43,17 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as the account number of an iban value.
         /// </summary>
-        public string AccountNumber => GroupValues("account");
+        public string AccountNumber => GroupValues(GroupNames.Account);
 
         /// <summary>
         ///     used as the account type of an iban value <see cref="Countries.Bulgaria"/> as as exception using this property.
         /// </summary>
-        public byte AccountType => byte.TryParse(GroupValues("bban"), out byte result) ? result : result;
+        public byte AccountType => byte.TryParse(GroupValues(GroupNames.AccountType), out byte result) ? result : result;
 
         /// <summary>
         ///     used as the international check digits of the iban value. 
         /// </summary>
-        public byte CheckDigits => byte.TryParse(GroupValues("checksum"), out byte result) ? result : result;      
+        public byte CheckDigits => byte.TryParse(GroupValues(GroupNames.CheckDigits), out byte result) ? result : result;      
         
         /// <summary>
         ///     used as the country of the iban value. 
@@ -83,17 +79,17 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as bank code, could contain alpha numeric values.
         /// </summary>
-        public string NationalBankCode => GroupValues("bank");
+        public string NationalBankCode => GroupValues(GroupNames.Bank);
 
         /// <summary>
         ///     used as the branch code of an iban value, if any?
         /// </summary>
-        public string NationalBranchCode => GroupValues("branch");
+        public string NationalBranchCode => GroupValues(GroupNames.Branch);
 
         /// <summary>
         ///     used as the check digit of an iban value, if any?
         /// </summary>
-        public byte? NationalCheckDigit => byte.TryParse(GroupValues("ncheck"), out byte result) ? (byte?)result : null;
+        public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? result : null;
 
         /// <summary>
         ///     used as to validate an iban value
@@ -109,6 +105,48 @@ namespace AntonYoung.Validators.Iban
         ///     <see cref="IsValid"/> is a valid iban or not?
         /// </returns>
         public bool TryValidate(string value, out string result)
+            => TryValidate(value, Formatters.None, out result);
+
+        /// <summary>
+        ///     used as to validate an iban value
+        /// </summary>
+        /// <param name="value">
+        ///     used as the iban value to be validated.
+        /// </param>
+        /// <param name="formatter">
+        ///     usead as the formatter that has to be used.
+        /// </param>
+        /// <param name="result">
+        ///     used as out value of the formatted iban value <see cref="IsValid"/> = true
+        ///     else the provided value is used as result.
+        /// </param>
+        /// <returns>
+        ///     <see cref="IsValid"/> is a valid iban or not?
+        /// </returns>
+        public bool TryValidate(string value, Formatters formatter, out string result)
+            => TryValidate(value, formatter, string.Empty, out result);
+
+        /// <summary>
+        ///     used as to validate an iban value
+        /// </summary>
+        /// <param name="value">
+        ///     used as the iban value to be validated.
+        /// </param>
+        /// <param name="formatter">
+        ///     usead as the formatter that has to be used.
+        /// </param>
+        /// <param name="replace">
+        ///     usead as custom replace value to be used with the given formatter.
+        /// </param>
+        /// <param name="result">
+        ///     used as out value of the formatted iban value <see cref="IsValid"/> = true
+        ///     formatted with <paramref name="formatter"/> and <paramref name="replace"/> custom value to be used with the formatter.
+        ///     else the provided value is used as result.
+        /// </param>
+        /// <returns>
+        ///     <see cref="IsValid"/> is a valid iban or not?
+        /// </returns>
+        public bool TryValidate(string value, Formatters formatter, string replace, out string result)
         {
             result = value.Trim().ToUpperInvariant()
                 ?? throw new ArgumentException(nameof(value));
@@ -120,14 +158,18 @@ namespace AntonYoung.Validators.Iban
             _match = Regex.Match(result, _logic.RegexPattern);
 
             if (!IsMatch(result)) return false;
-             
+
             IsValid = IsSanityValid();
 
-            // todo: format match value and as ternary expression. 
-            _ = IsValid
-                ? result = Format()
-                : ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country}.";
-            
+            if (IsValid)
+            {
+                result = Format(formatter, replace);
+            }
+            else
+            {
+                ErrorMessage = $"Ïban value of \"{result}\" is not valid as sanity validation. Use as example \"{_logic.Example}\" for country {Country}.";
+            }
+
             return IsValid;
         }
 
@@ -201,7 +243,7 @@ namespace AntonYoung.Validators.Iban
             //=> formats sanity, based on regular expression group.Names and their values.
             foreach (Group group in _match.Groups)
             {
-                if (group.Name.Equals("country", StringComparison.OrdinalIgnoreCase))
+                if (group.Name.Equals(GroupNames.Country, StringComparison.OrdinalIgnoreCase))
                 {
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
@@ -209,15 +251,15 @@ namespace AntonYoung.Validators.Iban
                     continue;
                 }
 
-                if (group.Name.Equals("bank", StringComparison.OrdinalIgnoreCase))
+                if (group.Name.Equals(GroupNames.Bank, StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
                          , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
-                if (group.Name.Equals("ncheck", StringComparison.OrdinalIgnoreCase))
+                if (group.Name.Equals(GroupNames.NationalCheckDigit, StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
-                if (group.Name.Equals("account4", StringComparison.OrdinalIgnoreCase))
+                if (group.Name.Equals($"{GroupNames.Account}4", StringComparison.OrdinalIgnoreCase))
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
                          , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
@@ -230,10 +272,9 @@ namespace AntonYoung.Validators.Iban
                 throw new ArgumentOutOfRangeException(nameof(sanityNumber));
 
             //=> reindex every didget [0- 9] as a byte
-            return new GenericIndexer<byte>(
-                formatAsNumbers.ToCharArray()
-                    .Select(value => { return byte.Parse(value.ToString()); })
-                );
+            return new GenericIndexer<byte>(formatAsNumbers
+                .ToCharArray()
+                .Select(value => { return byte.Parse(value.ToString()); }));
         }
 
         /// <summary>
@@ -242,7 +283,7 @@ namespace AntonYoung.Validators.Iban
         /// <returns>
         ///     formatted value.
         /// </returns>
-        private string Format()
+        private string Format(Formatters formatter, string replace)
         {
             string result = _logic.DisplayFormat;
 
@@ -252,7 +293,7 @@ namespace AntonYoung.Validators.Iban
                     result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
 
-            return result.ToUpperInvariant();
+            return result.ToUpperInvariant().Format(formatter, replace);
         }
 
         /// <summary>

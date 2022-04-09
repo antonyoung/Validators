@@ -11,6 +11,8 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
     /// </summary>
     public class FormatterTests
     {
+        private const string ReplaceValue = ".";
+
         /// <summary>
         ///     used as tests <see cref="TestData"/> with <see cref="Formatters.None"/>, 
         ///     no formatting.
@@ -80,7 +82,83 @@ namespace AntonYoung.Validators.Abstractions.Tests.Extensions
             var result = value.Format(Enums.Formatters.HyphensAndWhiteSpaces);
 
             //=> success, result == value without hyphens and or whitespaces.
-            result.Should().Be(value.Replace("-", string.Empty).Replace(" ", string.Empty));
+            result.Should().Be(value
+                .Replace("-", string.Empty)
+                .Replace(" ", string.Empty));
+        }
+
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.None"/>, 
+        ///     no formatting with replace value.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
+        [Theory]
+        [ClassData(typeof(PostalcodeFormatterTestData))]
+        public void ReplaceNone(string value)
+        {
+            //=> validate without formatting
+            var result = value.Format(Enums.Formatters.None, ReplaceValue);
+
+            //=> success, result == value ( no replace shoud happen )
+            result.Should().Be(value);
+        }
+
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.Hyphens"/>, 
+        ///     formatting replaces all hyphens with replace value, if any
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
+        [Theory]
+        [ClassData(typeof(PostalcodeFormatterTestData))]
+        public void ReplaceHyphens(string value)
+        {
+            //=> validate with hyphen formatter.
+            var result = value.Format(Enums.Formatters.Hyphens, ReplaceValue);
+
+            //=> success, result == value without hyphens are replaced with replace value.
+            result.Should().Be(value.Replace("-", ReplaceValue));
+        }
+
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.WhiteSpaces"/>, 
+        ///     formatting replaces all whitespaces with replace value, if any.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
+        [Theory]
+        [ClassData(typeof(PostalcodeFormatterTestData))]
+        public void ReplaceWhiteSpaces(string value)
+        {
+            //=> validate with whitespace formatter
+            var result = value.Format(Enums.Formatters.WhiteSpaces, ReplaceValue);
+
+            //=> success, result == value without whitespaces are replaced with replace value.
+            result.Should().Be(value.Replace(" ", ReplaceValue));
+        }
+
+        /// <summary>
+        ///     used as tests <see cref="TestData"/> with <see cref="Formatters.HyphensAndWhiteSpaces"/>, 
+        ///     formatting replaces all hyphens and whitespaces with replace value, if any.
+        /// </summary>
+        /// <param name="value">
+        ///     used as the value to be formatted.
+        /// </param>
+        [Theory]
+        [ClassData(typeof(PostalcodeFormatterTestData))]
+        public void ReplaceHyphenAndWhiteSpaces(string value)
+        {
+            //=> validate with hyphens and whitespaces formatter
+            var result = value.Format(Enums.Formatters.HyphensAndWhiteSpaces, ReplaceValue);
+
+            //=> success, result == value without hyphens and or whitespaces are replaces with replace value.
+            result.Should().Be(value
+                .Replace("-", ReplaceValue)
+                .Replace(" ", ReplaceValue));
         }
     }
 
