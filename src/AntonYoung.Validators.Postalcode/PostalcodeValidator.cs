@@ -71,12 +71,13 @@ namespace AntonYoung.Validators.Postalcode
         ///     used as the postalcode, that has to be validated with default country <see cref="Countries.Netherlands"/>. 
         /// </param>
         /// <param name="result">
-        ///     used as <see cref="IsValid"/> <paramref name="value"/> with default country <see cref="Countries.Netherlands"/> formatted as the default formatter.
+        ///     used as <see cref="IsValid"/> with default country <see cref="Countries.Netherlands"/> formatted as the default formatter.
         /// </param>
-        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException/>
+        /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
+        ///     <seealso cref="bool"/> is valid or not and with default country <see cref="Countries.Netherlands"/>
         /// </returns>
         public bool TryValidate(string value, out string result) 
             => TryValidate(value, Countries.Netherlands, out result);
@@ -96,7 +97,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <exception cref="ArgumentException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
+        ///     <see cref="IsValid"/> is a valid postal code or not? With <seealso cref="Formatters"/> as default <see cref="Formatters.None"/>
         /// </returns>
         public bool TryValidate(string value, Countries country, out string result) 
             => TryValidate(value, country, Formatters.None, out result);
@@ -114,12 +115,13 @@ namespace AntonYoung.Validators.Postalcode
         ///     usead as the formatter that has to be used.
         /// </param>
         /// <param name="result">
-        ///     used as postalcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with <paramref name="formatter"/>.
+        ///     used as postalcode <see cref="IsValid"/> .
         /// </param>
-        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException/>
+        /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
+        ///     <seealso cref="bool"/> is valid or not with default <paramref name="replace"/> as <see cref="string.Empty"/> to be used with the formatter.
         /// </returns>
         public bool TryValidate(string value, Countries country, Formatters formatter, out string result)
             => TryValidate(value, country, formatter, string.Empty, out result);
@@ -140,23 +142,21 @@ namespace AntonYoung.Validators.Postalcode
         ///     usead as custom replace value to be used with the given formatter.
         /// </param>
         /// <param name="result">
-        ///     used as postalcode <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/> 
-        ///     formatted with <paramref name="formatter"/> and <paramref name="replace"/> custom value to be used with the formatter.
+        ///     used as result postal code value with given <paramref name="country"/>, <paramref name="formatter"/> and <paramref name="replace"/>.. 
         /// </param>
-        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException/>
+        /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
-        ///     <seealso cref="bool"/> is valid or not and as out the formatted postalcode.
+        ///    <see cref="IsValid"/> if is valid or not.
         /// </returns>
         public bool TryValidate(string value, Countries country, Formatters formatter, string replace, out string result)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            _input = result = value.Trim();
+            _input = result = value?.Trim() 
+                ?? throw new ArgumentNullException(nameof(value));
 
             if (!_model.Rules.TryGetValue(country, out _logic))
-                throw new ArgumentException(nameof(country));
+                throw new NotSupportedException(nameof(country));
 
             var match = Regex.Match(_input, _logic.RegexPattern);
 
@@ -174,7 +174,10 @@ namespace AntonYoung.Validators.Postalcode
         ///     used as all groups that are matched in the used regular expression.
         /// </param> 
         /// <param name="formatter">
-        ///     used as the formatter how to format the result.
+        ///      used as <see cref="Formatters"/> to be used as replace wildcard ( default: <see cref="Formatters.None"/> )
+        /// </param>
+        /// <param name="replace">
+        ///     used as given formatter, as replace value ( default: <see cref="string.Empty"/> )
         /// </param>
         /// <returns>
         ///     the formatted postalcode of the match result and with given formatter. 

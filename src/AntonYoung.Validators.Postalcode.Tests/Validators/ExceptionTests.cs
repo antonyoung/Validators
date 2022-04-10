@@ -9,11 +9,11 @@ namespace AntonYoung.Validators.Tests.Postcode
     public class ExceptionTests
     { 
         [Fact]
-        public void ThrowsArgumentExceptionOfCountry()
+        public void ThrowsNotSupportedExceptionOfCountry()
         {
             Action act = () => new PostalcodeValidator().TryValidate(string.Empty, Countries.Amsterdam, out string result);
 
-            act.Should().Throw<ArgumentException>();
+            act.Should().Throw<NotSupportedException>();
         }
 
         [Fact]

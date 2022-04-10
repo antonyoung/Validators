@@ -1,5 +1,8 @@
 ﻿namespace AntonYoung.Validators.Iban.Constants
 {
+    /// <summary>
+    ///     Constants used as Captured Group Names <see cref="System.Text.RegularExpressions"/>
+    /// </summary>
     internal class GroupNames
     {
         internal const string Account = "account";
