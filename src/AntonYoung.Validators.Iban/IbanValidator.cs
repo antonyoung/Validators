@@ -102,7 +102,7 @@ namespace AntonYoung.Validators.Iban
         ///     else the provided value is used as result.
         /// </param>
         /// <returns>
-        ///     <see cref="IsValid"/> is a valid iban or not?
+        ///     <see cref="IsValid"/> is a valid iban or not? With <seealso cref="Formatters"/> as default <see cref="Formatters.None"/>
         /// </returns>
         public bool TryValidate(string value, out string result)
             => TryValidate(value, Formatters.None, out result);
@@ -121,7 +121,7 @@ namespace AntonYoung.Validators.Iban
         ///     else the provided value is used as result.
         /// </param>
         /// <returns>
-        ///     <see cref="IsValid"/> is a valid iban or not?
+        ///     <see cref="IsValid"/> is a valid iban or not? With default replace value <see cref="string.Empty"/> used by given <seealso cref="Formatters"/>
         /// </returns>
         public bool TryValidate(string value, Formatters formatter, out string result)
             => TryValidate(value, formatter, string.Empty, out result);
@@ -136,7 +136,7 @@ namespace AntonYoung.Validators.Iban
         ///     usead as the formatter that has to be used.
         /// </param>
         /// <param name="replace">
-        ///     usead as custom replace value to be used with the given formatter.
+        ///     usead as custom replace value to be used with given formatter.
         /// </param>
         /// <param name="result">
         ///     used as out value of the formatted iban value <see cref="IsValid"/> = true
@@ -210,7 +210,7 @@ namespace AntonYoung.Validators.Iban
             double checkSum = 0;
             GenericIndexer<byte> sanityIndexer = CreateSanityIndexer();
 
-            // research: System.ReadOnlySpan<char> => net core 3.0 new implementation?
+            //=> research: System.ReadOnlySpan<char> => net core 3.0 new implementation?
             foreach (byte value in sanityIndexer)
             {
                 //=> sanity check, current value * 10 + value modulus of 97.
@@ -221,7 +221,7 @@ namespace AntonYoung.Validators.Iban
 
             return checkSum == 1;
 
-            // additional check
+            //=> TODO: As generator iban values
             //=> Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
 
         }
@@ -243,6 +243,7 @@ namespace AntonYoung.Validators.Iban
             //=> formats sanity, based on regular expression group.Names and their values.
             foreach (Group group in _match.Groups)
             {
+                //=> TODO: clean up if statements.
                 if (group.Name.Equals(GroupNames.Country, StringComparison.OrdinalIgnoreCase))
                 {
                     formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
@@ -280,6 +281,12 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as how to format the iban, based on <seealso cref="_logic.DisplayFormat"/>.
         /// </summary>
+        /// <param name="formatter">
+        ///     used as <see cref="Formatters"/> to be used as replace wildcard ( default: <see cref="Formatters.None"/> )
+        /// </param>
+        /// <param name="replace">
+        ///     used as given formatter, as replace value ( default: <see cref="string.Empty"/> )
+        /// </param>
         /// <returns>
         ///     formatted value.
         /// </returns>
@@ -289,8 +296,9 @@ namespace AntonYoung.Validators.Iban
 
             foreach (Group group in _match.Groups)
             {
-                if (!string.IsNullOrWhiteSpace(group.Value))
-                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+                if (string.IsNullOrWhiteSpace(group.Value)) { continue; } 
+
+                result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
             }
 
             return result.ToUpperInvariant().Format(formatter, replace);

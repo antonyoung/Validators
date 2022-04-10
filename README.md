@@ -12,8 +12,8 @@ The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1
 Working with corrupt data is not helping, as you have to work all around this.
 Also as Clean Code, Performance or just as SOLID principles and last not least my time!
 
-As thought? This all can be done much easier than having all this logic, that is not compileable, debugable and not testable as MS SQL Server Functions?
-So I decided to start this as nice example and to get started with GitHub, DevOps and as a Sandbox project in open source. 
+As thought? This all can be done much easier than having all this logic, that is not debugable and not definitely not testable as MS SQL Server Functions!
+I decided to start this as nice example and for me, to get started with GitHub, Azure DevOps, as Sandbox and as open source project. 
 
 This repository works, it's fast and it's reliable, extendable! 
 As solution is really simple as long you know your regular expressions!
@@ -23,18 +23,21 @@ Still have to think about how to implement formatters as postal code, or as IBAN
 
 ### Description
 
-As a simple and fast European postal code and as a iban validator with simplistic formatters. 
-Could be easily extended to add countries around the world or to have different types of formatting.
+As a simple but as engine as a fast European postal code or as a iban validator with simplistic formatters. 
+What could be easily extended to add additional countries around the world or to have different types of formatting.
 
-Technical: As validation regular expressions are used with group names. 
-For formatting the match groups in the regular expression are used. 
-All countries with space or with hyphen or without prefix ( IBAN.)
-Are all validated correctly, and will be automatically formatted in the correctly in case off with space, hyphen or prefix. 
-With one exception Finland has two prefixes FI- / AX- without prefix FI- is choosen as default.
-Default country as expected is for now The Netherlands.    
+**Technical:** 
+As engine regular expressions are used with captured group names, for validation, formatting and sanity check ( iban.)
+All countries as validation space or with hyphen or without prefix
+Are all validated correctly, and will be automatically formatted in the Correct standardisation format in case off with space, hyphen or prefix. 
+There's one exception as postal code prefix Finland has two prefixes FI- / AX- without prefix FI- is choosen as default.
+Default country as for now is Netherlands. This can be easily defaulted as one liner change in concerned Validator classes.
 
-**Note:** - it does not validate, if it's an existing postal code or iban!
+**Note:**
+Validator engine does not validate, if it's an existing postal code or iban!
+It only validates as according rules for given country.
 
+**References:**
 Used the following website [publications.europa.eu](http://publications.europa.eu/code/en/en-390105.htm), as postal code rules and as guide lines in Europe. 
 Source code works for all European countries as given on this website.
 Not sure how valid the regular expressions are for the Alpha Numeric postal codes for the countires Ireland and UK?
@@ -42,11 +45,17 @@ I admit I just copied this from internet, I am not sure how this system works.
 
 Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/International_Bank_Account_Number) as iban rules and as guide lines in Europe.
 Not sure about Ierland, for now it also works as is, maybe the difference is between Republic vs Nothern Ierland?
+
+**Licence:**
+As for now, this project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
+It will be licenced as [Mit](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) in case sufficient support in open source community.
  
 ### Prerequisites
+
 ```
-* C# .NET Core 6.0	// => Validators.Tests (xUnit) * With 346 tests => ~150 ms as test set.
+* C# .NET Core 6.0	// => Validators.Tests (xUnit) * With 147 tests as 346 variables => ~150 ms as test set.
 ```
+
 ### Code examples ( PostalcodeValidator )
 
 * **Happy flow ( with default country == Countries.Netherlands )**
@@ -75,8 +84,11 @@ test.IsValid;       // => false
 test.ErrorMessage   // => "Postal code \"0162GD\" is not valid. Use as example \"1234 AB\"."
 result;             // => "0162GD"
 ```
-* **Use with Formatters.WhiteSpaces == No Spaces )**
-* Example: In case there's a white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
+
+### Code examples ( PostalcodeValidator with Formatters )
+
+* **Use with Formatters.WhiteSpaces == Replace WhiteSpaces )**
+* Example: In case there's any white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
 ```csharp
 bool isValid = new PostalcodeValidator()
    .TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); 
@@ -94,11 +106,11 @@ test.ErrorMessage   // => null
 result              // => "1062GD"
 ```
 
-### Code examples ( PostalcodeValidator with Formatters )
-
 * **Use with Formatters.WhiteSpaces == No Spaces, with replace value "-" )**
-* Example: In case there's are white spaces, and we want to replace any white spaces in result? 
+* Example: In case there's are any white spaces, and we want to replace any white space in result? 
 The formatter replaces all white space(s) with the replace value in result.
+* NOTE: Using replace value should be only used as, how we want to represent the result.
+By using replace the result will be invalid as result.
 ```csharp
 bool isValid = new PostalcodeValidator()
    .TryValidate("1062GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result); 
