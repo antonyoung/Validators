@@ -1,4 +1,5 @@
-﻿using AntonYoung.Validators.Abstractions.Enums;
+﻿using AntonYoung.Validators.Abstractions.Constants;
+using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Abstractions.Extensions;
 using AntonYoung.Validators.Iban.Constants;
 using AntonYoung.Validators.Iban.Extensions;
@@ -246,26 +247,26 @@ namespace AntonYoung.Validators.Iban
                 //=> TODO: clean up if statements.
                 if (group.Name.Equals(GroupNames.Country, StringComparison.OrdinalIgnoreCase))
                 {
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format(Replaces.Default, group.Name)
                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                     continue;
                 }
 
                 if (group.Name.Equals(GroupNames.Bank, StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format(Replaces.Default, group.Name)
                          , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                 if (group.Name.Equals(GroupNames.NationalCheckDigit, StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format(Replaces.Default, group.Name)
                         , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                 if (group.Name.Equals($"{GroupNames.Account}4", StringComparison.OrdinalIgnoreCase))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name)
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format(Replaces.Default, group.Name)
                          , group.Value.ToUpperInvariant().ToCharArray().CharAsInt().ToString());
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
-                    formatAsNumbers = formatAsNumbers.Replace(string.Format("<{0}>", group.Name), group.Value);
+                    formatAsNumbers = formatAsNumbers.Replace(string.Format(Replaces.Default, group.Name), group.Value);
             }
 
             //=> validate sanity is a number

@@ -8,12 +8,13 @@ Validates and formats European postal codes and International Bank Account Numbe
 
 Started this little project in my spare time, for the reason that I noticed today ( 28 August 2019 ) at a project. 
 That validation of Dutch postal codes is barely or none existent. 
-The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, while only "[1-9]NNN AA" is valid. 
-Working with corrupt data is not helping, as you have to work all around this.
-Also as Clean Code, Performance or just as SOLID principles and last not least my time!
+The database contains postal codes as "1234", "1234aB", "1234-Ab", "1234abc", "1234-aBc", "xxxx" and so on, 
+while only "[1-9]NNN AA" is valid as Dutch postal code. 
+Working with corrupt data is not helping? As you have to work all around this.
+Clean code, performance or just as SOLID principles, or just waisting my time?
 
-As thought? This all can be done much easier than having all this logic, that is not debugable and not definitely not testable as MS SQL Server Functions!
-I decided to start this as nice example and for me, to get started with GitHub, Azure DevOps, as Sandbox and as open source project. 
+As thought? This all can be done much easier, clesner, more proffesianl and so on.
+As decion I staredt this project as a nice example. For me ae? Additional bonus to get started with GitHub, Azure DevOps, as Sandbox an open source project. 
 
 This repository works, it's fast and it's reliable, extendable! 
 As solution is really simple as long you know your regular expressions!
@@ -45,15 +46,11 @@ I admit I just copied this from internet, I am not sure how this system works.
 
 Used the following website [en.wikipedia.org](https://en.wikipedia.org/wiki/International_Bank_Account_Number) as iban rules and as guide lines in Europe.
 Not sure about Ierland, for now it also works as is, maybe the difference is between Republic vs Nothern Ierland?
-
-**Licence:**
-As for now, this project is licensed under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
-It will be licenced as [Mit](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) in case sufficient support in open source community.
  
 ### Prerequisites
 
 ```
-* C# .NET Core 6.0	// => Validators.Tests (xUnit) * With 147 tests as 346 variables => ~150 ms as test set.
+* C# .NET Core 6.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
 ```
 
 ### Code examples ( PostalcodeValidator )
@@ -87,7 +84,7 @@ result;             // => "0162GD"
 
 ### Code examples ( PostalcodeValidator with Formatters )
 
-* **Use with Formatters.WhiteSpaces == Replace WhiteSpaces )**
+* **Use with Formatters.WhiteSpaces as Replace WhiteSpaces )**
 * Example: In case there's any white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
 ```csharp
 bool isValid = new PostalcodeValidator()
@@ -106,7 +103,9 @@ test.ErrorMessage   // => null
 result              // => "1062GD"
 ```
 
-* **Use with Formatters.WhiteSpaces == No Spaces, with replace value "-" )**
+### Code examples ( PostalcodeValidator with Formatters and relace value )
+
+* **Use with Formatters.WhiteSpaces as No Spaces, with replace value "-" )**
 * Example: In case there's are any white spaces, and we want to replace any white space in result? 
 The formatter replaces all white space(s) with the replace value in result.
 * NOTE: Using replace value should be only used as, how we want to represent the result.
@@ -187,6 +186,7 @@ result:                         // => "NL71.INGB.1320.9490.10"
 ## License
 
 This project is licensed for now under the GNU General Public License (GPL) License Lv3 - see the [LICENSE.md](LICENSE.md) file for details
+It will be licenced as [Mit](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) in case sufficient support from open source community.
 
 ### Acknowledgments
 See also issues: [is:issue is:open check in:title](https://github.com/antonyoung/postalcode/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+check+in%3Atitle)

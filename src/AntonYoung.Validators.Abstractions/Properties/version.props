@@ -9,7 +9,7 @@
     <VersionSuffix>F70</VersionSuffix>
     <Product>AntonYoung.Validators.Abstractions</Product>
     <PackageTags>Shared dependency used by Anton.Young.Validators</PackageTags>
-    <Description>Shared dependency on Iban, Postalcode validators</Description>
+    <Description>Shared dependency used by Iban, Postalcode validators</Description>
     <Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>

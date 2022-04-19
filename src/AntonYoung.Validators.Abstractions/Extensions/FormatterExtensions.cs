@@ -1,4 +1,5 @@
-﻿using AntonYoung.Validators.Abstractions.Enums;
+﻿using AntonYoung.Validators.Abstractions.Constants;
+using AntonYoung.Validators.Abstractions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -14,16 +15,16 @@ namespace AntonYoung.Validators.Abstractions.Extensions
         /// <summary>
         ///     used as internal logic of available formatters.
         /// </summary>
-        private static readonly IDictionary<Formatters, string> _formatters = new Dictionary<Formatters, string>()
+        private static readonly IDictionary<Formatters, string> _formatters = new Dictionary<Formatters, string>
         {
             { Formatters.None, new Guid().ToString() },
-            { Formatters.WhiteSpaces, @"\s+" },
-            { Formatters.Hyphens,  @"\-+" },
-            { Formatters.HyphensAndWhiteSpaces,  @"[\s+\-+]"}
+            { Formatters.WhiteSpaces, Replaces.WhiteSpaces },
+            { Formatters.Hyphens,  Replaces.Hyphens },
+            { Formatters.HyphensAndWhiteSpaces,  Replaces.HyphensAndWhiteSpaces }
         };
 
         /// <summary>
-        ///     formats with default formatter <seealso cref="Formatters.None"/>.
+        ///     formats <paramref name="value"/> with <see cref="Formatters"/> default as <see cref="Formatters.None"/>.
         /// </summary>
         /// <param name="value">
         ///     used as the value that has to be formmatted with default formatter.
@@ -35,7 +36,7 @@ namespace AntonYoung.Validators.Abstractions.Extensions
             => Format(value, Formatters.None);
 
         /// <summary>
-        ///     formats with default formatter.
+        ///     formats <paramref name="value"/> with provided <paramref name="formatter"/> with deafult replace value as <see cref="string.Empty"/>. 
         /// </summary>
         /// <param name="value">
         ///     used as the value that has to be formmatted with provided formatter <seealso cref="Formatters"/>
@@ -43,7 +44,7 @@ namespace AntonYoung.Validators.Abstractions.Extensions
         /// <param name="formatter">
         ///     used as the formatter to be used.
         /// </param>
-        /// <exception cref="NotSupportedException(nameof(formatter))"/>
+        /// <exception cref="NotSupportedException"/>
         /// <returns>
         ///     the formatted value.
         /// </returns>
@@ -62,7 +63,7 @@ namespace AntonYoung.Validators.Abstractions.Extensions
         /// <param name="replace">
         ///     used as string value to be replaced by, selected fomatter.
         /// </param>
-        /// <exception cref="NotSupportedException(nameof(formatter))">
+        /// <exception cref="NotSupportedException"/>
         ///     in case provided enum is none existing in <seealso cref="_formatters"/>
         /// </exception>
         /// <returns>
