@@ -22,12 +22,12 @@ namespace AntonYoung.Validators.Iban.Indexers
         /// <param name="items">
         ///     used as the anonymous T collection,
         /// </param>
-        /// <exception cref="System.ArgumentNullException(nameof(items))">
+        /// <exception cref="ArgumentNullException">
         ///     throws new ArgumentNullException in case <paramref name="items"/> is null.
         /// </exception>
         public GenericIndexer(IEnumerable<T> items)
             => _items = items
-                ?? throw new ArgumentNullException(nameof(items));
+            ?? throw new ArgumentNullException(nameof(items));
 
         /// <summary>
         ///     used as to enumerate over the items.

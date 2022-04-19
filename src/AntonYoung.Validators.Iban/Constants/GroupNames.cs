@@ -3,7 +3,7 @@
     /// <summary>
     ///     Constants used as Captured Group Names <see cref="System.Text.RegularExpressions"/>
     /// </summary>
-    internal class GroupNames
+    internal static class GroupNames
     {
         internal const string Account = "account";
         internal const string AccountType = "bban";

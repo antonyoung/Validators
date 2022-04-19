@@ -1,4 +1,5 @@
-﻿using AntonYoung.Validators.Abstractions.Enums;
+﻿using AntonYoung.Validators.Abstractions.Constants;
+using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Abstractions.Extensions;
 using AntonYoung.Validators.Postalcode.Infrastructure;
 using AntonYoung.Validators.Postalcode.Models;
@@ -73,7 +74,6 @@ namespace AntonYoung.Validators.Postalcode
         /// <param name="result">
         ///     used as <see cref="IsValid"/> with default country <see cref="Countries.Netherlands"/> formatted as the default formatter.
         /// </param>
-        /// <exception cref="ArgumentNullException/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
@@ -94,7 +94,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <param name="result">
         ///     used as <see cref="IsValid"/> <paramref name="value"/> with <paramref name="country"/>` formatted with the default formatter.
         /// </param>
-        /// <exception cref="ArgumentException"/>
+        /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
         ///     <see cref="IsValid"/> is a valid postal code or not? With <seealso cref="Formatters"/> as default <see cref="Formatters.None"/>
@@ -117,7 +117,6 @@ namespace AntonYoung.Validators.Postalcode
         /// <param name="result">
         ///     used as postalcode <see cref="IsValid"/> .
         /// </param>
-        /// <exception cref="ArgumentNullException/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
@@ -144,7 +143,6 @@ namespace AntonYoung.Validators.Postalcode
         /// <param name="result">
         ///     used as result postal code value with given <paramref name="country"/>, <paramref name="formatter"/> and <paramref name="replace"/>.. 
         /// </param>
-        /// <exception cref="ArgumentNullException/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="RegexMatchTimeoutException"/>
         /// <returns>
@@ -152,8 +150,7 @@ namespace AntonYoung.Validators.Postalcode
         /// </returns>
         public bool TryValidate(string value, Countries country, Formatters formatter, string replace, out string result)
         {
-            _input = result = value?.Trim() 
-                ?? throw new ArgumentNullException(nameof(value));
+            _input = result = value?.Trim() ?? string.Empty;
 
             if (!_model.Rules.TryGetValue(country, out _logic))
                 throw new NotSupportedException(nameof(country));
@@ -179,6 +176,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <param name="replace">
         ///     used as given formatter, as replace value ( default: <see cref="string.Empty"/> )
         /// </param>
+        /// <exception cref="NotSupportedException"/>
         /// <returns>
         ///     the formatted postalcode of the match result and with given formatter. 
         /// </returns>
@@ -189,10 +187,10 @@ namespace AntonYoung.Validators.Postalcode
             foreach (Group group in match.Groups)
             {
                 if (group.Name.Equals("prefix", StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
-                    result = result.Replace(string.Format("<{0}>", group.Name), _logic.Prefix);
+                    result = result.Replace(string.Format(Replaces.Default, group.Name), _logic.Prefix);
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
-                    result = result.Replace(string.Format("<{0}>", group.Name), group.Value);
+                    result = result.Replace(string.Format(Replaces.Default, group.Name), group.Value);
             }
 
             return result.ToUpperInvariant().Format(formatter, replace);
