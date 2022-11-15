@@ -56,7 +56,7 @@ steps:
   inputs:
      command: pack
      nobuild: true
-     buildProperties: 'VersionSuffix="$(VersionSuffix)"'
+     # buildProperties: 'VersionSuffix="$(VersionSuffix)"'
      # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
      # versioningScheme: 'byEnvVar'
      # versionEnvVar: semVer

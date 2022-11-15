@@ -4,6 +4,7 @@
           
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
