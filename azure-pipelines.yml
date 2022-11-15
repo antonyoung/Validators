@@ -14,10 +14,10 @@ pool:
 # install dotnet sdk 6.x
 steps:
 - task: UseDotNet@2
-  displayName: '//=> dotnet install sdk 6.x'
+  displayName: '//=> dotnet install sdk 7.x'
   inputs:
     packageType: sdk
-    version: 6.0.x
+    version: 7.0.x
     includePreviewVersions: false
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
