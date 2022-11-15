@@ -47,7 +47,7 @@ steps:
      command: pack
      # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
      versioningScheme: byEnvVar
-     versionEnvVar: '$(VersionPrefix)-$(VersionSuffix)'
+     versionEnvVar: $(VersionPrefix)-$(VersionSuffix)
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
