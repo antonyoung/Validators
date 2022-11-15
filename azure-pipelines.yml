@@ -45,7 +45,9 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
-     versioningScheme: '$(VersionPrefix)-$(VersionSuffix)'
+     # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
+     versioningScheme: byEnvVar
+     versionEnvVar: '$(VersionPrefix)-$(VersionSuffix)'
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
