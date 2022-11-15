@@ -7,6 +7,11 @@
 trigger:
 - master
 
+# variables
+variables:
+ - name: version
+   value: '0.5.0-F80'
+
 # use latest ubuntu vm
 pool:
   vmImage: 'ubuntu-latest'
@@ -47,7 +52,7 @@ steps:
      command: pack
      # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
      versioningScheme: byEnvVar
-     versionEnvVar: $(VersionPrefix)-$(VersionSuffix)
+     versionEnvVar: version
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
