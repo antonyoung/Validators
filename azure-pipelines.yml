@@ -18,9 +18,9 @@ pool:
 
 # install dotnet sdk 6.x
 steps:
-- bash: echo $(semVar)
-- bash: echo $(VersionPrefix)
-- bash: echo $(VersionSuffix)
+- bash: echo $(semVer)
+#- bash: echo $(VersionPrefix)
+#- bash: echo $(VersionSuffix)
 
 
 - task: UseDotNet@2
@@ -55,9 +55,11 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
+     nobuild: true
+     buildProperties: 'VersionSuffix="$(VersionSuffix)"'
      # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
-     versioningScheme: 'off'
-     #versionEnvVar: semVer
+     # versioningScheme: 'byEnvVar'
+     # versionEnvVar: semVer
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
