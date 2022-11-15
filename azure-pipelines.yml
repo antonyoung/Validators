@@ -45,8 +45,7 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
-     # todo: publish as version '<VersionPrefix>-<VersionSuffix>''
-     versioningScheme: 'byPrereleaseNumber'
+     versioningScheme: '$(VersionPrefix)-$(VersionSuffix)'
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
