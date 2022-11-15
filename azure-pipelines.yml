@@ -9,8 +9,8 @@ trigger:
 
 # variables
 variables:
- - name: version
-   value: '0.5.0-F80'
+ - name: semVer
+   value: '0.5.0-F81'
 
 # use latest ubuntu vm
 pool:
@@ -18,6 +18,11 @@ pool:
 
 # install dotnet sdk 6.x
 steps:
+- bash: echo $(semVar)
+- bash: echo $(VersionPrefix)
+- bash: echo $(VersionSuffix)
+
+
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 7.x'
   inputs:
@@ -51,8 +56,8 @@ steps:
   inputs:
      command: pack
      # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
-     versioningScheme: byEnvVar
-     versionEnvVar: version
+     versioningScheme: 'off'
+     #versionEnvVar: semVer
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
