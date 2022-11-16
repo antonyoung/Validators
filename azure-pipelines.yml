@@ -12,7 +12,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 # install dotnet sdk 6.x
-steps:
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 7.x'
   inputs:
@@ -45,7 +44,11 @@ steps:
   displayName: '//=> dotnet pack'
   inputs:
      command: pack
-     versioningScheme: '$(VersionPrefix)-$(VersionSuffix)'
+     # nobuild: true
+     # buildProperties: 'VersionSuffix="$(VersionSuffix)"'
+     # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
+     versioningScheme: 'off'
+     # versionEnvVar: semVer
      packagesToPack: '**/*.csproj'
      configuration: $(BuildConfiguration)
      packDestination: $(Build.ArtifactStagingDirectory)
