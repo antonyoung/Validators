@@ -40,21 +40,13 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
 
-# dotenet pack all projects as release
-# - script: dotnet pack --configuration $(buildConfiguration)  --output $(Build.ArtifactStagingDirectory)
-#  displayName: '//=> dotnet pack'
-
+# dotenet pack nuget-packages as semantic versioning
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
     command: pack
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    # todo: publish as version '<VersionPrefix>-<VersionSuffix>''
-    # versioningScheme: 'byBuildNumber'
-    # packagesToPack: '**/*.csproj'
-    # configuration: $(BuildConfiguration)
-    # packDestination: $(Build.ArtifactStagingDirectory)
 
 # dotenet push nuget-packages to project/feed
 - task: NuGetCommand@2
