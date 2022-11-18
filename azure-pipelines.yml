@@ -47,14 +47,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
-      command: pack
-      projects: '**/*.csproj'
-      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-     # todo: publish as version '<VersionPrefix>-<VersionSuffix>''
-     # versioningScheme: 'byBuildNumber'
-     # packagesToPack: '**/*.csproj'
-     # configuration: $(BuildConfiguration)
-     # packDestination: $(Build.ArtifactStagingDirectory)
+    command: pack
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    # todo: publish as version '<VersionPrefix>-<VersionSuffix>''
+    # versioningScheme: 'byBuildNumber'
+    # packagesToPack: '**/*.csproj'
+    # configuration: $(BuildConfiguration)
+    # packDestination: $(Build.ArtifactStagingDirectory)
 
 # dotenet push nuget-packages to project/feed
 - task: NuGetCommand@2
