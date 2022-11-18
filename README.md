@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/antonyoung/Validator/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/Validator/_build/latest?definitionId=3&branchName=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-## Postal code and IBAN validator and formatter (C#) .NET 6.x
+## Postal code and IBAN validator and formatter (C#) .NET 7.x
 
 Validates and formats European postal codes and International Bank Account Numbers ( IBAN )
 
@@ -13,8 +13,8 @@ while only "[1-9]NNN AA" is valid as Dutch postal code.
 Working with corrupt data is not helping? As you have to work all around this.
 Clean code, performance or just as SOLID principles, or just waisting my time?
 
-As thought? This all can be done much easier, clesner, more proffesianl and so on.
-As decion I staredt this project as a nice example. For me ae? Additional bonus to get started with GitHub, Azure DevOps, as Sandbox an open source project. 
+As thought? This all can be done much easier, cleaner, more professional and so on.
+As decision I started this project as a nice example. For me as? Additional bonus to get started with GitHub, Azure DevOps, and as open source project. 
 
 This repository works, it's fast and it's reliable, extendable! 
 As solution is really simple as long you know your regular expressions!
@@ -50,7 +50,7 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 ### Prerequisites
 
 ```
-* C# .NET Core 6.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
+* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
 ```
 
 ### Code examples ( PostalcodeValidator )
@@ -58,14 +58,14 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 * **Happy flow ( with default country == Countries.Netherlands )**
 ```csharp
 bool isValid = new PostalcodeValidator()
-   .TryValidate("1062GD", out string result);
+	.TryValidate("1062GD", out string result);
 
 // =. isValid = true
 // => result = "1062 GD"
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator(); 
+var test = new PostalcodeValidator() 
 	.TryValidate("1062GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -74,7 +74,7 @@ result              // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
-var test = new PostalcodeValidator(); 
+var test = new PostalcodeValidator() 
 	.TryValidate("0162GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => false					
@@ -88,14 +88,14 @@ result;             // => "0162GD"
 * Example: In case there's any white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
 ```csharp
 bool isValid = new PostalcodeValidator()
-   .TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); 
+	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); 
 
 // => isValid = true
 // => result = "1062GD"
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator(); 
+var test = new PostalcodeValidator() 
 	.TryValidate("1062 GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -112,14 +112,14 @@ The formatter replaces all white space(s) with the replace value in result.
 By using replace the result will be invalid as result.
 ```csharp
 bool isValid = new PostalcodeValidator()
-   .TryValidate("1062GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result); 
+	.TryValidate("1062GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result); 
 
 // => isValid = true
 // => result = "1062-GD"
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator(); 
+var test = new PostalcodeValidator() 
 	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result);
 
 test.IsValid;       // => true					
@@ -132,14 +132,14 @@ result              // => "1062-GD"
 * **Happy flow**
 ```csharp
 bool isValid = new IbanValidator()
-   .TryValidate("NL71INGB1320949010", out string result); 
+	.TryValidate("NL71INGB1320949010", out string result); 
 
 // => isValid = true
 // => result = "NL71 INGB 1320 9490 10"
 ```
 * **Or as** 
 ```csharp
-var test = new IbanValidator(); 
+var test = new IbanValidator()
 	.TryValidate("NL71INGB1320949010", out string result);
 
 test.IsValid;			// => true					
@@ -158,14 +158,14 @@ result:                         // => "NL71 INGB 1320 9490 10"
 * **Example: Replace whitespaces with "."**
 ```csharp
 bool isValid = new IbanValidator()
-   .TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result); 
+	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result); 
    
 // => isValid = true
 // => result = "NL71.INGB.1320.9490.10"
 ```
 * **Or as** 
 ```csharp
-var test = new IbanValidator(); 
+var test = new IbanValidator() 
 	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result);
 
 test.IsValid;			// => true					

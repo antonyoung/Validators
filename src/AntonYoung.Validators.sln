@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Posta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Iban", "AntonYoung.Validators.Iban\AntonYoung.Validators.Iban.csproj", "{8C0CF9AE-19E6-45EB-BF81-37FFE5EF1048}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20 - Nuget-Packages", "20 - Nuget-Packages", "{DD88FF06-C50F-48B3-B4C8-1A86C1BC25AB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 - Nuget-Packages", "10 - Nuget-Packages", "{DD88FF06-C50F-48B3-B4C8-1A86C1BC25AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 - Tests", "40 - Tests", "{589FEC6A-FCB4-432D-BFB8-E71A64970216}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 - Tests", "30 - Tests", "{589FEC6A-FCB4-432D-BFB8-E71A64970216}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Postalcode.Tests", "AntonYoung.Validators.Postalcode.Tests\AntonYoung.Validators.Postalcode.Tests.csproj", "{66CE4062-5ACD-4ACB-9310-0165B386FAF1}"
 EndProject
@@ -17,13 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Iban.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Abstractions", "AntonYoung.Validators.Abstractions\AntonYoung.Validators.Abstractions.csproj", "{786E1A98-08B7-43AC-9226-A2B46685B35F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 - Clients", "30 - Clients", "{F48E6619-0D10-4072-9728-856BB2A56433}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20 - Clients", "20 - Clients", "{F48E6619-0D10-4072-9728-856BB2A56433}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntonYoung.Validators.Abstractions.Tests", "AntonYoung.Validators.Abstractions.Tests\AntonYoung.Validators.Abstractions.Tests.csproj", "{F1B9415D-9281-4072-BD2D-9588B00FE151}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 - Abstractions", "10 - Abstractions", "{7220F222-54C1-4FFC-98DE-DEDA0980E669}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntonYoung.Validators.Console.Client", "AntonYoung.Validators.Console.Client\AntonYoung.Validators.Console.Client.csproj", "{7C1A9D1C-9AEF-49DF-8491-35DF193D2627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,7 +64,7 @@ Global
 		{8C0CF9AE-19E6-45EB-BF81-37FFE5EF1048} = {DD88FF06-C50F-48B3-B4C8-1A86C1BC25AB}
 		{66CE4062-5ACD-4ACB-9310-0165B386FAF1} = {589FEC6A-FCB4-432D-BFB8-E71A64970216}
 		{7E750164-D44B-4EE5-B728-425BC1363519} = {589FEC6A-FCB4-432D-BFB8-E71A64970216}
-		{786E1A98-08B7-43AC-9226-A2B46685B35F} = {7220F222-54C1-4FFC-98DE-DEDA0980E669}
+		{786E1A98-08B7-43AC-9226-A2B46685B35F} = {DD88FF06-C50F-48B3-B4C8-1A86C1BC25AB}
 		{F1B9415D-9281-4072-BD2D-9588B00FE151} = {589FEC6A-FCB4-432D-BFB8-E71A64970216}
 		{7C1A9D1C-9AEF-49DF-8491-35DF193D2627} = {F48E6619-0D10-4072-9728-856BB2A56433}
 	EndGlobalSection
