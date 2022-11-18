@@ -45,8 +45,8 @@ steps:
 #  displayName: '//=> dotnet pack'
 
 - task: DotNetCoreCLI@2
-   displayName: '//=> dotnet pack'
-   inputs:
+  displayName: '//=> dotnet pack'
+  inputs:
       command: pack
       projects: '**/*.csproj'
       arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
