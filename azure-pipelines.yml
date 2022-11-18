@@ -11,7 +11,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 6.x
+# install dotnet sdk 7.x
+steps:
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 7.x'
   inputs:
@@ -39,19 +40,13 @@ pool:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
 
-# dotenet pack all projects as release
+# dotenet pack nuget-packages as semantic versioning
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
-     command: pack
-     # nobuild: true
-     # buildProperties: 'VersionSuffix="$(VersionSuffix)"'
-     # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
-     versioningScheme: 'off'
-     # versionEnvVar: semVer
-     packagesToPack: '**/*.csproj'
-     configuration: $(BuildConfiguration)
-     packDestination: $(Build.ArtifactStagingDirectory)
+    command: pack
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 # dotenet push nuget-packages to project/feed
 - task: NuGetCommand@2
