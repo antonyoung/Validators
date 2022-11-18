@@ -11,7 +11,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 6.x
+# install dotnet sdk 7.x
 steps:
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 7.x'
