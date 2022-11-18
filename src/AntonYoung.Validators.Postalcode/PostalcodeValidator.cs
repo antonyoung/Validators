@@ -37,7 +37,7 @@ namespace AntonYoung.Validators.Postalcode
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal postalcodes.
         /// </summary>
-        public PostalcodeValidator() => _model = new PostalcodeModel();
+        public PostalcodeValidator(IPostalcodeModel model) => _model = model;
 
         /// <summary>
         ///     used as a postalcode example of the set country. ( default = <see cref="Countries.Netherlands"/> )

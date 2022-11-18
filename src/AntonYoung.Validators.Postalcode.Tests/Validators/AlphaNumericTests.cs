@@ -1,7 +1,10 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Postalcode.Infrastructure;
+using AntonYoung.Validators.Postalcode.Models;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Xunit;
+using Xunit.DependencyInjection;
 
 namespace AntonYoung.Validators.Postalcode.Tests
 {
@@ -11,8 +14,13 @@ namespace AntonYoung.Validators.Postalcode.Tests
     public class AlphaNumericTests
     {
         private readonly IPostalcodeValidator _postalcodeValidator = new PostalcodeValidator();
+        private readonly IClassFixture<IPostalcodeModel> _fixture;
 
-        [Theory]
+        public AlphaNumericTests()
+        {
+            _fixture.AsTra<IPostalcodeModel, PostalcodeRuleSetModel>();
+        }
+
         [InlineData(Countries.UnitedKingdom, "EC1A 1BB")]
         [InlineData(Countries.UnitedKingdom, "DN55 1PT")]
         [InlineData(Countries.UnitedKingdom, "CR2 6XH")]

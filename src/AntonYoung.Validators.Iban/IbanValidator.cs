@@ -39,7 +39,7 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
         /// </summary>
-        public IbanValidator() => _model = new IbanModel();
+        public IbanValidator(IIbanModel model) => _model = model;
 
         /// <summary>
         ///     used as the account number of an iban value.
