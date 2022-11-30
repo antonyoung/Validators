@@ -224,7 +224,6 @@ namespace AntonYoung.Validators.Iban
 
             //=> TODO: As generator iban values
             //=> Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
-
         }
 
         /// <summary>
