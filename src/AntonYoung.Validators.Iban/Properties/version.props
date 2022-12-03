@@ -1,11 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project>
   
 	<PropertyGroup>
 		<PackageId>AntonYoung.Validators.Iban</PackageId>
 		<Title>AntonYoung.Validators.Iban</Title>
 		<Authors>Anton Young</Authors>
-		<VersionPrefix>0.0.2</VersionPrefix>
+		<VersionPrefix>0.0.3</VersionPrefix>
 		<VersionSuffix>IBAN</VersionSuffix>
 		<Product>AntonYoung.Validators.Iban</Product>
 		<Description>Validator for European International Bank Account Number (IBAN)</Description>
