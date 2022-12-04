@@ -186,7 +186,7 @@ namespace AntonYoung.Validators.Postalcode
 
             foreach (Group group in match.Groups)
             {
-                if (group.Name.Equals("prefix", StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
+                if (group.Name.Equals(Replaces.Prefix, StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
                     result = result.Replace(string.Format(Replaces.Default, group.Name), _logic.Prefix);
 
                 if (!string.IsNullOrWhiteSpace(group.Value))
