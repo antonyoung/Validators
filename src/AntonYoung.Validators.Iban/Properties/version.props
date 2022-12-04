@@ -4,12 +4,12 @@
 		<PackageId>AntonYoung.Validators.Iban</PackageId>
 		<Title>AntonYoung.Validators.Iban</Title>
 		<Authors>Anton Young</Authors>
-		<VersionPrefix>0.0.3</VersionPrefix>
+		<VersionPrefix>0.0.4</VersionPrefix>
 		<VersionSuffix>IBAN</VersionSuffix>
 		<Product>AntonYoung.Validators.Iban</Product>
 		<Description>Validator for European International Bank Account Number (IBAN)</Description>
 		<Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
-		<PackageTags>Anton.Young;Validators.Iban</PackageTags>
+		<PackageTags>AntonYoung;Validators;Iban;Validators.Iban</PackageTags>
     </PropertyGroup>
 	
 </Project>

@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\AntonYoung.Validators.Iban\Properties\version.props" />
+	<Import Project="..\AntonYoung.Validators.Iban\Properties\version.props" />
 	<Import Project="..\AntonYoung.Validators.Iban\Properties\license.props" />
   
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+	</PropertyGroup>
   
-    <ItemGroup>
-        <ProjectReference Include="..\AntonYoung.Validators.Abstractions\AntonYoung.Validators.Abstractions.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AntonYoung.Validators.Abstractions\AntonYoung.Validators.Abstractions.csproj" />
+	</ItemGroup>
 
 </Project>

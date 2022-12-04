@@ -50,7 +50,8 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 ### Prerequisites
 
 ```
-* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
+* C# .NET Standard 2.1	// => Nuget-Packages
+* C# .NET Core 7.0		// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
 ```
 
 ### Code examples ( PostalcodeValidator )
