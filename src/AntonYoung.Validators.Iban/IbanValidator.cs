@@ -49,12 +49,12 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as the account type of an iban value <see cref="Countries.Bulgaria"/> as as exception using this property.
         /// </summary>
-        public byte AccountType => byte.TryParse(GroupValues(GroupNames.AccountType), out byte result) ? result : result;
+        public byte? AccountType => byte.TryParse(GroupValues(GroupNames.AccountType), out byte result) ? (byte?)result : null;
 
         /// <summary>
         ///     used as the international check digits of the iban value. 
         /// </summary>
-        public byte CheckDigits => byte.TryParse(GroupValues(GroupNames.CheckDigits), out byte result) ? result : result;      
+        public byte? CheckDigits => byte.TryParse(GroupValues(GroupNames.CheckDigits), out byte result) ? (byte?)result : null;      
         
         /// <summary>
         ///     used as the country of the iban value. 
@@ -90,7 +90,7 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as the check digit of an iban value, if any?
         /// </summary>
-        public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? result : null;
+        public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? (byte?)result : null;
 
         /// <summary>
         ///     used as to validate an iban value
@@ -317,7 +317,7 @@ namespace AntonYoung.Validators.Iban
         private string GroupValues(string groupName)
         {
             var append = new StringBuilder();
-            var groups = _match.Groups.Values
+            var groups = _match.Groups
                 .Where(_ => _.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
 
             foreach (var group in groups)

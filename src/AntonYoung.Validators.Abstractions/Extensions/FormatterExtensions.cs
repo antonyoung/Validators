@@ -17,7 +17,7 @@ namespace AntonYoung.Validators.Abstractions.Extensions
         /// </summary>
         private static readonly IDictionary<Formatters, string> _formatters = new Dictionary<Formatters, string>
         {
-            { Formatters.None, new Guid().ToString() },
+            { Formatters.None, Guid.Empty.ToString() },
             { Formatters.WhiteSpaces, Replaces.WhiteSpaces },
             { Formatters.Hyphens,  Replaces.Hyphens },
             { Formatters.HyphensAndWhiteSpaces,  Replaces.HyphensAndWhiteSpaces }
@@ -48,7 +48,7 @@ namespace AntonYoung.Validators.Abstractions.Extensions
         /// <returns>
         ///     the formatted value.
         /// </returns>
-        public static string Format(this string value, Formatters formatter) 
+        public static string Format(this string value, Formatters formatter)
             => Format(value, formatter, string.Empty);
 
         /// <summary>

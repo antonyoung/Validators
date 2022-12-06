@@ -1,15 +1,15 @@
 ﻿<Project>
-	
+
 	<PropertyGroup>
 		<PackageId>AntonYoung.Validators.Abstractions</PackageId>
 		<Title>AntonYoung.Validators.Abstractions</Title>
 		<Authors>Anton Young</Authors>
-		<VersionPrefix>0.0.3</VersionPrefix>
+		<VersionPrefix>0.0.5</VersionPrefix>
 		<VersionSuffix>ABST</VersionSuffix>
 		<Product>AntonYoung.Validators.Abstractions</Product>
 		<Description>Shared dependency used by Iban, Postalcode validators</Description>
 		<Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
-		<PackageTags>Anton.Young;Validators.Abstractions</PackageTags>
+		<PackageTags>AntonYoung;Validators;Abstractions;Validators.Abstractions</PackageTags>
 	</PropertyGroup>
 
 </Project>

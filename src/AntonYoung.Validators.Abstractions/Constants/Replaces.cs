@@ -6,8 +6,9 @@
     public static class Replaces
     {
         public const string Default = "<{0}>";
-        internal const string WhiteSpaces = @"\s+";
-        internal const string Hyphens = @"\-+";
-        internal const string HyphensAndWhiteSpaces = @"[\s+\-+]";
+        public const string Hyphens = @"\-+";
+        public const string HyphensAndWhiteSpaces = @"[\s+\-+]";
+        public const string Prefix = "prefix";
+        public const string WhiteSpaces = @"\s+";
     }
 }
