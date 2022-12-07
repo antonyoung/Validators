@@ -9,7 +9,7 @@ namespace AntonYoung.Validators.Iban.Indexers
     /// <typeparam name="T"><
     ///     used as the anonymous type, that has to be indexed.
     /// /typeparam>
-    public class GenericIndexer<T> where T: struct
+    internal class GenericIndexer<T> where T: struct
     {
         /// <summary>
         ///     used as internal IEnumerable of T.
@@ -25,7 +25,7 @@ namespace AntonYoung.Validators.Iban.Indexers
         /// <exception cref="ArgumentNullException">
         ///     throws new ArgumentNullException in case <paramref name="items"/> is null.
         /// </exception>
-        public GenericIndexer(IEnumerable<T> items)
+        internal GenericIndexer(IEnumerable<T> items)
             => _items = items
             ?? throw new ArgumentNullException(nameof(items));
 
