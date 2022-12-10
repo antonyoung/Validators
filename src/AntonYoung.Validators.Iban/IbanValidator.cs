@@ -90,7 +90,7 @@ namespace AntonYoung.Validators.Iban
         ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
         /// </summary>
         /// <param name="model">
-        ///     used as the interface, for the business logic to be used.
+        ///     used as the interface, for the internal business logic to be used.
         /// </param>
         public IbanValidator(IIbanModel model) => _model = model;
 
