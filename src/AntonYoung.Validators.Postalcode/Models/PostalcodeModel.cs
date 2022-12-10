@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AntonYoung.Validators.Postalcode.Models
 {
-    internal class PostalcodeModel : IPostalcodeModel
+    public class PostalcodeModel : IPostalcodeModel
     {
         //=> constants: used 2 => n times.
         private const string EXAMPLE_4_DIGITS               = "1234";
