@@ -51,7 +51,24 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 
 ```
 * C# .NET Standard 2.1	// => Nuget-Packages
-* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
+* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With as total 372 tests => ~150 ms as test set.
+```
+
+### Dependency Injection ( DI )
+
+* **As from semantic versioning 0.1.0-[AAAA], the validators are dependend on dependency ingection ( DI )**
+* **NOTE: Always inject I...Model first, before I...Validator, because ...Validator is dependend on ..,Model**
+
+```csharp
+// => add following to your IServiceCollection, named here as services.
+
+// => as IPostalcodeValidator
+services.AddTransient<IPostalcodeModel, PostalcodeModel>();
+services.AddTransient<IPostalcodeValidator, PostalcodeValidator>();
+
+// => as IIbanValidator
+services.AddTransient<IIbanModel, IbanModel>();
+services.AddTransient<IIbanValidator, IbanValidator>();
 ```
 
 ### Code examples ( PostalcodeValidator )
@@ -61,7 +78,7 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 bool isValid = new PostalcodeValidator()
 	.TryValidate("1062GD", out string result);
 
-// =. isValid = true
+// => isValid = true
 // => result = "1062 GD"
 ```
 * **Or as** 

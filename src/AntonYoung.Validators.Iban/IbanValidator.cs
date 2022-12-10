@@ -18,8 +18,7 @@ namespace AntonYoung.Validators.Iban
     ///     validates and formats the iban according to the iban country.
     ///     also retrieves the account number, bank code, branch code, check digits, country and national check digit of the iban value, if any?
     /// </summary>
-    public class IbanValidator
-        : IIbanValidator
+    public class IbanValidator : IIbanValidator
     {
         /// <summary>
         ///     used as internal business rules of European iban.
@@ -35,11 +34,6 @@ namespace AntonYoung.Validators.Iban
         ///     used as internal logic of the current Regular Expression Match.
         /// </summary>
         private Match _match;
-
-        /// <summary>
-        ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
-        /// </summary>
-        public IbanValidator() => _model = new IbanModel();
 
         /// <summary>
         ///     used as the account number of an iban value.
@@ -91,6 +85,14 @@ namespace AntonYoung.Validators.Iban
         ///     used as the check digit of an iban value, if any?
         /// </summary>
         public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? (byte?)result : null;
+
+        /// <summary>
+        ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
+        /// </summary>
+        /// <param name="model">
+        ///     used as the interface, for the internal business logic to be used.
+        /// </param>
+        public IbanValidator(IIbanModel model) => _model = model;
 
         /// <summary>
         ///     used as to validate an iban value
