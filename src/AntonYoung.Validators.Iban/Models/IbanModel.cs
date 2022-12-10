@@ -41,8 +41,7 @@ namespace AntonYoung.Validators.Iban.Models
     /// <summary>
     ///     used as complete model of all iban logic for each defined internal country <seealso cref="Rules"/>
     /// </summary>
-    internal class IbanModel
-        : IIbanModel
+    public class IbanModel: IIbanModel
     {
         private readonly string OptionalWhiteSpace = $"(?<{GroupNames.WhiteSpace}>\\s?)";
         
