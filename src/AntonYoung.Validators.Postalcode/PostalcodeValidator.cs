@@ -35,11 +35,6 @@ namespace AntonYoung.Validators.Postalcode
         private bool _isValid;
 
         /// <summary>
-        ///     used as constructor to initiliaze the class with the internal business rules of all internal postalcodes.
-        /// </summary>
-        public PostalcodeValidator() => _model = new PostalcodeModel();
-
-        /// <summary>
         ///     used as a postalcode example of the set country. ( default = <see cref="Countries.Netherlands"/> )
         /// </summary>
         public string Example { get => _logic.Example; }
@@ -58,12 +53,20 @@ namespace AntonYoung.Validators.Postalcode
             get => _isValid;
             private set
             {
-                if (value == false)
+                if (!value)
                     ErrorMessage = ErrorMessage = $"Postal code \"{_input}\" is not valid. Use as example \"{Example}\".";
 
                 _isValid = value;
             }
         }
+
+        /// <summary>
+        ///     used as constructor to initiliaze the class with the internal business rules of all internal postalcodes.
+        /// </summary>
+        /// <param name="model">
+        ///     used as the interface, for the internal business logic to be used.
+        /// </param>
+        public PostalcodeValidator(IPostalcodeModel model) => _model = model;
 
         /// <summary>
         ///     validates and formats postalcode with default country The Netherlands and default formatter as expected.
@@ -182,11 +185,11 @@ namespace AntonYoung.Validators.Postalcode
         /// </returns>
         private string Format(Match match, Formatters formatter, string replace)
         {
-            string result = _logic.DisplayFormat;
+            var result = _logic.DisplayFormat;
 
             foreach (Group group in match.Groups)
             {
-                if (group.Name.Equals("prefix", StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
+                if (group.Name.Equals(Replaces.Prefix, StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(group.Value))
                     result = result.Replace(string.Format(Replaces.Default, group.Name), _logic.Prefix);
 
                 if (!string.IsNullOrWhiteSpace(group.Value))

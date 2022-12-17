@@ -6,9 +6,9 @@ namespace AntonYoung.Validators.Iban.Infrastructure
     {
         string AccountNumber { get; }
             
-        byte AccountType { get; }
+        byte? AccountType { get; }
 
-        byte CheckDigits { get; }
+        byte? CheckDigits { get; }
 
         Countries Country { get; }
 

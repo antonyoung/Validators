@@ -50,22 +50,50 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 ### Prerequisites
 
 ```
-* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With 147 tests as 345 variables => ~150 ms as test set.
+* C# .NET Standard 2.1	// => Nuget-Packages
+* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With as total 372 tests => ~150 ms as test set.
+```
+
+### Dependency Injection ( DI )
+
+* **As from semantic versioning 0.1.0-[AAAA], the validators are dependend on dependency injection ( DI )**
+
+```csharp
+// => add following to your IServiceCollection, named here as services.
+
+// => as IPostalcodeValidator
+services.AddTransient<IPostalcodeModel, PostalcodeModel>();
+services.AddTransient<IPostalcodeValidator, PostalcodeValidator>();
+
+// => as IIbanValidator
+services.AddTransient<IIbanModel, IbanModel>();
+services.AddTransient<IIbanValidator, IbanValidator>();
 ```
 
 ### Code examples ( PostalcodeValidator )
 
+* **Constructor dependency injection ( DI )**
+```csharp
+public class MyClass
+{
+	private readonly IPostalcodeValidator _postalcodeValidator;
+
+	public MyClass(IPostalcodeValidator postalcodeValidator)
+		=> _postalcodeValidator = postalcodeValidator;
+}
+```
+
 * **Happy flow ( with default country == Countries.Netherlands )**
 ```csharp
-bool isValid = new PostalcodeValidator()
+bool isValid = _postalcodeValidator()
 	.TryValidate("1062GD", out string result);
 
-// =. isValid = true
+// => isValid = true
 // => result = "1062 GD"
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator() 
+var test = _postalcodeValidator() 
 	.TryValidate("1062GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -74,7 +102,7 @@ result              // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
-var test = new PostalcodeValidator() 
+var test = _postalcodeValidator() 
 	.TryValidate("0162GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => false					
@@ -87,7 +115,7 @@ result;             // => "0162GD"
 * **Use with Formatters.WhiteSpaces as Replace WhiteSpaces )**
 * Example: In case there's any white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
 ```csharp
-bool isValid = new PostalcodeValidator()
+bool isValid = _postalcodeValidator()
 	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); 
 
 // => isValid = true
@@ -95,7 +123,7 @@ bool isValid = new PostalcodeValidator()
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator() 
+var test = _postalcodeValidator() 
 	.TryValidate("1062 GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -111,7 +139,7 @@ The formatter replaces all white space(s) with the replace value in result.
 * NOTE: Using replace value should be only used as, how we want to represent the result.
 By using replace the result will be invalid as result.
 ```csharp
-bool isValid = new PostalcodeValidator()
+bool isValid = _postalcodeValidator()
 	.TryValidate("1062GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result); 
 
 // => isValid = true
@@ -119,7 +147,7 @@ bool isValid = new PostalcodeValidator()
 ```
 * **Or as** 
 ```csharp
-var test = new PostalcodeValidator() 
+var test = _postalcodeValidator() 
 	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result);
 
 test.IsValid;       // => true					
@@ -129,9 +157,20 @@ result              // => "1062-GD"
 
 ### Code examples ( IbanValidator )
 
+* **Constructor dependency injection ( DI )**
+```csharp
+public class MyClass
+{
+	private readonly IIbanValidator _ibanValidator;
+
+	public MyClass(IIbanValidator ibanValidator)
+		=> _ibanValidator = ibanValidator;
+}
+```
+
 * **Happy flow**
 ```csharp
-bool isValid = new IbanValidator()
+bool isValid = _ibanValidator()
 	.TryValidate("NL71INGB1320949010", out string result); 
 
 // => isValid = true
@@ -139,7 +178,7 @@ bool isValid = new IbanValidator()
 ```
 * **Or as** 
 ```csharp
-var test = new IbanValidator()
+var test = _ibanValidator()
 	.TryValidate("NL71INGB1320949010", out string result);
 
 test.IsValid;			// => true					
@@ -157,7 +196,7 @@ result:                         // => "NL71 INGB 1320 9490 10"
 
 * **Example: Replace whitespaces with "."**
 ```csharp
-bool isValid = new IbanValidator()
+bool isValid = _ibanValidator()
 	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result); 
    
 // => isValid = true
@@ -165,7 +204,7 @@ bool isValid = new IbanValidator()
 ```
 * **Or as** 
 ```csharp
-var test = new IbanValidator() 
+var test = _ibanValidator() 
 	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result);
 
 test.IsValid;			// => true					

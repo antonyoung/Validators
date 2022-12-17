@@ -1,17 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?> 
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ImportGroup Label="PropertySheets" />
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <Authors>Anton Young</Authors>
-    <Company/>
-    <VersionPrefix>0.0.1</VersionPrefix>
-    <VersionSuffix>POST</VersionSuffix>
-    <Product>AntonYoung.Validators.Postalcode</Product>
-    <PackageTags>European postalcodes Validator</PackageTags>
-    <Description>Validator for European Postalcodes</Description>
-    <Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+﻿<Project>
+	
+	<PropertyGroup>
+		<PackageId>AntonYoung.Validators.Postalcode</PackageId>
+		<Title>AntonYoung.Validators.Postalcode</Title>
+		<Authors>Anton Young</Authors>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<VersionSuffix>POST</VersionSuffix>
+		<Product>AntonYoung.Validators.Postalcode</Product>
+		<Description>Validator for European Postalcodes</Description>
+		<Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
+		<PackageTags>AntonYoung;Validators;Postalcode;Validators.Postalcode</PackageTags>
+	</PropertyGroup>
+	
 </Project>

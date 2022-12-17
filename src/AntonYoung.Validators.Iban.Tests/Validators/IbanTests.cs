@@ -1,16 +1,17 @@
-using AntonYoung.Validators.Iban;
+﻿using AntonYoung.Validators.Iban;
 using AntonYoung.Validators.Iban.Infrastructure;
+using AntonYoung.Validators.Iban.Tests.Fixtures;
 using AntonYoung.Validators.Iban.Tests.TestData;
 using AntonYoung.Validators.Iban.Tests.TestModels;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace AntonYoung.Validators.Tests.Iban
 {
-    public class IbanTests
+    public class IbanTests 
+        : IClassFixture<DependencyFixture>
     {
-        private readonly IIbanValidator _ibanValidator = new IbanValidator();
-
         //=> Bulgaria BG07TTBB94004773868743
 
         // todo: add test of all european countries
@@ -18,86 +19,166 @@ namespace AntonYoung.Validators.Tests.Iban
         // todo: add failure length of all countries
         // todo: add failure sanity check of all countries
 
+        private readonly ServiceProvider _serviceProvider;
+
+        public IbanTests(DependencyFixture fixture)
+            => _serviceProvider = fixture.ServiceProvider;
+ 
         [Theory]
         [ClassData(typeof(IbanValidTestData))]
         public void Everything(IbanTestModel model)
         {
+            var ibanValidator = _serviceProvider
+                .GetService<IIbanValidator>();
+
             //=> validate iban values without whitespaces.
-            var isValid = _ibanValidator.TryValidate(model.Value.Replace(" ", string.Empty), out string result);
+            var isValid = ibanValidator
+                .TryValidate(model.Value.Replace(" ", string.Empty), out string result);
 
             //=> success
-            _ibanValidator.IsValid.Should().BeTrue();
-            _ibanValidator.IsValid.Should().Be(isValid);
+            ibanValidator.IsValid
+                .Should()
+                .BeTrue();
+            
+            ibanValidator.IsValid
+                .Should()
+                .Be(isValid);
 
             //=> has no error message
-            _ibanValidator.ErrorMessage.Should().BeNullOrEmpty();
+            ibanValidator.ErrorMessage
+                .Should()
+                .BeNullOrEmpty();
 
             //=> check all properties of given iban value.
-            _ibanValidator.AccountNumber.Should().Be(model.AccountNumber);
-            _ibanValidator.AccountType.Should().Be(model.AccountType);
-            _ibanValidator.Country.Should().Be(model.Country);
-            _ibanValidator.CheckDigits.Should().Be(model.CheckDigits);
-            _ibanValidator.Example.Should().Be(model.Example);
-            _ibanValidator.NationalBankCode.Should().Be(model.NationalBankCode);
-            _ibanValidator.NationalBranchCode.Should().Be(model.NationalBranchCode);
-            _ibanValidator.NationalCheckDigit.Should().Be(model.NationalCheckDigit);
+            ibanValidator.AccountNumber
+                .Should()
+                .Be(model.AccountNumber);
+            
+            ibanValidator.AccountType
+                .Should()
+                .Be(model.AccountType);
+            
+            ibanValidator.Country
+                .Should()
+                .Be(model.Country);
+            
+            ibanValidator.CheckDigits
+                .Should()
+                .Be(model.CheckDigits);
+            
+            ibanValidator.Example
+                .Should()
+                .Be(model.Example);
+            
+            ibanValidator.NationalBankCode
+                .Should()
+                .Be(model.NationalBankCode);
+            
+            ibanValidator.NationalBranchCode
+                .Should()
+                .Be(model.NationalBranchCode);
+            
+            ibanValidator.NationalCheckDigit
+                .Should()
+                .Be(model.NationalCheckDigit);
 
             //=> formatted result as iban value with whitespaces
-            result.Should().BeEquivalentTo(model.Value);
+            result
+                .Should()
+                .BeEquivalentTo(model.Value);
         }
 
         [Theory]
         [ClassData(typeof(IbanTestData))]
         public void NoWhiteSpaces(string value)
         {
+            var ibanValidator = _serviceProvider
+                .GetService<IIbanValidator>();
+
             //=> validate iban values with whitespaces.
-            var isValid = _ibanValidator.TryValidate(value.Replace(" ", string.Empty), out string result);
+            var isValid = ibanValidator
+                .TryValidate(value.Replace(" ", string.Empty), out string result);
 
             //=> success
-            _ibanValidator.IsValid.Should().BeTrue();
-            _ibanValidator.IsValid.Should().Be(isValid);
+            ibanValidator.IsValid
+                .Should()
+                .BeTrue();
+            
+            ibanValidator.IsValid
+                .Should()
+                .Be(isValid);
 
             //=> has no error message
-            _ibanValidator.ErrorMessage.Should().BeNullOrEmpty();
+            ibanValidator.ErrorMessage
+                .Should()
+                .BeNullOrEmpty();
 
             //=> formatted result as iban value with whitespaces.
-            result.Should().BeEquivalentTo(value);
+            result
+                .Should()
+                .BeEquivalentTo(value);
         }
 
         [Theory]
         [ClassData(typeof(IbanTestData))]
         public void LowerCase(string value)
         {
+            var ibanValidator = _serviceProvider
+                .GetService<IIbanValidator>();
+
             //=> validate iban values with whitespaces.
-            var isValid = _ibanValidator.TryValidate(value.ToLowerInvariant(), out string result);
+            var isValid = ibanValidator
+                .TryValidate(value.ToLowerInvariant(), out string result);
 
             //=> success
-            _ibanValidator.IsValid.Should().BeTrue();
-            _ibanValidator.IsValid.Should().Be(isValid);
+            ibanValidator.IsValid
+                .Should()
+                .BeTrue();
+            
+            ibanValidator.IsValid
+                .Should()
+                .Be(isValid);
 
             //=> has no error message
-            _ibanValidator.ErrorMessage.Should().BeNullOrEmpty();
+            ibanValidator.ErrorMessage
+                .Should()
+                .BeNullOrEmpty();
 
             //=> formatted result as iban value with whitespaces.
-            result.Should().BeEquivalentTo(value);
+            result
+                .Should()
+                .BeEquivalentTo(value);
         }
 
         [Theory]
         [ClassData(typeof(IbanTestData))]
         public void NoTrim(string value)
         {
+            var ibanValidator = _serviceProvider
+                .GetService<IIbanValidator>();
+
             //=> validate iban values with whitespaces.
-            var isValid = _ibanValidator.TryValidate($" {value} ", out string result);
+            var isValid = ibanValidator
+                .TryValidate($" {value} ", out string result);
 
             //=> success
-            _ibanValidator.IsValid.Should().BeTrue();
-            _ibanValidator.IsValid.Should().Be(isValid);
+            ibanValidator.IsValid
+                .Should()
+                .BeTrue();
+            
+            ibanValidator.IsValid
+                .Should()
+                .Be(isValid);
 
             //=> has no error message
-            _ibanValidator.ErrorMessage.Should().BeNullOrEmpty();
+            ibanValidator.ErrorMessage
+                .Should()
+                .BeNullOrEmpty();
 
             //=> formatted result as iban value with whitespaces.
-            result.Should().BeEquivalentTo(value);
+            result
+                .Should()
+                .BeEquivalentTo(value);
         }
     }
 }

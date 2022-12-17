@@ -18,8 +18,7 @@ namespace AntonYoung.Validators.Iban
     ///     validates and formats the iban according to the iban country.
     ///     also retrieves the account number, bank code, branch code, check digits, country and national check digit of the iban value, if any?
     /// </summary>
-    public class IbanValidator
-        : IIbanValidator
+    public class IbanValidator : IIbanValidator
     {
         /// <summary>
         ///     used as internal business rules of European iban.
@@ -37,11 +36,6 @@ namespace AntonYoung.Validators.Iban
         private Match _match;
 
         /// <summary>
-        ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
-        /// </summary>
-        public IbanValidator() => _model = new IbanModel();
-
-        /// <summary>
         ///     used as the account number of an iban value.
         /// </summary>
         public string AccountNumber => GroupValues(GroupNames.Account);
@@ -49,12 +43,12 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as the account type of an iban value <see cref="Countries.Bulgaria"/> as as exception using this property.
         /// </summary>
-        public byte AccountType => byte.TryParse(GroupValues(GroupNames.AccountType), out byte result) ? result : result;
+        public byte? AccountType => byte.TryParse(GroupValues(GroupNames.AccountType), out byte result) ? (byte?)result : null;
 
         /// <summary>
         ///     used as the international check digits of the iban value. 
         /// </summary>
-        public byte CheckDigits => byte.TryParse(GroupValues(GroupNames.CheckDigits), out byte result) ? result : result;      
+        public byte? CheckDigits => byte.TryParse(GroupValues(GroupNames.CheckDigits), out byte result) ? (byte?)result : null;      
         
         /// <summary>
         ///     used as the country of the iban value. 
@@ -90,7 +84,15 @@ namespace AntonYoung.Validators.Iban
         /// <summary>
         ///     used as the check digit of an iban value, if any?
         /// </summary>
-        public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? result : null;
+        public byte? NationalCheckDigit => byte.TryParse(GroupValues(GroupNames.NationalCheckDigit), out byte result) ? (byte?)result : null;
+
+        /// <summary>
+        ///     used as constructor to initiliaze the class with the internal business rules of all internal iban.
+        /// </summary>
+        /// <param name="model">
+        ///     used as the interface, for the internal business logic to be used.
+        /// </param>
+        public IbanValidator(IIbanModel model) => _model = model;
 
         /// <summary>
         ///     used as to validate an iban value
@@ -224,7 +226,6 @@ namespace AntonYoung.Validators.Iban
 
             //=> TODO: As generator iban values
             //=> Subtract the remainder from 98, and use the result for the two check digits. If the result is a single digit number, pad it with a leading 0 to make a two-digit number.
-
         }
 
         /// <summary>
@@ -318,7 +319,7 @@ namespace AntonYoung.Validators.Iban
         private string GroupValues(string groupName)
         {
             var append = new StringBuilder();
-            var groups = _match.Groups.Values
+            var groups = _match.Groups
                 .Where(_ => _.Name.Contains(groupName, StringComparison.OrdinalIgnoreCase));
 
             foreach (var group in groups)
