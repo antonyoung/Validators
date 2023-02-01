@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/antonyoung/Validator/_apis/build/status/antonyoung.postalcode?branchName=master)](https://dev.azure.com/antonyoung/Validator/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Postal code and IBAN validator and formatter (C#) .NET 7.x
 
@@ -85,15 +85,15 @@ public class MyClass
 
 * **Happy flow ( with default country == Countries.Netherlands )**
 ```csharp
-bool isValid = _postalcodeValidator()
+bool isValid = _postalcodeValidator
 	.TryValidate("1062GD", out string result);
 
 // => isValid = true
-// => result = "1062 GD"
+// => result  = "1062 GD"
 ```
 * **Or as** 
 ```csharp
-var test = _postalcodeValidator() 
+var test = _postalcodeValidator 
 	.TryValidate("1062GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -102,7 +102,7 @@ result              // => "1062 GD"
 ```
 * **Unhappy flow ( has leading zero )**
 ```csharp
-var test = _postalcodeValidator() 
+var test = _postalcodeValidator 
 	.TryValidate("0162GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => false					
@@ -115,15 +115,15 @@ result;             // => "0162GD"
 * **Use with Formatters.WhiteSpaces as Replace WhiteSpaces )**
 * Example: In case there's any white space, and we don't want any white spaces as result? This formatter removes all white space(s) from result
 ```csharp
-bool isValid = _postalcodeValidator()
+bool isValid = _postalcodeValidator
 	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, out string result); 
 
 // => isValid = true
-// => result = "1062GD"
+// => result  = "1062GD"
 ```
 * **Or as** 
 ```csharp
-var test = _postalcodeValidator() 
+var test = _postalcodeValidator 
 	.TryValidate("1062 GD", Countries.Netherlands, out string result);
 
 test.IsValid;       // => true					
@@ -139,15 +139,15 @@ The formatter replaces all white space(s) with the replace value in result.
 * NOTE: Using replace value should be only used as, how we want to represent the result.
 By using replace the result will be invalid as result.
 ```csharp
-bool isValid = _postalcodeValidator()
+bool isValid = _postalcodeValidator
 	.TryValidate("1062GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result); 
 
 // => isValid = true
-// => result = "1062-GD"
+// => result  = "1062-GD"
 ```
 * **Or as** 
 ```csharp
-var test = _postalcodeValidator() 
+var test = _postalcodeValidator 
 	.TryValidate("1062 GD", Countries.Netherlands, Formatters.WhiteSpaces, "-", out string result);
 
 test.IsValid;       // => true					
@@ -170,15 +170,15 @@ public class MyClass
 
 * **Happy flow**
 ```csharp
-bool isValid = _ibanValidator()
+bool isValid = _ibanValidator
 	.TryValidate("NL71INGB1320949010", out string result); 
 
 // => isValid = true
-// => result = "NL71 INGB 1320 9490 10"
+// => result  = "NL71 INGB 1320 9490 10"
 ```
 * **Or as** 
 ```csharp
-var test = _ibanValidator()
+var test = _ibanValidator
 	.TryValidate("NL71INGB1320949010", out string result);
 
 test.IsValid;			// => true					
@@ -196,15 +196,15 @@ result:                         // => "NL71 INGB 1320 9490 10"
 
 * **Example: Replace whitespaces with "."**
 ```csharp
-bool isValid = _ibanValidator()
+bool isValid = _ibanValidator
 	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result); 
    
 // => isValid = true
-// => result = "NL71.INGB.1320.9490.10"
+// => result  = "NL71.INGB.1320.9490.10"
 ```
 * **Or as** 
 ```csharp
-var test = _ibanValidator() 
+var test = _ibanValidator 
 	.TryValidate("NL71INGB1320949010", Formatters.WhiteSpace, ".", out string result);
 
 test.IsValid;			// => true					
