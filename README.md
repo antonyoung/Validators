@@ -1,4 +1,5 @@
-[![Build Status](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)
+[![Build: Status](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)
+[![Test: Count](https://img.shields.io/azure-devops/tests/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/4/master.svg)](https://img.shields.io/azure-devops/tests/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/4/master.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Postal code and IBAN validator and formatter (C#) .NET 7.x
 
