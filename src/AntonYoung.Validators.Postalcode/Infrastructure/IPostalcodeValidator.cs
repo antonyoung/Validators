@@ -27,5 +27,7 @@ namespace AntonYoung.Validators.Postalcode.Infrastructure
         bool TryValidate(string value, Countries country, out string result);
 
         bool TryValidate(string value, Countries country, Formatters formatter, out string result);
+
+        bool TryValidate(string value, Countries country, Formatters formatter, string replace, out string result);
     }
 }

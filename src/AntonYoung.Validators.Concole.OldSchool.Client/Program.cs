@@ -90,7 +90,7 @@ namespace AntonYoung.Validators.Concole.OldSchool.Client
             {
                 var postalCodeValidator = host.Services.GetRequiredService<IPostalcodeValidator>();
 
-                var result = postalCodeValidator.TryValidate(model.Value, model.Country, model.Formatter, out var postalCodeResult);
+                var result = postalCodeValidator.TryValidate(model.Value, model.Country, model.Formatter, model.Replace, out var postalCodeResult);
                 Console.WriteLine(postalCodeResult);
             }
             
