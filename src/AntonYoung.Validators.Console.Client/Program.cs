@@ -19,7 +19,6 @@ namespace AntonYoung.Validators.Console.Client
 
     internal class Program
     {
-
         public static IConfiguration Configuration { get; set; }
 
         public static void ConfigurationSetup(IConfigurationBuilder builder) => builder
@@ -69,6 +68,7 @@ namespace AntonYoung.Validators.Console.Client
             var builder = new ConfigurationBuilder();
             ConfigurationSetup(builder);
 
+            
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
                 .WriteTo.Console()
@@ -88,13 +88,22 @@ namespace AntonYoung.Validators.Console.Client
                 .UseSerilog()
                 .Build();
 
-            var param = System.Console.ReadLine();
+            //var param = System.Console.ReadLine();
 
             ValidatorService? service = ActivatorUtilities.CreateInstance<ValidatorService>(host.Services);
 
-            //var result = service.ValidateAsync(param.Split(" ").AsEnumerable<string>());
+            //var param = "validate iban NL47INGB00789769";
+
+            var result = service.ValidateAsync(args.AsEnumerable<string>());
+
+            var commandLIne = System.Console.ReadLine();
+
+            
+           await Main(commandLIne?.Split(" "));
+
 
             return await Task.FromResult(Environment.ExitCode);
+            //return await Task.FromResult(Environment.ExitCode);
 
         }
 

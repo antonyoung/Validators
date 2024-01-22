@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AntonYoung.Validators.Console.Client.Services
 {
-    internal class ValidatorService : IHostedService
+    internal class ValidatorService //: IHostedService
     {
         private readonly ILogger<ValidatorService> _logger;
         //private readonly CommandLineArgs _commandLineArgs;
@@ -14,19 +14,19 @@ namespace AntonYoung.Validators.Console.Client.Services
             ///_commandLineArgs = arguments;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("1. StartAsync has been called.");
+        //public Task StartAsync(CancellationToken cancellationToken)
+        //{
+        //    _logger.LogInformation("1. StartAsync has been called.");
 
-            return Task.CompletedTask;
-        }
+        //    return Task.CompletedTask;
+        //}
 
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("4. StopAsync has been called.");
+        //public Task StopAsync(CancellationToken cancellationToken)
+        //{
+        //    _logger.LogInformation("4. StopAsync has been called.");
 
-            return Task.CompletedTask;
-        }
+        //    return Task.CompletedTask;
+        //}
 
         public Task ValidateAsync(IEnumerable<string> arguments)
         {
@@ -35,19 +35,19 @@ namespace AntonYoung.Validators.Console.Client.Services
             return Task.CompletedTask;
         }
 
-        private void OnStarted()
-        {
-            _logger.LogInformation("2. OnStarted has been called.");
-        }
+        //private void OnStarted()
+        //{
+        //    _logger.LogInformation("2. OnStarted has been called.");
+        //}
 
-        private void OnStopping()
-        {
-            _logger.LogInformation("3. OnStopping has been called.");
-        }
+        //private void OnStopping()
+        //{
+        //    _logger.LogInformation("3. OnStopping has been called.");
+        //}
 
-        private void OnStopped()
-        {
-            _logger.LogInformation("5. OnStopped has been called.");
-        }
+        //private void OnStopped()
+        //{
+        //    _logger.LogInformation("5. OnStopped has been called.");
+        //}
     }
 }

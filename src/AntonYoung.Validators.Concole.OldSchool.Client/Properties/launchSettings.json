@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AntonYoung.Validators.Concole.OldSchool.Client": {
+      "commandName": "Project",
+      "commandLineArgs": "validate PostalCode 1017zm"
+    }
+  }
+}
