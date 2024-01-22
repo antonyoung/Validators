@@ -2,7 +2,7 @@
   "profiles": {
     "AntonYoung.Validators.Concole.OldSchool.Client": {
       "commandName": "Project",
-      "commandLineArgs": "validate PostalCode 1017zm"
+      "commandLineArgs": "validate postalcode \"1017 ZM\" -f whitespaces -r \".\""
     }
   }
 }

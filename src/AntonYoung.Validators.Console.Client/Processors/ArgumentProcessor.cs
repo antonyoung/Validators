@@ -22,8 +22,8 @@ namespace AntonYoung.Validators.Console.Client.Processors
         {
             if (arguments == null || arguments.Length == 0)
             {
-                //Console.Error.WriteLine("vwd.Factsheets.Generator: No arguments specified.");
-                //Console.Error.WriteLine("Try `--help' for available options.");
+                System.Console.Error.WriteLine("AntonYoung.Validators.Concole.Client: No arguments specified.");
+                System.Console.Error.WriteLine("Try `validate --help' for available options.");
 
                 return -1;
             }

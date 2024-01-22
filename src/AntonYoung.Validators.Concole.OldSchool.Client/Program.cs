@@ -83,6 +83,8 @@ namespace AntonYoung.Validators.Concole.OldSchool.Client
             if (exitCode == -1)
             {
                 Console.WriteLine("ErroCode");
+
+                return;
             }
             
             // 5. Result Arguments
@@ -110,10 +112,10 @@ namespace AntonYoung.Validators.Concole.OldSchool.Client
 
         private static int ProcessArguments(string[] arguments, ValidatorModel model)
         {
-            if (arguments == null || arguments.Length == 0)
+            if (!arguments.Any())
             {
-                //Console.Error.WriteLine("vwd.Factsheets.Generator: No arguments specified.");
-                //Console.Error.WriteLine("Try `--help' for available options.");
+                Console.Error.WriteLine("AntonYoung.Validators.Concole.OldSchool.Client: No arguments specified.");
+                Console.Error.WriteLine("Try `validate --help' for available options.");
 
                 return -1;
             }
@@ -145,7 +147,7 @@ namespace AntonYoung.Validators.Concole.OldSchool.Client
                             ? country
                             : throw new ArgumentException(nameof(country));
 
-                        scan = ProcessCommand(argument, model);
+                        scan = Arguments.Argument;
 
                         break;
 
@@ -155,33 +157,35 @@ namespace AntonYoung.Validators.Concole.OldSchool.Client
                             ? formatter
                             : throw new ArgumentException(nameof(formatter));
 
-                        scan = ProcessCommand(argument, model);
+                        scan = Arguments.Argument;
 
                         break;
 
                     case Arguments.Replace:
                         model.Replace = argument;
-
-                        scan = ProcessCommand(argument, model);
+                        scan = Arguments.Argument;
 
                         break;
 
-
                     case Arguments.Validators:
                         scan = ProcessCommand(argument, model);
+
                         break;
 
                     case Arguments.Value:
                         model.Value = argument;
                         scan = Arguments.Argument;
+
                         break;
 
                     case Arguments.Unknown:
                         exitCode = -1;
+
                         break;
 
                     default:
                         exitCode = -1;
+                        
                         break;
                 }
             }
