@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\AntonYoung.Validators.Domain.Abstractions\Properties\license.props" />
+	
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AntonYoung.Validators.Abstractions\AntonYoung.Validators.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

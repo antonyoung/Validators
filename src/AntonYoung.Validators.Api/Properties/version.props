@@ -1,0 +1,15 @@
+﻿<Project>
+
+	<PropertyGroup>
+		<PackageId>AntonYoung.Validators.Api</PackageId>
+		<Title>AntonYoung.Validators.Api</Title>
+		<Authors>Anton Young</Authors>
+		<VersionPrefix>0.9.1</VersionPrefix>
+		<VersionSuffix></VersionSuffix>
+		<Product>AntonYoung.Validators.Api</Product>
+		<Description>Api consuming the Iban, Postalcode validators</Description>
+		<Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
+		<PackageTags>AntonYoung;Validators;Api;Validators.Api</PackageTags>
+	</PropertyGroup>
+
+</Project>
