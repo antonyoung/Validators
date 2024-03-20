@@ -3,6 +3,7 @@ using AntonYoung.Validators.Domain.Handlers;
 using AntonYoung.Validators.Domain.Tests.Fixtures;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Handlers
 {
@@ -195,7 +196,7 @@ namespace AntonYoung.Validators.Domain.Tests.Handlers
         public async Task All()
         {
             var handler = _serviceProvider
-                .GetService<ICountriesHandler>();
+                .GetService<ICountriesHandler>()!;
 
             var result = await handler
                 .HandleAsync(CancellationToken.None);

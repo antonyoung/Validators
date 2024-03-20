@@ -2,7 +2,7 @@
 using AntonYoung.Validators.Domain.Abstractions.Requests;
 using AntonYoung.Validators.Domain.Validators;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Validators
 {
