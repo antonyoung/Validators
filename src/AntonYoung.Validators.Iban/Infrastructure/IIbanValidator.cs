@@ -23,7 +23,11 @@ namespace AntonYoung.Validators.Iban.Infrastructure
         string NationalBranchCode { get; }
 
         byte? NationalCheckDigit { get; }
-        
+
         bool TryValidate(string value, out string result);
+
+        bool TryValidate(string value, Formatters formatter, out string result);
+
+        bool TryValidate(string value, Formatters formatter, string replace, out string result);
     }
 }

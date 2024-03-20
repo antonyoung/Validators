@@ -28,6 +28,13 @@ namespace AntonYoung.Validators.Iban.Tests.TestModels
 
         public byte? NationalCheckDigit { get; set; }
 
-        public bool TryValidate(string value, out string result) => throw new NotImplementedException();
+        public bool TryValidate(string value, out string result) 
+            => throw new NotImplementedException();
+
+        public bool TryValidate(string value, Formatters formatter, out string result)
+            => throw new NotImplementedException();
+
+        public bool TryValidate(string value, Formatters formatter, string replace, out string result)
+            => throw new NotImplementedException();
     }
 }
