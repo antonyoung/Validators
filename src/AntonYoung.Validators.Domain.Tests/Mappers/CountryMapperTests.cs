@@ -192,7 +192,7 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
             var result = countries
                 .ElementAt(index);
 
-            result
+            result.TwoLetterISO
                 .Should()
                 .Be(twoLetterISO);
         }
