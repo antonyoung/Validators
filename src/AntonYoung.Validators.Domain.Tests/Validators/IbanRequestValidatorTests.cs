@@ -32,6 +32,7 @@ namespace AntonYoung.Validators.Domain.Tests.Validators
 
         [Theory]
         [InlineData("")]
+        [InlineData(null)]
         public async Task ValidationErrorNoValue(string value)
         {
             var request = new IbanValidationRequest
