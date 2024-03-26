@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "AntonYoung.Validators.Console.Client": {
-      "commandName": "Project",
-      "commandLineArgs": "validate post \"1017ZM\" -c nl -f whitespaces -r -"
-    }
-  }
-}
