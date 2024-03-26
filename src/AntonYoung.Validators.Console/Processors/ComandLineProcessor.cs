@@ -9,6 +9,7 @@ namespace AntonYoung.Validators.Console.Processors
     internal interface ICommandlineProcessor
     {
         Task<ValidatorModel> ProcessAsync(IEnumerable<string> argumennts);
+        Arguments ProcessCommand(string value);
     }
 
     internal class ComandLineProcessor
@@ -139,7 +140,7 @@ namespace AntonYoung.Validators.Console.Processors
             return -1;
         }
 
-        private Arguments ProcessCommand(string value)
+        public Arguments ProcessCommand(string value)
         {
             Arguments result;
 

@@ -1,6 +1,6 @@
 ﻿namespace AntonYoung.Validators.Console.Enums
 {
-    public enum Applications
+    internal enum Applications
     {
         Iban,
         Post
