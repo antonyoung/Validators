@@ -1,10 +1,7 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Domain.Mappers;
 using FluentAssertions;
-using FluentAssertions.Execution;
-using System.Diagnostics.Metrics;
-using System.Reflection.Metadata;
-using System.Text.RegularExpressions;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Mappers
 {
@@ -18,7 +15,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [Fact]
         public async Task AllCountriesCountAsync()
         {
-            var result = await _mapper.MapAsync();
+            var result = await _mapper
+                .MapAsync();
 
             result
                 .Count()
@@ -58,9 +56,11 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData(Countries.UnitedKingdom, 28)]
         public async Task AllCountriesAsEnumTypeAsync(Countries country, int index)
         {
-            var countries = await _mapper.MapAsync();
+            var countries = await _mapper
+                .MapAsync();
 
-            var result = countries.ElementAt(index);
+            var result = countries
+                .ElementAt(index);
 
             result.EnglishName
                 .Trim()
@@ -100,9 +100,11 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData(28, "UnitedKingdom")]
         public async Task AllCountriesEnglishNameAsync(int index, string englishName)
         {
-            var countries = await _mapper.MapAsync();
+            var countries = await _mapper
+                .MapAsync();
 
-            var result = countries.ElementAt(index);
+            var result = countries
+                .ElementAt(index);
 
             result.EnglishName
                 .Should()
@@ -141,9 +143,11 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData(28, "GBR")]
         public async Task AllCountriesThreeLetterISOAsync(int index, string threeLetterISO)
         {
-            var countries = await _mapper.MapAsync();
+            var countries = await _mapper
+                .MapAsync();
 
-            var result = countries.ElementAt(index);
+            var result = countries
+                .ElementAt(index);
 
             result.ThreeLetterISO
                 .Should()
@@ -182,9 +186,11 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData(28, "GB")]
         public async Task AllCountriesTwoLetterISOAsync(int index, string twoLetterISO)
         {
-            var countries = await _mapper.MapAsync();
+            var countries = await _mapper
+                .MapAsync();
 
-            var result = countries.ElementAt(index);
+            var result = countries
+                .ElementAt(index);
 
             result.TwoLetterISO
                 .Should()
@@ -223,7 +229,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("UnitedKingdom", Countries.UnitedKingdom)]
         public async Task MapCountryEnumFromEnglishNameAsync(string englishName, Countries country)
         {
-            var result = await _mapper.MapAsync(englishName);
+            var result = await _mapper
+                .MapAsync(englishName);
 
             result
                 .Should()
@@ -261,7 +268,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("GBR", Countries.UnitedKingdom)]
         public async Task MapCountryEnumFromThreeLetterISOAsync(string threeLetterISO, Countries country)
         {
-            var result = await _mapper.MapAsync(threeLetterISO);
+            var result = await _mapper
+                .MapAsync(threeLetterISO);
 
             result
                 .Should()
@@ -299,7 +307,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("GB", Countries.UnitedKingdom)]
         public async Task MapCountryEnumFromTwoLetterISOAsync(string twoLetterISO, Countries country)
         {
-            var result = await _mapper.MapAsync(twoLetterISO);
+            var result = await _mapper
+                .MapAsync(twoLetterISO);
 
             result
                 .Should()
@@ -312,7 +321,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("United States")]
         public async Task DefaultEnumFromNoneExistingCountryAsync(string country)
         {
-            var result = await _mapper.MapAsync(country);
+            var result = await _mapper
+                .MapAsync(country);
 
             result
                 .Should()
@@ -325,7 +335,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("RU")]
         public async Task DefaultEnumFromNoneTwoLetterIsoAsync(string twoLetterISO)
         {
-            var result = await _mapper.MapAsync(twoLetterISO);
+            var result = await _mapper
+                .MapAsync(twoLetterISO);
 
             result
                 .Should()
@@ -338,7 +349,8 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("RUS")]
         public async Task DefaultEnumFromNoneThreeLetterIsoAsync(string threeLetterISO)
         {
-            var result = await _mapper.MapAsync(threeLetterISO);
+            var result = await _mapper
+                .MapAsync(threeLetterISO);
 
             result
                 .Should()

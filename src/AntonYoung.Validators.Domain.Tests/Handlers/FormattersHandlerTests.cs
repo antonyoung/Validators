@@ -2,8 +2,7 @@
 using AntonYoung.Validators.Domain.Abstractions.Responses;
 using AntonYoung.Validators.Domain.Handlers;
 using FluentAssertions;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Handlers
 {

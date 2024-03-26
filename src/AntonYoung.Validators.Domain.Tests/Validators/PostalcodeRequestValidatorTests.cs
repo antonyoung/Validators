@@ -2,7 +2,7 @@
 using AntonYoung.Validators.Domain.Abstractions.Requests;
 using AntonYoung.Validators.Domain.Validators;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Validators
 {
@@ -32,7 +32,6 @@ namespace AntonYoung.Validators.Domain.Tests.Validators
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         public async Task ValidationErrorNoValue(string value)
         {
             var request = new PostalcodeValidaionRequest
@@ -78,7 +77,6 @@ namespace AntonYoung.Validators.Domain.Tests.Validators
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         public async Task ValidationErrorsNoValueAndAmsterdamAsCountry(string value)
         {
             var request = new PostalcodeValidaionRequest

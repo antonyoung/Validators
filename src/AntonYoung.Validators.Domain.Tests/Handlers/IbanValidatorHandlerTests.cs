@@ -8,6 +8,7 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using FluentAssertions;
 using Moq;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Handlers
 {

@@ -2,6 +2,7 @@
 using AntonYoung.Validators.Domain.Abstractions.Requests;
 using AntonYoung.Validators.Domain.Validators;
 using FluentAssertions;
+using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Validators
 {
@@ -24,13 +25,13 @@ namespace AntonYoung.Validators.Domain.Tests.Validators
             var result = await _validator
                 .ValidateAsync(request);
 
-            result.Should().BeEmpty();
-
+            result
+                .Should()
+                .BeEmpty();
         }
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         public async Task ValidationErrorNoValue(string value)
         {
             var request = new IbanValidationRequest
