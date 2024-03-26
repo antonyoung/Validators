@@ -1,7 +1,7 @@
 [![Build: Status](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)](https://dev.azure.com/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/_apis/build/status/4?branchName=master)
 [![Test: Count](https://img.shields.io/azure-devops/tests/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/4/master.svg)](https://img.shields.io/azure-devops/tests/antonyoung/c05894b0-db29-4558-b7c4-af27777e447d/4/master.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-## Postal code and IBAN validator and formatter (C#) .NET 7.x
+## Postal code and IBAN validator and formatter (C#) .NET 8.x
 
 Validates and formats European postal codes and International Bank Account Numbers ( IBAN )
 
@@ -52,7 +52,7 @@ Not sure about Ierland, for now it also works as is, maybe the difference is bet
 
 ```
 * C# .NET Standard 2.1	// => Nuget-Packages
-* C# .NET Core 7.0	// => Validators.Tests (xUnit) * With as total 372 tests => ~150 ms as test set.
+* C# .NET Core 8.0	// => Validators.Tests (xUnit) * With as total 372 tests => ~150 ms as test set.
 ```
 
 ### Dependency Injection ( DI )
