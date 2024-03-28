@@ -1,7 +1,6 @@
 ﻿using AntonYoung.Validators.Console.Infrastructure.DependencyInjection;
 using AntonYoung.Validators.Console.Processors;
 using AntonYoung.Validators.Console.Services;
-using AntonYoung.Validators.Console.Writters;
 using AntonYoung.Validators.Domain.Infrastructure.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,37 +73,37 @@ namespace AntonYoung.Validators.Console
                 .UseSerilog()
                 .Build();
 
-            // Test => ConsoleWritter
-            ConsoleWriter writer = ActivatorUtilities
-                .CreateInstance<ConsoleWriter>(host.Services);
+            CommandLineProcessor? processor = ActivatorUtilities
+                .CreateInstance<CommandLineProcessor>(host.Services);
 
-            //await writer.WriteHelpValidateAsync();
-
-            //await writer.WriteHelpApplicationAsync(Enums.Applications.Iban);
-
-            //await writer.WriteHelpFormattersAsync();
-
-            //await writer.WriteHelpCountriesAsync();
-
-            ComandLineProcessor? processor = ActivatorUtilities
-                .CreateInstance<ComandLineProcessor>(host.Services);
-
-            var model = await processor
-                .ProcessAsync(args.AsEnumerable<string>());
-
-            if (!model.IsHelp)
+            try
             {
-                ValidatorService? service = ActivatorUtilities.
-                    CreateInstance<ValidatorService>(host.Services);
+                var model = await processor
+                    .ProcessAsync(args.AsEnumerable<string>());
 
-                await service.ValidateAsync(model);
+                if (!model.IsHelp)
+                {
+                    ValidatorService? service = ActivatorUtilities
+                        .CreateInstance<ValidatorService>(host.Services);
+
+                    await service
+                        .ValidateAsync(model);
+                }
+            }
+            catch (Exception e)
+            {
+                System.Console.Error.WriteLine(e.Message);
+                System.Console.WriteLine("");
             }
 
-            var commandLine = System.Console.ReadLine()?.Split(" ") ?? Array.Empty<string>();
+            var commandLine = System.Console
+                .ReadLine()?
+                .Split(" ") ?? [];
             
             await Main(commandLine);
 
-            return await Task.FromResult(Environment.ExitCode);
+            return await Task
+                .FromResult(Environment.ExitCode);
         }
 
         //public static IHostBuilder CreateHostBuilder(string[] args) =>

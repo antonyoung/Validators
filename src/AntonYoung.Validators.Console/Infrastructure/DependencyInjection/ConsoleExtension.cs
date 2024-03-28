@@ -10,11 +10,12 @@ namespace AntonYoung.Validators.Console.Infrastructure.DependencyInjection
     internal static class ConsoleExtension
     {
         public static IServiceCollection AddConsole(this IServiceCollection services)
-        {
-            services.TryAddTransient<ICommandlineProcessor, ComandLineProcessor>();
+        {       
             services.TryAddTransient<IIbanRequestMapper, IbanRequestMapper>();
             services.TryAddTransient<IPostalcodeRequestMapper, PostalcodeRequestMapper>();
-            services.TryAddTransient<IConsoleWritter, ConsoleWriter>();
+            services.TryAddTransient<IConsoleWriter, ConsoleWriter>();
+            services.TryAddTransient<ICommandProcessor, CommandProcessor>();
+            services.TryAddTransient<ICommandlineProcessor, CommandLineProcessor>();
             services.TryAddTransient<IValidatorService, ValidatorService>();
 
             return services;

@@ -21,7 +21,8 @@ namespace AntonYoung.Validators.Console.Mappers
                 Value = model.Value
             };
 
-            return Task.FromResult(result);
+            return Task
+                .FromResult(result);
         }
     }
 }

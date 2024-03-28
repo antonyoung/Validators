@@ -1,11 +1,10 @@
 ﻿using AntonYoung.Validators.Console.Enums;
 using AntonYoung.Validators.Domain.Abstractions.Responses;
 using AntonYoung.Validators.Domain.Handlers;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AntonYoung.Validators.Console.Writters
 {
-    internal interface IConsoleWritter
+    internal interface IConsoleWriter
     {
         Task WriteAsync(IbanValidationResponse response);
         Task WriteAsync(PostalcodeValidationResponse response);
@@ -16,20 +15,11 @@ namespace AntonYoung.Validators.Console.Writters
         Task WriteVersionAsync();
     }
 
-    internal class ConsoleWriter
-        : IConsoleWritter
+    internal class ConsoleWriter(
+        ICountriesHandler countriesHandler,
+        IFormattersHandler formattersHandler)
+                : IConsoleWriter
     {
-        private readonly ICountriesHandler _countriesHandler;
-        private readonly IFormattersHandler _formattersHandler;
-
-        public ConsoleWriter(
-            ICountriesHandler countriesHandler, 
-            IFormattersHandler formattersHandler)
-        {
-            _countriesHandler = countriesHandler;
-            _formattersHandler = formattersHandler;
-        }
-
         public Task WriteAsync(IbanValidationResponse response) 
         {
             const string format = "{0,-20} = {1}";
@@ -112,7 +102,7 @@ namespace AntonYoung.Validators.Console.Writters
         {
             // => validate post --country --help
 
-            var countries = await _countriesHandler.HandleAsync(cancellationToken: default);
+            var countries = await countriesHandler.HandleAsync(cancellationToken: default);
 
             System.Console.WriteLine(string.Empty);
             System.Console.WriteLine("Description:");
@@ -140,7 +130,7 @@ namespace AntonYoung.Validators.Console.Writters
         {
             // => validate iban| post --formatter --help
 
-            var formatters = await _formattersHandler.HandleAsync(cancellationToken: default);
+            var formatters = await formattersHandler.HandleAsync(cancellationToken: default);
 
             System.Console.WriteLine(string.Empty);
             System.Console.WriteLine("Description:");
@@ -186,13 +176,16 @@ namespace AntonYoung.Validators.Console.Writters
         }
 
         public Task WriteVersionAsync()
-        {
-            /// TODO:
-            
-            var result = GetType()?.Assembly?.GetName()?.Version?.ToString();
+        {           
+            var result = GetType()?
+                .Assembly?
+                .GetName()?
+                .Version?
+                .ToString();
 
             System.Console.WriteLine(string.Empty);
             System.Console.WriteLine(result);
+            System.Console.WriteLine(string.Empty);
 
             return Task.CompletedTask;
         }
