@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AntonYoung.Validators.Console.Infrastructure.DependencyInjection
 {
-    internal static class ConsoleExtension
+    public static class ConsoleExtension
     {
         public static IServiceCollection AddConsole(this IServiceCollection services)
         {       

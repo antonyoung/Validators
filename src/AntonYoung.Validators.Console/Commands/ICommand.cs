@@ -3,7 +3,7 @@ using AntonYoung.Validators.Console.Models;
 
 namespace AntonYoung.Validators.Console.Commands
 {
-    internal interface ICommand
+    public interface ICommand
     {
         Task<Arguments> ProcessAsync(string value, ValidatorModel model);
     }

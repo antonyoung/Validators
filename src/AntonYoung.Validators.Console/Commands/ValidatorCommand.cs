@@ -5,7 +5,7 @@ using AntonYoung.Validators.Console.Writters;
 
 namespace AntonYoung.Validators.Console.Commands
 {
-    internal class ValidatorCommand(IConsoleWriter writer)
+    public class ValidatorCommand(IConsoleWriter writer)
         : ICommand
     {
         public async Task<Arguments> ProcessAsync(string value, ValidatorModel model)

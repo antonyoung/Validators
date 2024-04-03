@@ -4,12 +4,12 @@ using AntonYoung.Validators.Console.Writters;
 
 namespace AntonYoung.Validators.Console.Processors
 {
-    internal interface ICommandProcessor
+    public interface ICommandProcessor
     {
         Task<ICommand> ProcessAsync(Arguments argument);
     }
 
-    internal class CommandProcessor(IConsoleWriter writer)
+    public class CommandProcessor(IConsoleWriter writer)
         : ICommandProcessor
     {
         public async Task<ICommand> ProcessAsync(Arguments argument)

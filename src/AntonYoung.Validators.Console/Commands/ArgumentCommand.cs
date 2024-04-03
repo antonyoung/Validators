@@ -3,11 +3,13 @@ using AntonYoung.Validators.Console.Models;
 
 namespace AntonYoung.Validators.Console.Commands
 {
-    internal class ArgumentCommand
+    public class ArgumentCommand
         : ICommand
     {
         public async Task<Arguments> ProcessAsync(string value, ValidatorModel model)
         {
+            value = value.ToLowerInvariant();
+
             if (value == "--country" || value == "-c")
                 return Arguments.Country;
 

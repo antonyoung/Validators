@@ -1,6 +1,6 @@
 ﻿namespace AntonYoung.Validators.Console.Enums
 {
-    internal enum Arguments
+    public enum Arguments
     {
         Application,
         Argument,

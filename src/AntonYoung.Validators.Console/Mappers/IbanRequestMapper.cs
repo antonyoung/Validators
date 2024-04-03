@@ -3,12 +3,12 @@ using AntonYoung.Validators.Domain.Abstractions.Requests;
 
 namespace AntonYoung.Validators.Console.Mappers
 {
-    internal interface IIbanRequestMapper
+    public interface IIbanRequestMapper
     {
         Task<IbanValidationRequest> MapAsync(ValidatorModel model);
     }
 
-    internal class IbanRequestMapper
+    public class IbanRequestMapper
         : IIbanRequestMapper
     {
         public Task<IbanValidationRequest> MapAsync(ValidatorModel model)

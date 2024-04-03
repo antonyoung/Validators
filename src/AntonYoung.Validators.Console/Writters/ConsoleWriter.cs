@@ -4,7 +4,7 @@ using AntonYoung.Validators.Domain.Handlers;
 
 namespace AntonYoung.Validators.Console.Writters
 {
-    internal interface IConsoleWriter
+    public interface IConsoleWriter
     {
         Task WriteAsync(IbanValidationResponse response);
         Task WriteAsync(PostalcodeValidationResponse response);
@@ -15,7 +15,7 @@ namespace AntonYoung.Validators.Console.Writters
         Task WriteVersionAsync();
     }
 
-    internal class ConsoleWriter(
+    public class ConsoleWriter(
         ICountriesHandler countriesHandler,
         IFormattersHandler formattersHandler)
                 : IConsoleWriter

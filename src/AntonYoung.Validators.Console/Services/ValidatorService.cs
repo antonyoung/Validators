@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace AntonYoung.Validators.Console.Services
 {
-    internal interface IValidatorService
+    public interface IValidatorService
     {
         Task ValidateAsync(ValidatorModel model);
     }
 
-    internal class ValidatorService(
+    public class ValidatorService(
         ILogger<ValidatorService> logger,
         IIbanValidatorHandler ibanValidatorHandler,
         IPostalcodeValidatorHandler postalcodeValidatorHandler,

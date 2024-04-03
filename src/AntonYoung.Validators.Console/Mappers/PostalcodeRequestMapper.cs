@@ -3,12 +3,12 @@ using AntonYoung.Validators.Domain.Abstractions.Requests;
 
 namespace AntonYoung.Validators.Console.Mappers
 {
-    internal interface IPostalcodeRequestMapper
+    public interface IPostalcodeRequestMapper
     {
         Task<PostalcodeValidaionRequest> MapAsync(ValidatorModel model);
     }
 
-    internal class PostalcodeRequestMapper
+    public class PostalcodeRequestMapper
         : IPostalcodeRequestMapper
     {
         public Task<PostalcodeValidaionRequest> MapAsync(ValidatorModel model)

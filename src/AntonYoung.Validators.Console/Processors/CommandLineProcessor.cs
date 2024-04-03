@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 
 namespace AntonYoung.Validators.Console.Processors
 {
-    internal interface ICommandlineProcessor
+    public interface ICommandlineProcessor
     {
         Task<ValidatorModel> ProcessAsync(IEnumerable<string> argumennts);
     }
 
-    internal class CommandLineProcessor(
+    public class CommandLineProcessor(
         ILogger<CommandLineProcessor> logger,
         ICommandProcessor processor) : ICommandlineProcessor
     {
