@@ -1,6 +1,7 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Domain.Mappers;
 using FluentAssertions;
+using System.Diagnostics.Metrics;
 using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Mappers
@@ -319,42 +320,51 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("NoneExistingCountry")]
         [InlineData("AliBabAndtheFortyThievs")]
         [InlineData("United States")]
-        public async Task DefaultEnumFromNoneExistingCountryAsync(string country)
+        public async Task ThrowsNotSupportedExceptionAsync(string country)
         {
-            var result = await _mapper
+            Func<Task> action = async () => await _mapper
                 .MapAsync(country);
 
-            result
+            var exception = await action
                 .Should()
-                .Be(Countries.Amsterdam);
+                .ThrowAsync<NotSupportedException>();
+
+            exception
+                .WithMessage($"Unknown '{country}' as country or is not supported.");
         }
 
         [Theory]
         [InlineData("US")]
         [InlineData("CA")]
         [InlineData("RU")]
-        public async Task DefaultEnumFromNoneTwoLetterIsoAsync(string twoLetterISO)
+        public async Task ThrowsNotSupportedExceptionAsValidTwoLetterIsoAsync(string twoLetterISO)
         {
-            var result = await _mapper
+            Func<Task> action = async () => await _mapper
                 .MapAsync(twoLetterISO);
 
-            result
+            var exception = await action
                 .Should()
-                .Be(Countries.Amsterdam);
+                .ThrowAsync<NotSupportedException>();
+
+            exception
+                .WithMessage($"Unknown '{twoLetterISO}' as country or is not supported.");
         }
 
         [Theory]
         [InlineData("USA")]
         [InlineData("CAN")]
         [InlineData("RUS")]
-        public async Task DefaultEnumFromNoneThreeLetterIsoAsync(string threeLetterISO)
+        public async Task ThrowsNotSupportedExceptionAsValidThreeLetterIsoAsync(string threeLetterISO)
         {
-            var result = await _mapper
+            Func<Task> action = async () => await _mapper
                 .MapAsync(threeLetterISO);
 
-            result
+            var exception = await action
                 .Should()
-                .Be(Countries.Amsterdam);
+                .ThrowAsync<NotSupportedException>();
+
+            exception
+                .WithMessage($"Unknown '{threeLetterISO}' as country or is not supported.");
         }
 
         [Theory]
@@ -366,11 +376,10 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("ZZ")]
         public async Task ThrowsArgumentExceptionAsInvalidTwoLetterISOAsync(string twoLetterISO)
         {
-            Func<Task> action = async () 
-                => await _mapper
+            Func<Task> action = async () => await _mapper
                 .MapAsync(twoLetterISO);
 
-            await action
+            var exception = await action
                 .Should()
                 .ThrowAsync<ArgumentException>();
         }
@@ -380,15 +389,17 @@ namespace AntonYoung.Validators.Domain.Tests.Mappers
         [InlineData("XXX")]
         [InlineData("YYY")]
         [InlineData("ZZZ")]
-        public async Task ThrowsArgumentExceptionAsInvalidThreeLetterISOAsync(string threeLetterISO)
+        public async Task ThrowsNotSupportedExceptionAsInvalidThreeLetterISOAsync(string threeLetterISO)
         {
-            Func<Task> action = async ()
-                => await _mapper
+            Func<Task> action = async () => await _mapper
                 .MapAsync(threeLetterISO);
 
-            await action
+            var exception = await action
                 .Should()
-                .ThrowAsync<ArgumentException>();
+                .ThrowAsync<NotSupportedException>();
+
+            exception
+                .WithMessage($"Unknown '{threeLetterISO}' as country or is not supported.");
         }
     }
 }

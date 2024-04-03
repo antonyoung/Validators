@@ -16,10 +16,12 @@ namespace AntonYoung.Validators.Domain.Mappers
         public async Task<Countries> MapAsync(string countryCode)
         {
             int lenght = countryCode.Length;
+            var parameter = countryCode;
 
             if (lenght > 3) 
-            { 
-                Enum.TryParse<Countries>(countryCode, ignoreCase: true, out var countryByName);
+            {
+                if (!Enum.TryParse<Countries>(countryCode, ignoreCase: true, out var countryByName))
+                    throw new NotSupportedException($"Unknown '{parameter}' as country or is not supported.");
 
                 return await Task.FromResult(countryByName);
             }
@@ -29,14 +31,18 @@ namespace AntonYoung.Validators.Domain.Mappers
                 var countries = await MapAsync();
 
                 countryCode = countries
-                    .SingleOrDefault(_ 
+                    .SingleOrDefault(_
                         => _.ThreeLetterISO.Equals(countryCode, StringComparison.OrdinalIgnoreCase)
-                    )?.TwoLetterISO ?? countryCode.Remove(2);
+                    )?.TwoLetterISO ?? string.Empty;
+
+                if (string.IsNullOrEmpty(countryCode))
+                    throw new NotSupportedException($"Unknown '{parameter}' as country or is not supported.");
             }
 
             var region = new RegionInfo(countryCode);
 
-            Enum.TryParse<Countries>(region.EnglishName.Replace(" ", string.Empty), ignoreCase: true, out var country);
+            if (!Enum.TryParse<Countries>(region.EnglishName.Replace(" ", string.Empty), ignoreCase: true, out var country))
+                throw new NotSupportedException($"Unknown '{parameter}' as country or is not supported.");
 
             return await Task.FromResult(country);
         }

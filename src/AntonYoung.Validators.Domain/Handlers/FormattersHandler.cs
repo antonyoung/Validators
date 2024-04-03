@@ -37,7 +37,8 @@ namespace AntonYoung.Validators.Domain.Handlers
                 }
             };
 
-            return await Task.FromResult(result);
+            return await Task
+                .FromResult(result);
         }
     }
 }
