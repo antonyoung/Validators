@@ -18,13 +18,11 @@ namespace AntonYoung.Validators.Console.Services
         IPostalcodeRequestMapper postalcodeRequestMapper,
         IIbanRequestMapper ibanRequestMapper,
         IConsoleWriter writer)
-                : IValidatorService
+        : IValidatorService
     {
-        private readonly ILogger<ValidatorService> _logger = logger;
-
         public async Task ValidateAsync(ValidatorModel model)
         {
-            if (model.Application == Enums.Applications.Iban)
+            if (Enums.Applications.Iban == model.Application)
             {
                 var request = await ibanRequestMapper
                     .MapAsync(model);
@@ -36,7 +34,7 @@ namespace AntonYoung.Validators.Console.Services
                     .WriteAsync(result);
             }
 
-            if (model.Application == Enums.Applications.Post)
+            if (Enums.Applications.Post == model.Application)
             {
                 var request = await postalcodeRequestMapper
                     .MapAsync(model);

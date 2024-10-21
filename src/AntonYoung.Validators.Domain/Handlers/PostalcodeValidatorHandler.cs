@@ -10,7 +10,9 @@ namespace AntonYoung.Validators.Domain.Handlers
 {
     public interface IPostalcodeValidatorHandler
     {
-        Task<PostalcodeValidationResponse> HandleAsync(PostalcodeValidaionRequest request, CancellationToken cancellationToken);
+        Task<PostalcodeValidationResponse> HandleAsync(
+            PostalcodeValidaionRequest request, 
+            CancellationToken cancellationToken);
     }
 
     public class PostalcodeValidatorHandler 
@@ -33,11 +35,15 @@ namespace AntonYoung.Validators.Domain.Handlers
             _mapper = mapper;
         }
 
-        public async Task<PostalcodeValidationResponse> HandleAsync(PostalcodeValidaionRequest request, CancellationToken cancellationToken)
+        public async Task<PostalcodeValidationResponse> HandleAsync(
+            PostalcodeValidaionRequest request, 
+            CancellationToken cancellationToken)
         {
-            var country = await _mapper.MapAsync(request.Country);
+            var country = await _mapper
+                .MapAsync(request.Country);
 
-            var errors = await _requestValidator.ValidateAsync(request, country);
+            var errors = await _requestValidator
+                .ValidateAsync(request, country);
 
             if (errors.Any())
                 throw new RequestException($"{nameof(PostalcodeValidaionRequest)} is not valid.", errors);
@@ -51,14 +57,13 @@ namespace AntonYoung.Validators.Domain.Handlers
                 out string result
             );
 
-            return await Task.FromResult(
-                new PostalcodeValidationResponse
-                { 
-                    Result = result,
-                    IsValid = _postalcodeValidator.IsValid,
-                    ErrorMessage = _postalcodeValidator.ErrorMessage,
-                    Country = country
-                });
+            return new PostalcodeValidationResponse
+            { 
+                Result = result,
+                IsValid = _postalcodeValidator.IsValid,
+                ErrorMessage = _postalcodeValidator.ErrorMessage,
+                Country = country
+            };
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Domain.Mappers;
 using FluentAssertions;
-using System.Diagnostics.Metrics;
 using Xunit;
 
 namespace AntonYoung.Validators.Domain.Tests.Mappers
